@@ -2,10 +2,7 @@
 <html>
 <head>
 	<script src="js/jquery-1.11.1.min.js"></script>
-</head>
-<body>
-	<h1> Sudoku </h1>
-	<%@ include file="WEB-INF/jsp/table.jsp"%>
+	<script src="js/sudokuController.js"></script>
 	<script type="text/javascript">
 		var puzzle = [["","","4","7","","3","","",""],
 					  ["","5","","","","6","8","",""],
@@ -16,18 +13,11 @@
 					  ["3","8","","","2","7","","4","9"],
 					  ["","","5","4","","","","8",""],
 					  ["","","","9","","8","3","",""]];
-
-		(function(){
-
-			for(var i = 0; i < 9; i++){
-				for(var j = 0; j < 9; j++){
-					var cell = "#c"+i+j;
-					$(cell).val(puzzle[i][j]);
-				}
-			}
-		})();
-
+		$(loadPuzzle);
 	</script>
+</head>
+<body>
+	<h1> Sudoku </h1>
+	<%@ include file="WEB-INF/jsp/table.jsp"%>
 </body>
-
 </html>
