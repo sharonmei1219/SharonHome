@@ -33,45 +33,20 @@
 <body>
 	<h1> hello world</h1>
 	<table class="sudokuTable">
-		<%for(int r = 0; r < 1; r++){%>
-			<tr class="topRow">
+		<%for(int r = 0; r < 9; r++){
+			String rowId = "c" + r;
+			String rowClass = "row";
+			if(r%3 == 0) rowClass = "topRow";%>
+			<tr class=<%=rowClass%>>
 				<%for(int i = 0; i < 9; i++){
-					String cellId = "c0" + i;
+					String cellId = rowId + i;
 					String cellClass = "cell";
 					if(i%3 == 0) 
-						cellClass = "\""+cellClass + " leftMostCell\"";%>
+						cellClass = "\"leftMostCell cell\"";%>
 					<td class=<%=cellClass%>><input class="cellInput" id=<%= cellId%>  type="text" maxLength="1"/></td>
 				<%}%>
 			</tr>
 		<%}%>
-
-
-		<tr class="row">
-			<td class="leftMostCell cell"><input class="cellInput" id="c10" type="text" maxLength="1"/></td>
-			<td class="cell"><input class="cellInput" id="c11" type="text" maxLength="1"/></td>
-			<td class="cell"><input class="cellInput" id="c12" type="text" maxLength="1"/></td>
-
-			<td class="leftMostCell cell"><input class="cellInput" id="c13" type="text" maxLength="1"/></td>
-			<td class="cell"><input class="cellInput" id="c14" type="text" maxLength="1"/></td>
-			<td class="cell"><input class="cellInput" id="c15" type="text" maxLength="1"/></td>
-
-			<td class="leftMostCell cell"><input class="cellInput" id="c16" type="text" maxLength="1"/></td>
-			<td class="cell"><input class="cellInput" id="c17" type="text" maxLength="1"/></td>
-			<td class="cell"><input class="cellInput" id="c18" type="text" maxLength="1"/></td>
-		</tr>
-		<tr class="row">
-			<td class="leftMostCell cell"><input class="cellInput" id="c20" type="text" maxLength="1"/></td>
-			<td class="cell"><input class="cellInput" id="c21" type="text" maxLength="1"/></td>
-			<td class="cell"><input class="cellInput" id="c22" type="text" maxLength="1"/></td>
-
-			<td class="leftMostCell cell"><input class="cellInput" id="c23" type="text" maxLength="1"/></td>
-			<td class="cell"><input class="cellInput" id="c24" type="text" maxLength="1"/></td>
-			<td class="cell"><input class="cellInput" id="c25" type="text" maxLength="1"/></td>
-
-			<td class="leftMostCell cell"><input class="cellInput" id="c26" type="text" maxLength="1"/></td>
-			<td class="cell"><input class="cellInput" id="c27" type="text" maxLength="1"/></td>
-			<td class="cell"><input class="cellInput" id="c28" type="text" maxLength="1"/></td>
-		</tr>		
 	
 	</table>
 </body>
