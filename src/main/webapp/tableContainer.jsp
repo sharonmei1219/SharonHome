@@ -2,7 +2,7 @@
 <head>
 </head>
 <body>
-	<h1> table Container </h1>
+	<h1> Sudoku </h1>
 	<%@ include file="table.jsp"%>
 </body>
 

@@ -1,5 +1,3 @@
-<html>
-<head>
 	<style>
 		.sudokuTable{
 			border-collapse:collapse;
@@ -32,8 +30,7 @@
 			text-align:center;
 		}
 	</style>
-</head>
-<body>
+
 	<table class="sudokuTable">
 		<%for(int r = 0; r < 9; r++){
 			String rowId = "c" + r;
@@ -50,6 +47,3 @@
 			</tr>
 		<%}%>
 	</table>
-</body>
-
-</html>
