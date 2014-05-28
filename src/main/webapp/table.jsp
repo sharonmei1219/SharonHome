@@ -8,13 +8,17 @@
 		}
 
 		.cell{
-			border:1px solid #6A6890;
+			border:1px solid gray;
 			width:30px;
 			height:30px;
 		}
 
 		.topRow{
 			border-top:2px solid #6A6890;
+		}
+
+		.row{
+			border-top:1px solid #6A6890;
 		}
 
 		.leftMostCell{
@@ -27,11 +31,9 @@
 			height:30px;
 			text-align:center;
 		}
-
 	</style>
 </head>
 <body>
-	<h1> hello world</h1>
 	<table class="sudokuTable">
 		<%for(int r = 0; r < 9; r++){
 			String rowId = "c" + r;
@@ -47,7 +49,6 @@
 				<%}%>
 			</tr>
 		<%}%>
-	
 	</table>
 </body>
 
