@@ -1,24 +1,3 @@
-function withNumberInSide(cell){
-	return cell.val() !== "";
-}
-
-// cellInput id is in the format of cXY
-function dataFill(cell){
-	var id = cell.attr('id');
-	var x = parseInt(id[1]);
-	var y = parseInt(id[2]);
-	cell.val(puzzle[x][y]);
-}
-
-function cellsWithNumber(cellArray){
-	return _.filter(cellArray, withNumberInSide);
-}
-
-function fixCell(cell){
-	cell.attr('readonly', true);
-	cell.addClass('fixedCell');
-}
-
 function createMatrix(m, n){
 	return _.flatten(
 				_.map(_.range(m), function(i){
@@ -37,13 +16,6 @@ function tellSpotsContainsNumberVsBlankSpots(puzzle){
 function PuzzleController(puzzle, puzzleView){
 	var spotsSubsets = tellSpotsContainsNumberVsBlankSpots(puzzle);
 	var numberedPos = spotsSubsets[0];
-
-	this.loadPuzzle = function(){
-		var cellsInTable = _.map($('.cellInput'), $);
-		_.each(cellsInTable, dataFill);
-		var cellsWithGivenNumber = cellsWithNumber(cellsInTable)
-		_.each(cellsWithGivenNumber, fixCell);
-	};
 
 	this.loadPuzzleNew = function(){
 		_.each(numberedPos, function(p){
