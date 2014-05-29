@@ -25,8 +25,12 @@ $(function(){
 		height:30px;
 	}
 
-	.fixedCell{
-		color:red;
+	input.cellInput{
+		color:blue;
+	}
+
+	input.cellInput.fixedCell{
+		color:black;
 	}
 
 	.topRow{

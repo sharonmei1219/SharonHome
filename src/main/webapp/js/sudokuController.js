@@ -2,7 +2,14 @@ function withNumberInSide(cell){
 	return cell.val() !== "";
 }
 
-function filterCellsWithNumber(cellArray){
+function dataFill(cell){
+	var id = cell.attr('id');
+	var i = parseInt(id[1]);
+	var j = parseInt(id[2]);
+	cell.val(puzzle[i][j]);
+}
+
+function cellsWithNumber(cellArray){
 	return _.filter(cellArray, withNumberInSide);
 }
 
@@ -12,15 +19,9 @@ function fixCell(cell){
 }
 
 function loadPuzzle(){
-	for(var i = 0; i < 9; i++){
-		for(var j = 0; j < 9; j++){
-			var cell = "#c"+i+j;
-			$(cell).val(puzzle[i][j]);
-		}
-	}
 	var allCells = _.map($('.cellInput'), $);
-	var cellsWithNumber = filterCellsWithNumber(allCells);
-	_.each(cellsWithNumber, fixCell);
+	_.each(allCells, dataFill);
+	_.each(cellsWithNumber(allCells), fixCell);
 }
 
 $(loadPuzzle);

@@ -23,7 +23,7 @@ describe("Loading puzzle", function() {
   });
 
   it("returns cell_0 and cell_1 as the result of filtering fixed cell", function(){
-  	var fixedCell = filterCellsWithNumber([cell_0, cell_1, cell_2]);
+  	var fixedCell = cellsWithNumber([cell_0, cell_1, cell_2]);
   	expect(fixedCell[0]).toBe(cell_0);
   	expect(fixedCell[1]).toBe(cell_1);
   });

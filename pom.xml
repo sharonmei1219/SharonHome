@@ -49,6 +49,7 @@
         </executions>
         <configuration>
            <jsSrcDir>src/main/webapp/js</jsSrcDir>
+           <jsTestSrcDir>src/test/javascript</jsTestSrcDir>
            <skipTests>true</skipTests>
         </configuration>
       </plugin>
