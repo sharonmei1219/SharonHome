@@ -2,11 +2,12 @@ function withNumberInSide(cell){
 	return cell.val() !== "";
 }
 
+// cellInput id is in the format of cXY
 function dataFill(cell){
 	var id = cell.attr('id');
-	var i = parseInt(id[1]);
-	var j = parseInt(id[2]);
-	cell.val(puzzle[i][j]);
+	var x = parseInt(id[1]);
+	var y = parseInt(id[2]);
+	cell.val(puzzle[x][y]);
 }
 
 function cellsWithNumber(cellArray){
@@ -18,10 +19,44 @@ function fixCell(cell){
 	cell.addClass('fixedCell');
 }
 
-function loadPuzzle(){
-	var allCells = _.map($('.cellInput'), $);
-	_.each(allCells, dataFill);
-	_.each(cellsWithNumber(allCells), fixCell);
+function createMatrix(m, n){
+	return _.flatten(
+				_.map(_.range(m), function(i){
+					return _.map(_.range(n), function(j){
+						return _.object(['i','j'],[i,j]);
+					});
+				}));
 }
 
-$(loadPuzzle);
+function tellSpotsContainsNumberVsBlankSpots(puzzle){
+	var matrix = createMatrix(puzzle.length, puzzle[0].length);
+	return _.partition(matrix, function(p){return puzzle[p.i][p.j] != '';});
+}
+
+
+function PuzzleController(puzzle, puzzleView){
+	var spotsSubsets = tellSpotsContainsNumberVsBlankSpots(puzzle);
+	var numberedPos = spotsSubsets[0];
+
+	this.loadPuzzle = function(){
+		var cellsInTable = _.map($('.cellInput'), $);
+		_.each(cellsInTable, dataFill);
+		var cellsWithGivenNumber = cellsWithNumber(cellsInTable)
+		_.each(cellsWithGivenNumber, fixCell);
+	};
+	this.loadPuzzleNew = function(){
+		_.each(numberedPos, function(p){
+			puzzleView.put(puzzle[p.i][p.j], p.i, p.j);
+		});
+	};
+}
+
+var puzzleController = {};
+function onDocReady(){
+	puzzleView = new PuzzleView();
+	puzzleController = new PuzzleController(puzzle, puzzleView);
+	puzzleController.loadPuzzleNew();
+	puzzle = undefined;
+}
+
+$(onDocReady);
