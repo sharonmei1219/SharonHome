@@ -25,6 +25,10 @@ $(function(){
 		height:30px;
 	}
 
+	.fixedCell{
+		color:red;
+	}
+
 	.topRow{
 		border-top:2px solid #6A6890;
 	}
