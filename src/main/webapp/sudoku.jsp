@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<script src="js/underscore-min.js"></script>
 	<script src="js/jquery-1.11.1.min.js"></script>
 	<script src="js/sudokuController.js"></script>
 	<script type="text/javascript">
@@ -13,7 +14,7 @@
 					  ["3","8","","","2","7","","4","9"],
 					  ["","","5","4","","","","8",""],
 					  ["","","","9","","8","3","",""]];
-		$(loadPuzzle);
+
 	</script>
 </head>
 <body>
