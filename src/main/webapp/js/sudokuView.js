@@ -7,4 +7,10 @@ function PuzzleView(){
 		var cid = '#c' + i + j;
 		return $(cid);
 	};
+
+	this.lock = function(i, j){
+		var cell = this.cellAt(i, j);
+		cell.attr('readonly', true);
+		cell.addClass('fixedCell');
+	};
 }

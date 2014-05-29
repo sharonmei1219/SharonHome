@@ -83,16 +83,21 @@ describe('tellSpotsContainsNumberVsBlankSpots', function(){
   });
 });
 
-describe('SudokuController load model to view', function(){
-  function MockView(){
-    this.put = function(value, i, j){};
-  }
-  var sv = new MockView();
+describe('SudokuController', function(){
+  var sv = new PuzzleView();
   var sc = new PuzzleController([['1',''],['','2']], sv);
-  it('put 1, 2 to pos (0,0) and (1,1) in view', function(){
+  it('put 1, 2 to pos (0,0) and (1,1) in view when loadPuzzle', function(){
     spyOn(sv, 'put');
     sc.loadPuzzleNew();
     expect(sv.put).toHaveBeenCalledWith('1', 0, 0);
     expect(sv.put).toHaveBeenCalledWith('2', 1, 1);
   });
+
+  it('lock cell at pos (0,0) and (1,1) in view when lockPuzzle', function(){
+    spyOn(sv, 'lock');
+    sc.lockPuzzle();
+    expect(sv.lock).toHaveBeenCalledWith(0, 0);
+    expect(sv.lock).toHaveBeenCalledWith(1, 1);
+  });
 });
+

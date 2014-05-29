@@ -44,9 +44,16 @@ function PuzzleController(puzzle, puzzleView){
 		var cellsWithGivenNumber = cellsWithNumber(cellsInTable)
 		_.each(cellsWithGivenNumber, fixCell);
 	};
+
 	this.loadPuzzleNew = function(){
 		_.each(numberedPos, function(p){
 			puzzleView.put(puzzle[p.i][p.j], p.i, p.j);
+		});
+	};
+
+	this.lockPuzzle = function(){
+		_.each(numberedPos, function(p){
+			puzzleView.lock(p.i, p.j);
 		});
 	};
 }
@@ -56,6 +63,7 @@ function onDocReady(){
 	puzzleView = new PuzzleView();
 	puzzleController = new PuzzleController(puzzle, puzzleView);
 	puzzleController.loadPuzzleNew();
+	puzzleController.lockPuzzle();
 	puzzle = undefined;
 }
 
