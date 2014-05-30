@@ -12,14 +12,14 @@ function tellSpotsContainsNumberVsBlankSpots(puzzle){
 	return _.partition(matrix, function(p){return puzzle[p.i][p.j] != '';});
 }
 
-function PuzzleController(puzzle, puzzleView){
+function PuzzleController(puzzle, puzzleView, puzzleModel){
 	var spotsSubsets = tellSpotsContainsNumberVsBlankSpots(puzzle);
 	var numberedPos = spotsSubsets[0];
 	var blankPos = spotsSubsets[1];
 
 	this.loadPuzzleNew = function(){
 		_.each(numberedPos, function(p){
-			puzzleView.put(puzzle[p.i][p.j], p.i, p.j);
+			puzzleView.put(puzzleModel.get(p.i, p.j), p.i, p.j);
 		});
 	};
 
@@ -34,17 +34,22 @@ function PuzzleController(puzzle, puzzleView){
 			puzzleView.clear(p.i, p.j);
 		});
 	};
+
+	this.numberInput = function(value, i, j){
+		alert('' + value + ' ' + i + ' ' + j);
+		puzzleModel.change(value, i, j);
+	}
 }
 
 var puzzleController;
 function onDocReady(){
 	puzzleView = new PuzzleView();
-	puzzleController = new PuzzleController(puzzle, puzzleView);
+	puzzleModel = new PuzzleModel(puzzle);
+	puzzleController = new PuzzleController(puzzle, puzzleView, puzzleModel);
 	puzzleController.loadPuzzleNew();
 	puzzleController.lockPuzzle();
-	puzzleView.whenClearButtonClickedDo(
-		puzzleController.clearSolution
-		);
+	puzzleView.whenClearButtonClickedDo(puzzleController.clearSolution);
+	puzzleView.whenGetInputDo(puzzleController.numberInput);
 	puzzle = undefined;
 }
 

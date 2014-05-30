@@ -1,17 +1,3 @@
-<script type="text/javascript">
-// ensure input is number
-$(function(){
-	$(".cellInput").keydown(function(e){
-		var key = e.keyCode ? e.keyCode : e.which;
-		if((key == 46) || (key == 8)) return; //backspace, delete
-		if((key > 96) && (key < 106)) return;
-		if((key > 48) && (key < 58)) return;
-		return false;
-	});
-
-});
-</script>
-
 <style>
 	.sudokuTable{
 		border-collapse:collapse;

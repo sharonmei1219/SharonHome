@@ -8,6 +8,10 @@ function PuzzleView(){
 		return $(cid);
 	};
 
+	this.allInputCell = function(){
+		return $('.cellInput');
+	};
+
 	this.clearButton = function(){
 		return $('#button-clear');
 	};
@@ -18,11 +22,33 @@ function PuzzleView(){
 		cell.addClass('fixedCell');
 	};
 
-	this.whenClearButtonClickedDo = function(clearAction){
-		this.clearButton().click(clearAction);
-	}
-
 	this.clear = function(i, j){
 		this.cellAt(i, j).val('');
 	};
+
+	this.whenClearButtonClickedDo = function(clearAction){
+		this.clearButton().click(clearAction);
+	};
+
+
+	this.whenGetInputDo = function(inputAction){
+		this.allInputCell().keyup(function(e){
+			var cellid = $(this).attr('id');
+			var i = parseInt(cellid[1]);
+			var j = parseInt(cellid[2]);
+			var key = e.keyCode ? e.keyCode : e.which;
+			var value = String.fromCharCode(key);
+			inputAction(value, i, j);
+		});
+	};
+
+	this.varifyKeyInIsNumber = function(e){
+		var key = e.keyCode ? e.keyCode : e.which;
+		if((key == 46) || (key == 8)) return true; //backspace, delete
+		if((key > 96) && (key < 106)) return true;
+		if((key > 48) && (key < 58)) return true;
+		return false;
+	};
+
+	this.allInputCell().keydown(this.varifyKeyInIsNumber);
 }

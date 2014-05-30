@@ -5,6 +5,7 @@
 	<script src="js/jquery-1.11.1.min.js"></script>
 	<script src="js/sudokuController.js"></script>
 	<script src="js/sudokuView.js"></script>
+	<script src="js/sudokuModel.js"></script>
 	<script type="text/javascript">
 		var puzzle = [["","","4","7","","3","","",""],
 					  ["","5","","","","6","8","",""],
