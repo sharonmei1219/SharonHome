@@ -8,9 +8,21 @@ function PuzzleView(){
 		return $(cid);
 	};
 
+	this.clearButton = function(){
+		return $('#button-clear');
+	};
+
 	this.lock = function(i, j){
 		var cell = this.cellAt(i, j);
 		cell.attr('readonly', true);
 		cell.addClass('fixedCell');
+	};
+
+	this.whenClearButtonClickedDo = function(clearAction){
+		this.clearButton().click(clearAction);
+	}
+
+	this.clear = function(i, j){
+		this.cellAt(i, j).val('');
 	};
 }

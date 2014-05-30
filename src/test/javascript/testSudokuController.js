@@ -55,5 +55,13 @@ describe('SudokuController', function(){
     expect(sv.lock).toHaveBeenCalledWith(0, 0);
     expect(sv.lock).toHaveBeenCalledWith(1, 1);
   });
+
+  it('clear cell at pos (0,1) and (1,0) in view when receive clear command', function(){
+    spyOn(sv, 'clear');
+    sc.clearSolution();
+    expect(sv.clear).toHaveBeenCalledWith(0, 1);
+    expect(sv.clear).toHaveBeenCalledWith(1, 0);
+  });
+
 });
 

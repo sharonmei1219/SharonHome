@@ -21,5 +21,6 @@
 <body>
 	<h1> Sudoku </h1>
 	<%@ include file="WEB-INF/jsp/table.jsp"%>
+	<button id="button-clear">Clear</button>
 </body>
 </html>
