@@ -29,6 +29,10 @@ function PuzzleModel(puzzle){
 		var row = retrieveRow(matrix, i);
 		var rowValues = this.valuesInArea(puzzle, row);
 		result = result && this.validate(this.get(i,j), rowValues);
+
+		var column = retrieveColumn(matrix, j);
+		var columnValues = this.valuesInArea(puzzle, column);
+		result = result && this.validate(this.get(i,j), columnValues);
 		return result;
 	};
 }
