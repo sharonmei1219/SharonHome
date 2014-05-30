@@ -7,6 +7,21 @@ function createMatrix(m, n){
 				}));
 }
 
+function retrieveRow(matrix, lineNum){
+	return _.filter(matrix, function(p){return p.i == lineNum;});
+}
+
+function retrieveColumn(matrix, columnNum){
+	return _.filter(matrix, function(p){return p.j == columnNum;});
+}
+
+function retrieveBlock(matrix, i, j){
+	var b = _.map([i, j], function(x){return x - x%3});
+	return _.filter(matrix, function(p){
+		return (p.i >= b[0]) && (p.i < b[0] + 3) && (p.j >= b[1]) && (p.j < b[1] + 3);
+	});
+}
+
 function tellSpotsContainsNumberVsBlankSpots(puzzle){
 	var matrix = createMatrix(puzzle.length, puzzle[0].length);
 	return _.partition(matrix, function(p){return puzzle[p.i][p.j] != '';});
@@ -34,11 +49,17 @@ function PuzzleController(puzzle, puzzleView, puzzleModel){
 			puzzleView.clear(p.i, p.j);
 		});
 	};
+	function notValidInput(i,j){
+		alert('not a valid input ' + i + ' ' + j);
+	}
+
 
 	this.numberInput = function(value, i, j){
-		alert('' + value + ' ' + i + ' ' + j);
 		puzzleModel.change(value, i, j);
-	}
+		var valid  = puzzleModel.validInput(i, j);
+		if(!valid) notValidInput(i, j);
+
+	};
 }
 
 var puzzleController;

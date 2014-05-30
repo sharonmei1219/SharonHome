@@ -41,7 +41,8 @@ describe('tellSpotsContainsNumberVsBlankSpots', function(){
 
 describe('SudokuController', function(){
   var sv = new PuzzleView();
-  var sc = new PuzzleController([['1',''],['','2']], sv);
+  var sm = new PuzzleModel([['1',''],['','2']]);
+  var sc = new PuzzleController([['1',''],['','2']], sv, sm);
   it('put 1, 2 to pos (0,0) and (1,1) in view when loadPuzzle', function(){
     spyOn(sv, 'put');
     sc.loadPuzzleNew();
@@ -61,6 +62,14 @@ describe('SudokuController', function(){
     sc.clearSolution();
     expect(sv.clear).toHaveBeenCalledWith(0, 1);
     expect(sv.clear).toHaveBeenCalledWith(1, 0);
+  });
+
+  it('put input to model, and ask model to validate it', function(){
+    spyOn(sm, 'change');
+    spyOn(sm, 'validInput').andReturn(true);
+    sc.numberInput('9', 1, 2);
+    expect(sm.change).toHaveBeenCalledWith('9', 1, 2);
+    expect(sm.validInput).toHaveBeenCalledWith(1, 2);
   });
 
 });
