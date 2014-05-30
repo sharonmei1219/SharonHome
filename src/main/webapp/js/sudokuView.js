@@ -52,3 +52,32 @@ function PuzzleView(){
 
 	this.allInputCell().keydown(this.varifyKeyInIsNumber);
 }
+
+function StopWatch(){
+	var interval = 500;
+	var clock = 0;
+	function format(num){
+		if (num < 10) return '0' + num;
+		return '' + num;
+	}
+
+	function update(){
+		clock += interval;
+		var c = Math.floor(clock/1000);
+		var hr = Math.floor(c/3600);
+		c = c%3600;
+		var min = Math.floor(c/60);
+		c = c%60;
+		var sec = c;
+
+		hr = format(hr);
+		min = format(min);
+		sec = format(sec);
+
+		$('#timing').text(hr +':'+min+':'+sec);
+
+	}
+	this.start = function(){
+		setInterval(update, interval);
+	};
+}

@@ -22,6 +22,7 @@
 <body>
 	<h1> Sudoku </h1>
 	<%@ include file="WEB-INF/jsp/table.jsp"%>
-	<button id="button-clear">Clear</button>
+	<button id="button-clear">Reset</button>
+	<p id="timing">00:00:00</p>
 </body>
 </html>

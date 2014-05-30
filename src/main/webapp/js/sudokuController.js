@@ -49,16 +49,15 @@ function PuzzleController(puzzle, puzzleView, puzzleModel){
 			puzzleView.clear(p.i, p.j);
 		});
 	};
+
 	function notValidInput(i,j){
 		alert('not a valid input ' + i + ' ' + j);
 	}
-
 
 	this.numberInput = function(value, i, j){
 		puzzleModel.change(value, i, j);
 		var valid  = puzzleModel.validInput(i, j);
 		if(!valid) notValidInput(i, j);
-
 	};
 }
 
@@ -71,6 +70,8 @@ function onDocReady(){
 	puzzleController.lockPuzzle();
 	puzzleView.whenClearButtonClickedDo(puzzleController.clearSolution);
 	puzzleView.whenGetInputDo(puzzleController.numberInput);
+	timer = new StopWatch();
+	timer.start();
 	puzzle = undefined;
 }
 
