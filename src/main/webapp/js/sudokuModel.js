@@ -33,6 +33,10 @@ function PuzzleModel(puzzle){
 		var column = retrieveColumn(matrix, j);
 		var columnValues = this.valuesInArea(puzzle, column);
 		result = result && this.validate(this.get(i,j), columnValues);
+
+		var block = retrieveBlock(matrix, i, j);
+		var blockValues = this.valuesInArea(puzzle, block);
+		result = result && this.validate(this.get(i,j), blockValues);
 		return result;
 	};
 }
