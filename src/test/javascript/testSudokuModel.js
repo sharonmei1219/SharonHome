@@ -4,60 +4,6 @@ describe('sudokuModel', function(){
 		sm.change('9', 1, 2);
 		expect(sm.get(1, 2)).toBe('9');
 	});
-
-	var newMatrix = new Matrix(4, 4);
-
-	it('retrieve row 2 will get spots (2,0) to (2,3)', function(){
-		var spots = newMatrix.retrieveRow(2);
-		var row2 = [{i:2, j:0},
-					{i:2, j:1},
-					{i:2, j:2},
-					{i:2, j:3}];
-		for(var i = 0; i < 4; i++){
-			expect(spots[i].i).toBe(row2[i].i);
-			expect(spots[i].j).toBe(row2[i].j);
-		}
-	});
-
-	it('retrieve column 2 will get spots (0,2) to (3,2)', function(){
-		var spots = newMatrix.retrieveColumn(2);
-		var column = [{i:0, j:2},
-					  {i:1, j:2},
-					  {i:2, j:2},
-					  {i:3, j:2}];
-		for(var i = 0; i < 4; i++){
-			expect(spots[i].i).toBe(column[i].i);
-			expect(spots[i].j).toBe(column[i].j);
-		}
-	});
-
-	it('retrieve a block of size 2 at spot (1,2) will get (0-1,2-3)', function(){
-		var spots = newMatrix.retrieveBlock(1, 2, 2);
-		var block = [{i:0,j:2},
-					 {i:0,j:3},
-					 {i:1,j:2},
-					 {i:1,j:3}];
-		for(var i = 0; i < 4; i++){
-			expect(spots[i].i).toBe(block[i].i);
-			expect(spots[i].j).toBe(block[i].j);
-		}
-	});
-
-
-	it('returns non \'\' value of puzzle in a certain area', function(){
-		var area = [{i:0, j:0}, {i:0, j:1}, {i:1, j:0}, {i:1, j:1}];
-		var puzzle = [['1', '', ''], ['', '2', '3'], ['8', '8', '8']]
-		var values = sm.valuesInArea(puzzle, area);
-		expect(values.length).toBe(2);
-		expect(values[0]).toBe('1');
-		expect(values[1]).toBe('2');
-	});
-
-	it('validate a value in set if its uniq', function(){
-		var valueset = ['1', '2', '2'];
-		expect(sm.isValueUniq('1', valueset)).toBe(true);
-		expect(sm.isValueUniq('2', valueset)).toBe(false);
-	})
 });
 
 describe('Model [[\'1\', \'2\'],[\'3\',\'4\']] with block size of 1', function(){
@@ -117,7 +63,7 @@ describe('Model size of 2', function(){
 									 ['1','2','1','1'],
 									 ['','1','',''],
 									 ['','1','','']], 2);
-		expect(model.newValidateInput(1,1)).toBe(true);
+		expect(model.validInput(1,1)).toBe(true);
 	});
 
 	it('validate returns false, if there is a duplication in row', function(){
@@ -125,7 +71,7 @@ describe('Model size of 2', function(){
 									 ['1','2','2','1'],
 									 ['','1','',''],
 									 ['','1','','']], 2);
-		expect(model.newValidateInput(1,1)).toBe(false);
+		expect(model.validInput(1,1)).toBe(false);
 	});
 
 	it('validate returns false, if there is a duplication in column', function(){
@@ -133,7 +79,7 @@ describe('Model size of 2', function(){
 									 ['1','2','1','1'],
 									 ['','2','',''],
 									 ['','1','','']], 2);
-		expect(model.newValidateInput(1,1)).toBe(false);
+		expect(model.validInput(1,1)).toBe(false);
 	});
 
 	it('validate returns false, if there is a duplication in block', function(){
@@ -141,6 +87,6 @@ describe('Model size of 2', function(){
 									 ['1','2','1','1'],
 									 ['','1','',''],
 									 ['','1','','']], 2);
-		expect(model.newValidateInput(1,1)).toBe(false);
+		expect(model.validInput(1,1)).toBe(false);
 	});
 });

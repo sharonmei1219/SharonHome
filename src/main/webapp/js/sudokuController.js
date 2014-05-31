@@ -1,10 +1,20 @@
-function tellSpotsContainsNumberVsBlankSpots(puzzle){
-	var matrix = createMatrix(puzzle.length, puzzle[0].length);
-	return _.partition(matrix, function(p){return puzzle[p.i][p.j] != '';});
+function createMatrix(m, n){
+	return _.flatten(
+				_.map(_.range(m), function(i){
+					return _.map(_.range(n), function(j){
+						return _.object(['i','j'],[i,j]);
+					});
+				}));
 }
 
-function PuzzleController(puzzle, puzzleView, puzzleModel){
-	var spotsSubsets = tellSpotsContainsNumberVsBlankSpots(puzzle);
+function PuzzleController(puzzleView, puzzleModel){
+
+	var tellSpotsContainsNumberVsBlankSpots = function(){
+		var matrix = createMatrix(puzzleModel.size.i, puzzleModel.size.j);
+		return _.partition(matrix, function(p){return puzzleModel.get(p.i,p.j) != '';});
+	};	
+
+	var spotsSubsets = tellSpotsContainsNumberVsBlankSpots();
 	var numberedPos = spotsSubsets[0];
 	var blankPos = spotsSubsets[1];
 
@@ -37,11 +47,10 @@ function PuzzleController(puzzle, puzzleView, puzzleModel){
 	};
 }
 
-var puzzleController;
 function onDocReady(){
 	puzzleView = new PuzzleView();
-	puzzleModel = new PuzzleModel(puzzle);
-	puzzleController = new PuzzleController(puzzle, puzzleView, puzzleModel);
+	puzzleModel = new PuzzleModel(puzzle, 3);
+	puzzleController = new PuzzleController(puzzleView, puzzleModel);
 	puzzleController.loadPuzzleNew();
 	puzzleController.lockPuzzle();
 	puzzleView.whenClearButtonClickedDo(puzzleController.clearSolution);
