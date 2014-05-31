@@ -55,15 +55,15 @@ function PuzzleView(){
 
 function StopWatch(){
 	var interval = 500;
-	var clock = 0;
+	var startTime = 0;
 	function format(num){
 		if (num < 10) return '0' + num;
 		return '' + num;
 	}
 
 	function update(){
-		clock += interval;
-		var c = Math.floor(clock/1000);
+		var timePassed = Date.now() - startTime;
+		var c = Math.floor(timePassed/1000);
 		var hr = Math.floor(c/3600);
 		c = c%3600;
 		var min = Math.floor(c/60);
@@ -78,6 +78,8 @@ function StopWatch(){
 
 	}
 	this.start = function(){
+		startTime = Date.now();
+		console.log(startTime);
 		setInterval(update, interval);
 	};
 }
