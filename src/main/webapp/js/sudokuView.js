@@ -30,18 +30,6 @@ function PuzzleView(){
 		this.clearButton().click(clearAction);
 	};
 
-
-	this.whenGetInputDo = function(inputAction){
-		this.allInputCell().keyup(function(e){
-			var cellid = $(this).attr('id');
-			var i = parseInt(cellid[1]);
-			var j = parseInt(cellid[2]);
-			var key = e.keyCode ? e.keyCode : e.which;
-			var value = String.fromCharCode(key);
-			inputAction(value, i, j);
-		});
-	};
-
 	this.varifyKeyInIsNumber = function(e){
 		var key = e.keyCode ? e.keyCode : e.which;
 		if((key == 46) || (key == 8)) return true; //backspace, delete
@@ -50,6 +38,26 @@ function PuzzleView(){
 		return false;
 	};
 
+	function Delegation(){
+		this.call = function(){};
+	}
+
+	var keyUpDelegation = new Delegation;
+
+	this.setKeyUpDelegation = function(action){
+		keyUpDelegation.call = action;
+	}
+
+	function keyUp(e){
+			var cellid = $(this).attr('id');
+			var i = parseInt(cellid[1]);
+			var j = parseInt(cellid[2]);
+			var key = e.keyCode ? e.keyCode : e.which;
+			var value = String.fromCharCode(key);
+			keyUpDelegation.call(value, i, j);
+	}
+
+	this.allInputCell().keyup(keyUp);
 	this.allInputCell().keydown(this.varifyKeyInIsNumber);
 }
 

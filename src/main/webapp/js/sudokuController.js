@@ -54,7 +54,7 @@ function onDocReady(){
 	puzzleController.loadPuzzleNew();
 	puzzleController.lockPuzzle();
 	puzzleView.whenClearButtonClickedDo(puzzleController.clearSolution);
-	puzzleView.whenGetInputDo(puzzleController.numberInput);
+	puzzleView.setKeyUpDelegation(puzzleController.numberInput);
 	timer = new StopWatch();
 	timer.start();
 	puzzle = undefined;
