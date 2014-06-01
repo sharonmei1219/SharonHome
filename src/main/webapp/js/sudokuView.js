@@ -8,11 +8,11 @@ function PuzzleView(){
 		return $(cid);
 	};
 
-	this.allInputCell = function(){
+	this.allCell = function(){
 		return $('.cellInput');
 	};
 
-	this.clearButton = function(){
+	this.resetButton = function(){
 		return $('#button-clear');
 	};
 
@@ -27,7 +27,7 @@ function PuzzleView(){
 	};
 
 	this.whenClearButtonClickedDo = function(clearAction){
-		this.clearButton().click(clearAction);
+		this.resetButton().click(clearAction);
 	};
 
 	this.varifyKeyInIsNumber = function(e){
@@ -49,17 +49,21 @@ function PuzzleView(){
 	}
 
 	function keyUp(e){
-			var cellid = $(this).attr('id');
-			var i = parseInt(cellid[1]);
-			var j = parseInt(cellid[2]);
-			var key = e.keyCode ? e.keyCode : e.which;
-			var value = String.fromCharCode(key);
-			keyUpDelegation.call(value, i, j);
+		var cellid = $(this).attr('id');
+		var i = parseInt(cellid[1]);
+		var j = parseInt(cellid[2]);
+		var key = e.keyCode ? e.keyCode : e.which;
+		var value = String.fromCharCode(key);
+		keyUpDelegation.call(value, i, j);
 	}
 
-	this.allInputCell().keyup(keyUp);
-	this.allInputCell().keydown(this.varifyKeyInIsNumber);
+	this.allCell().keyup(keyUp);
+	this.allCell().keydown(this.varifyKeyInIsNumber);
+	this.putMessage = function(message){
+		$('#messaging').text(message);
+	}
 }
+
 
 function StopWatch(){
 	var interval = 500;
@@ -85,9 +89,15 @@ function StopWatch(){
 		$('#timing').text(hr +':'+min+':'+sec);
 
 	}
+
+	var tic;
+
 	this.start = function(){
 		startTime = Date.now();
-		console.log(startTime);
-		setInterval(update, interval);
+		tic = setInterval(update, interval);
 	};
+
+	this.stop = function(){
+		clearInterval(tic);
+	}
 }

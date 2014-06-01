@@ -26,7 +26,7 @@ function PuzzleModel(puzzle, blocksize){
 		}).countV == 1;
 	}
 
-	this.validInput = function(i, j){
+	var validInput = this.validInput = function(i, j){
 		var v = puzzle[i][j];
 		function vIsUniq(vs){return uniqIn(v, vs);};
 		return _.every([row(i), column(j), block(i,j)], vIsUniq);
@@ -40,5 +40,17 @@ function PuzzleModel(puzzle, blocksize){
 		return puzzle[i][j];
 	};
 
-	this.size = {i:puzzle.length, j:puzzle[0].length};
+	var size = this.size = {i:puzzle.length, j:puzzle[0].length};
+
+	this.finished = function(){
+		if (!_.every(puzzle, function(row){
+			return !_.contains(row, '');
+		})) return false;
+
+		return _.every(_.range(size.i), function(i){
+			return _.every(_.range(size.j), function(j){
+				return validInput(i, j);
+			});
+		});
+	}
 }

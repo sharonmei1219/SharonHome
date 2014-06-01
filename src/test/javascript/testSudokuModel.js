@@ -89,4 +89,29 @@ describe('Model size of 2', function(){
 									 ['','1','','']], 2);
 		expect(model.validInput(1,1)).toBe(false);
 	});
+
+	it('returns false when not all cell is filled', function(){
+		var model = new PuzzleModel([['1','2'],['3','']],2);
+		expect(model.finished()).toBe(false);
+	});
+
+	it('returns false if there is column contains duplicate number', function(){
+		var model = new PuzzleModel([['1','2'],['3','2']], 1);
+		expect(model.finished()).toBe(false);
+	});
+
+	it('returns false if there is a row contains duplicate number', function(){
+		var model = new PuzzleModel([['1','1'],['3','4']], 1);
+		expect(model.finished()).toBe(false);
+	});
+
+	it('returns false if there is a block contains duplicate number', function(){
+		var model = new PuzzleModel([['1','2'],['3','1']], 2);
+		expect(model.finished()).toBe(false);
+	});
+
+	it('returns true if there is no vialation', function(){
+		var model = new PuzzleModel([['1','2'],['3','4']], 2);
+		expect(model.finished()).toBe(true);
+	});
 });

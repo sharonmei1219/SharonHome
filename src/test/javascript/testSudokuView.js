@@ -28,10 +28,10 @@ describe('PuzzleView', function(){
 	});
 
 	it('find clear button and set its click callback to somthing when delegate action on click', function(){
-		spyOn(sv, 'clearButton').andReturn(mockClearButton);
+		spyOn(sv, 'resetButton').andReturn(mockClearButton);
 		spyOn(mockClearButton, 'click');
 		sv.whenClearButtonClickedDo('something');
-		expect(sv.clearButton).toHaveBeenCalled();
+		expect(sv.resetButton).toHaveBeenCalled();
 		expect(mockClearButton.click).toHaveBeenCalledWith('something');
 	});
 

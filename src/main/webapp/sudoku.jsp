@@ -24,5 +24,6 @@
 	<%@ include file="WEB-INF/jsp/table.jsp"%>
 	<button id="button-clear">Reset</button>
 	<p id="timing">00:00:00</p>
+	<p id="messaging"></p>
 </body>
 </html>
