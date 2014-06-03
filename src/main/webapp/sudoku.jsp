@@ -1,11 +1,12 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<script src="js/underscore-min.js"></script>
-	<script src="js/jquery-1.11.1.min.js"></script>
-	<script src="js/sudokuController.js"></script>
-	<script src="js/sudokuView.js"></script>
-	<script src="js/sudokuModel.js"></script>
+	<script src="<c:url value="/resources/core/underscore-min.js"/>"></script>
+	<script src="<c:url value="/resources/core/jquery-1.11.1.min.js"/>"></script>
+	<script src="<c:url value="/resources/core/sudokuController.js"/>"></script>
+	<script src="<c:url value="/resources/core/sudokuView.js"/>"></script>
+	<script src="<c:url value="/resources/core/sudokuModel.js"/>"></script>
 	<script type="text/javascript">
 		var puzzle = [["","","4","7","","3","","",""],
 					  ["","5","","","","6","8","",""],
