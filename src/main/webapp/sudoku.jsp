@@ -2,11 +2,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script src="<c:url value="/resources/core/underscore-min.js"/>"></script>
-	<script src="<c:url value="/resources/core/jquery-1.11.1.min.js"/>"></script>
-	<script src="<c:url value="/resources/core/sudokuController.js"/>"></script>
-	<script src="<c:url value="/resources/core/sudokuView.js"/>"></script>
-	<script src="<c:url value="/resources/core/sudokuModel.js"/>"></script>
+	<script src="<c:url value="/resources/js/underscore-min.js"/>"></script>
+	<script src="<c:url value="/resources/js/jquery-1.11.1.min.js"/>"></script>
+	<script src="<c:url value="/resources/js/sudokuController.js"/>"></script>
+	<script src="<c:url value="/resources/js/sudokuView.js"/>"></script>
+	<script src="<c:url value="/resources/js/sudokuModel.js"/>"></script>
 	<script type="text/javascript">
 		var puzzle = [["","","4","7","","3","","",""],
 					  ["","5","","","","6","8","",""],
