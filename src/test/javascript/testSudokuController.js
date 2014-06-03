@@ -41,10 +41,9 @@ describe('SudokuController', function(){
 
   it('put input to model, and ask model to validate it', function(){
     spyOn(sm, 'change');
-    spyOn(sm, 'validInput').andReturn(true);
+    spyOn(sm, 'finished').andReturn(false);
     sc.numberInput('9', 1, 2);
     expect(sm.change).toHaveBeenCalledWith('9', 1, 2);
-    expect(sm.validInput).toHaveBeenCalledWith(1, 2);
+    expect(sm.finished).toHaveBeenCalled();
   });
-
 });

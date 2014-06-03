@@ -52,52 +52,51 @@ function PuzzleView(){
 		var cellid = $(this).attr('id');
 		var i = parseInt(cellid[1]);
 		var j = parseInt(cellid[2]);
-		var key = e.keyCode ? e.keyCode : e.which;
-		var value = String.fromCharCode(key);
+		var value = $(this).val();
 		keyUpDelegation.call(value, i, j);
 	}
 
 	this.allCell().keyup(keyUp);
 	this.allCell().keydown(this.varifyKeyInIsNumber);
-	this.putMessage = function(message){
-		$('#messaging').text(message);
+
+	this.showTime = function(time){
+		$('#timing').text(time);
 	}
 }
 
 
-function StopWatch(){
-	var interval = 500;
-	var startTime = 0;
-	function format(num){
-		if (num < 10) return '0' + num;
-		return '' + num;
-	}
+// function StopWatch(){
+// 	var interval = 500;
+// 	var startTime = 0;
+// 	function format(num){
+// 		if (num < 10) return '0' + num;
+// 		return '' + num;
+// 	}
 
-	function update(){
-		var timePassed = Date.now() - startTime;
-		var c = Math.floor(timePassed/1000);
-		var hr = Math.floor(c/3600);
-		c = c%3600;
-		var min = Math.floor(c/60);
-		c = c%60;
-		var sec = c;
+// 	function update(){
+// 		var timePassed = Date.now() - startTime;
+// 		var c = Math.floor(timePassed/1000);
+// 		var hr = Math.floor(c/3600);
+// 		c = c%3600;
+// 		var min = Math.floor(c/60);
+// 		c = c%60;
+// 		var sec = c;
 
-		hr = format(hr);
-		min = format(min);
-		sec = format(sec);
+// 		hr = format(hr);
+// 		min = format(min);
+// 		sec = format(sec);
 
-		$('#timing').text(hr +':'+min+':'+sec);
+// 		$('#timing').text(hr +':'+min+':'+sec);
+// 	}
 
-	}
+// 	var tic;
 
-	var tic;
+// 	this.start = function(){
+// 		startTime = Date.now();
+// 		tic = setInterval(update, interval);
+// 	};
 
-	this.start = function(){
-		startTime = Date.now();
-		tic = setInterval(update, interval);
-	};
-
-	this.stop = function(){
-		clearInterval(tic);
-	}
-}
+// 	this.stop = function(){
+// 		clearInterval(tic);
+// 	}
+// }

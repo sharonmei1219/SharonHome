@@ -9,8 +9,8 @@ function createMatrix(m, n){
 
 function PuzzleController(puzzleView, puzzleModel){
 
+	var matrix = createMatrix(puzzleModel.size.i, puzzleModel.size.j);
 	var tellSpotsContainsNumberVsBlankSpots = function(){
-		var matrix = createMatrix(puzzleModel.size.i, puzzleModel.size.j);
 		return _.partition(matrix, function(p){return puzzleModel.get(p.i,p.j) != '';});
 	};	
 
@@ -47,26 +47,67 @@ function PuzzleController(puzzleView, puzzleModel){
 
 	this.numberInput = function(value, i, j){
 		puzzleModel.change(value, i, j);
-		if(!puzzleModel.validInput(i, j)) notValidInput(i, j);
 		if(puzzleModel.finished()) puzzleFinished();
 	};
+
 	var timer;
 	this.setTimer = function(t){
 		timer = t;
+		timer.setShowInView(puzzleView.showTime);
 	}
 }
+
+function StopWatch(){
+	var showInView = function(){}
+	this.setShowInView = function(show){
+		showInView = show;
+	}
+	var interval = 500;
+	var startTime = 0;
+
+	function addLeading0(num){
+		if (num < 10) return '0' + num;
+		return '' + num;
+	}
+
+	function formatedTime(timePassed){
+		var c = Math.floor(timePassed/1000);
+		return _.map([3600, 60, 1], function(unit){
+					var result = addLeading0(Math.floor(c/unit))
+					c = c%unit;
+					return result;
+					}).join(':');
+	}
+
+	function update(){
+		var timePassed = Date.now() - startTime;
+		showInView(formatedTime(timePassed));
+	}
+
+	var tic;
+
+	this.start = function(){
+		startTime = Date.now();
+		tic = setInterval(update, interval);
+	};
+
+	this.stop = function(){
+		clearInterval(tic);
+	}
+}
+
 
 function onDocReady(){
 	puzzleView = new PuzzleView();
 	puzzleModel = new PuzzleModel(puzzle, 3);
 	puzzleController = new PuzzleController(puzzleView, puzzleModel);
-	puzzleController.loadPuzzleNew();
-	puzzleController.lockPuzzle();
-	puzzleView.whenClearButtonClickedDo(puzzleController.clearSolution);
-	puzzleView.setKeyUpDelegation(puzzleController.numberInput);
 	timer = new StopWatch();
 	puzzleController.setTimer(timer);
+	puzzleController.loadPuzzleNew();
+	puzzleController.lockPuzzle();
 	timer.start();
+	puzzleView.whenClearButtonClickedDo(puzzleController.clearSolution);
+	puzzleView.setKeyUpDelegation(puzzleController.numberInput);
 	puzzle = undefined;
 }
 
