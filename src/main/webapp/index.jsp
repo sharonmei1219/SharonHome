@@ -1,5 +1,8 @@
 <html>
 <body>
-	<h2>Hello World!</h2>
+	<h2>Sharon's Home</h2>
+	<br>
+		<a href="sudoku">Sudoku</a>
+	<br>
 </body>
 </html>

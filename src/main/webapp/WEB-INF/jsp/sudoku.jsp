@@ -12,7 +12,7 @@
 	</script>
 </head>
 <body>
-	<h1>Message : "${message}"</h1>	
+	<h1>Sudoku</h1>	
 	<%@ include file="table.jsp"%>
 	<button id="button-clear">Reset</button>
 	<p id="timing">00:00:00</p>

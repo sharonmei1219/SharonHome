@@ -24,9 +24,7 @@ public class SudokuController {
 							  {"","","","9","","8","3","",""}};
 		Gson gson = new Gson();
 		String jsonPuzzle = gson.toJson(puzzle);
- 		model.addAttribute("message", "Spring 3 MVC Hello World");
  		model.addAttribute("puzzle", jsonPuzzle);
 		return "sudoku";
- 
-	}
+ 	}
 }
