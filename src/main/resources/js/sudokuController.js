@@ -30,6 +30,19 @@ function PuzzleController(puzzleView, puzzleModel){
 		});
 	};
 
+	this.unlockPuzzle = function(){
+		_.each(numberedPos, function(p){
+			puzzleView.unlock(p.i, p.j);
+		});	
+	};
+
+	this.clearPuzzle = function(){
+		_.each(numberedPos, function(p){
+			puzzleView.clear(p.i, p.j);
+		});
+	};
+
+
 	this.clearSolution = function(){
 		_.each(blankPos, function(p){
 			puzzleView.clear(p.i, p.j);
@@ -94,7 +107,17 @@ function getNewPuzzle(){
 		data : JSON.stringify({level:"hard"}),
 		contentType: 'application/json',
 		success : function(response){
-			alert(response);
+			puzzleController.unlockPuzzle();
+			puzzleController.clearPuzzle();
+			puzzleController.clearSolution();
+			puzzle = JSON.parse(response);
+			puzzleModel = new PuzzleModel(puzzle, 3);
+			puzzleController = new PuzzleController(puzzleView, puzzleModel);
+			puzzleController.loadPuzzleNew();
+			puzzleController.lockPuzzle();
+			timer.start();
+			puzzleView.setResetbuttonDelegation(puzzleController.clearSolution);
+			puzzleView.setKeyUpDelegation(puzzleController.numberInput);
 		}
 	});
 }
@@ -109,9 +132,9 @@ function onDocReady(){
 	puzzleController.loadPuzzleNew();
 	puzzleController.lockPuzzle();
 	timer.start();
-	puzzleView.whenClearButtonClickedDo(puzzleController.clearSolution);
-	puzzleView.setKeyUpDelegation(puzzleController.numberInput);
 	puzzle = undefined;
+	puzzleView.setResetbuttonDelegation(puzzleController.clearSolution);
+	puzzleView.setKeyUpDelegation(puzzleController.numberInput);
 	$('#button-new').click(getNewPuzzle);
 }
 

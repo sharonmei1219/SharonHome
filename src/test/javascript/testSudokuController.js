@@ -32,11 +32,25 @@ describe('SudokuController', function(){
     expect(sv.lock).toHaveBeenCalledWith(1, 1);
   });
 
+  it('unlock cell at pos (0,0) and (1,1) in view when unlockPuzzle', function(){
+    spyOn(sv, 'unlock');
+    sc.unlockPuzzle();
+    expect(sv.unlock).toHaveBeenCalledWith(0, 0);
+    expect(sv.unlock).toHaveBeenCalledWith(1, 1);
+  });
+
   it('clear cell at pos (0,1) and (1,0) in view when receive clear command', function(){
     spyOn(sv, 'clear');
     sc.clearSolution();
     expect(sv.clear).toHaveBeenCalledWith(0, 1);
     expect(sv.clear).toHaveBeenCalledWith(1, 0);
+  });
+
+  it('clear cell at pos (0,1) and (1,0) in view when clear puzzle', function(){
+    spyOn(sv, 'clear');
+    sc.clearPuzzle();
+    expect(sv.clear).toHaveBeenCalledWith(0, 0);
+    expect(sv.clear).toHaveBeenCalledWith(1, 1);
   });
 
   it('put input to model, and ask model to validate it', function(){

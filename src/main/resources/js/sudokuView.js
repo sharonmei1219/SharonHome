@@ -22,12 +22,14 @@ function PuzzleView(){
 		cell.addClass('fixedCell');
 	};
 
+	this.unlock = function(i, j){
+		var cell = this.cellAt(i, j);
+		cell.removeAttr('readonly');
+		cell.removeClass('fixedCell');
+	}
+
 	this.clear = function(i, j){
 		this.cellAt(i, j).val('');
-	};
-
-	this.whenClearButtonClickedDo = function(clearAction){
-		this.resetButton().click(clearAction);
 	};
 
 	this.varifyKeyInIsNumber = function(e){
@@ -43,9 +45,18 @@ function PuzzleView(){
 	}
 
 	var keyUpDelegation = new Delegation;
+	var resetButtonDelegation = new Delegation;
+
+	this.setResetbuttonDelegation = function(action){
+		resetButtonDelegation.call = action;
+	};
 
 	this.setKeyUpDelegation = function(action){
 		keyUpDelegation.call = action;
+	};
+
+	function resetTable(){
+		resetButtonDelegation.call();
 	}
 
 	function keyUp(e){
@@ -58,7 +69,7 @@ function PuzzleView(){
 
 	this.allCell().keyup(keyUp);
 	this.allCell().keydown(this.varifyKeyInIsNumber);
-
+	this.resetButton().click(resetTable);
 	this.showTime = function(time){
 		$('#timing').text(time);
 	}

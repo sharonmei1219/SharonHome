@@ -27,13 +27,6 @@ describe('PuzzleView', function(){
 		expect(mockCell.addClass).toHaveBeenCalledWith('fixedCell');
 	});
 
-	it('find clear button and set its click callback to somthing when delegate action on click', function(){
-		spyOn(sv, 'resetButton').andReturn(mockClearButton);
-		spyOn(mockClearButton, 'click');
-		sv.whenClearButtonClickedDo('something');
-		expect(sv.resetButton).toHaveBeenCalled();
-		expect(mockClearButton.click).toHaveBeenCalledWith('something');
-	});
 
 	it('find cell and set its value to \'\', when clear the cell', function(){
 		spyOn(sv, 'cellAt').andReturn(mockCell);
