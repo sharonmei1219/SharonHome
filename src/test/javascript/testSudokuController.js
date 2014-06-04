@@ -47,3 +47,10 @@ describe('SudokuController', function(){
     expect(sm.finished).toHaveBeenCalled();
   });
 });
+
+describe('JSON', function(){
+  it('turns var to JSOn string', function(){
+    var string = JSON.stringify({x:5});
+    expect(string).toEqual('{\"x\":5}');
+  })
+})

@@ -96,6 +96,18 @@ function StopWatch(){
 	}
 }
 
+function getNewPuzzle(){
+	$.ajax({
+		type : "POST",
+		url : "sudoku/new",
+		data : JSON.stringify({level:"hard"}),
+		contentType: 'application/json',
+		success : function(response){
+			alert(response);
+		}
+	});
+}
+
 
 function onDocReady(){
 	puzzleView = new PuzzleView();
@@ -109,6 +121,7 @@ function onDocReady(){
 	puzzleView.whenClearButtonClickedDo(puzzleController.clearSolution);
 	puzzleView.setKeyUpDelegation(puzzleController.numberInput);
 	puzzle = undefined;
+	$('#button-new').click(getNewPuzzle);
 }
 
 $(onDocReady);

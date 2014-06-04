@@ -15,6 +15,7 @@
 	<h1>Sudoku</h1>	
 	<%@ include file="table.jsp"%>
 	<button id="button-clear">Reset</button>
+	<button id="button-new">New</button>
 	<p id="timing">00:00:00</p>
 	<p id="messaging"></p>
 </body>

@@ -37,10 +37,12 @@
       <level value="debug"/>
     </logger> -->
 
-
+<!--   <logger name="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+    <level value="debug"/>
+  </logger> -->
   <root> 
     <!-- Set root logger level to DEBUG and its only appender to A1 -->
-    <priority value ="info" /> 
+    <priority value ="debug" /> 
     <appender-ref ref="console" /> 
   </root>
 </log4j:configuration>
