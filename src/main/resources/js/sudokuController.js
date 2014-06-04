@@ -36,25 +36,16 @@ function PuzzleController(puzzleView, puzzleModel){
 		});
 	};
 
-	function notValidInput(i,j){
-		puzzleView.putMessage('not a valid input ' + i + ' ' + j);
-	}
-
-	function puzzleFinished(){
-		timer.stop();
-		puzzleView.putMessage('Congratulations!');
-	}
-
 	this.numberInput = function(value, i, j){
 		puzzleModel.change(value, i, j);
 		if(puzzleModel.finished()) puzzleFinished();
 	};
 
-	var timer;
-	this.setTimer = function(t){
-		timer = t;
-		timer.setShowInView(puzzleView.showTime);
-	}
+}
+
+function puzzleFinished(){
+	timer.stop();
+	puzzleView.putMessage('Congratulations!');
 }
 
 function StopWatch(){
@@ -114,7 +105,7 @@ function onDocReady(){
 	puzzleModel = new PuzzleModel(puzzle, 3);
 	puzzleController = new PuzzleController(puzzleView, puzzleModel);
 	timer = new StopWatch();
-	puzzleController.setTimer(timer);
+	timer.setShowInView(puzzleView.showTime);
 	puzzleController.loadPuzzleNew();
 	puzzleController.lockPuzzle();
 	timer.start();
