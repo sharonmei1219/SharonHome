@@ -118,6 +118,7 @@ function getNewPuzzle(){
 			timer.start();
 			puzzleView.setResetbuttonDelegation(puzzleController.clearSolution);
 			puzzleView.setKeyUpDelegation(puzzleController.numberInput);
+			puzzle = undefined;
 		}
 	});
 }
