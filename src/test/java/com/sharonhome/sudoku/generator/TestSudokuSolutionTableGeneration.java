@@ -16,9 +16,9 @@ public class TestSudokuSolutionTableGeneration {
 		CSLCRGenerator gen = new CSLCRGenerator(ss, cslcrNs);
 		ArrayList<int []> cslcr = gen.getAllSelection(0);
 		PermutateCSLCR per = new PermutateCSLCR(cslcr);
-		int [] colum = per.getNthPermutation(0);
-		int [] row = new int []{0, 3, 6, 1, 4, 7, 2, 5, 8};
-		int [][] sudokuSolutionTable = getSudokuTable(row, colum);
+		int [] column = per.getNthPermutation(0);
+		SudokuTableTemplateGenerator tableGen = new SudokuTableTemplateGenerator();
+		int [][] sudokuSolutionTable = tableGen.genTable(column);
 		Permutations perOf9 = new Permutations(new int[] {9,8, 7, 6, 5, 4, 3, 2, 1});
 		int [] per9 = perOf9.get(0);
 		sudokuSolutionTable = perSudokuTable(sudokuSolutionTable, per9);
@@ -45,15 +45,4 @@ public class TestSudokuSolutionTableGeneration {
 		}
 		return result;
 	}
-
-	private int[][] getSudokuTable(int[] row, int[] colum) {
-		int [][] result = new int [9][9];
-		for(int i = 0; i < 9; i++){
-			for(int j = 0; j < 9; j++){
-				result[i][j] = (row[i] + colum[j])%9;
-			}
-		}
-		return result;
-	}
-
 }
