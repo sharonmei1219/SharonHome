@@ -14,6 +14,7 @@ import org.junit.Test;
 public class TestTableDigger {
 	Mockery context = new Mockery();
 	final Sequence randSeq= context.sequence("predefined sequence");
+	Digger digger = new Digger();
 	@Test
 	public void testShufflePos() {
 		final RandomNumberGen rand = context.mock(RandomNumberGen.class);
@@ -50,8 +51,7 @@ public class TestTableDigger {
 		    oneOf(rand).nextInt(1);inSequence(randSeq);will(returnValue(3));
 		}}
 		);
-
-		Spot[] holes = dig(puzzle, solver, randomSpotSeq, 1);
+		Spot[] holes = digger.dig(puzzle, solver, randomSpotSeq, 1);
 		assertEquals(1, holes.length);
 		assertEquals(new Spot(0, 0), holes[0]);
 	}
@@ -74,7 +74,7 @@ public class TestTableDigger {
 		);
 		
 
-		Spot[] holes2 = dig(puzzle, solver, randomSpotSeq, 2);
+		Spot[] holes2 = digger.dig(puzzle, solver, randomSpotSeq, 2);
 		assertEquals(2, holes2.length);
 		assertEquals(new Spot(0, 0), holes2[0]);
 		assertEquals(new Spot(1, 1), holes2[1]);
@@ -97,7 +97,7 @@ public class TestTableDigger {
 		}}
 		);
 	
-		Spot[] holes2 = dig(puzzle, solver, randomSpotSeq, 2);
+		Spot[] holes2 = digger.dig(puzzle, solver, randomSpotSeq, 2);
 		assertNull(holes2);
 	}
 	
@@ -119,9 +119,9 @@ public class TestTableDigger {
 		RandomNumberGen rand = new RandomNumberGenbyRandom();
 		RandomSpotSeq randomSpotSeq = new RandomSpotSeq(candidates, rand);
 
-		Spot[] holes2 = dig(table, solver, randomSpotSeq, 32);
+		Spot[] holes2 = digger.dig(table, solver, randomSpotSeq, 32);
 		System.out.print(holes2.length);
-		int [][] puzzle = erase(table, holes2);
+		int [][] puzzle = digger.eraseHoles(table, holes2);
 		for(int i = 0; i < 9; i++){
 			System.out.println();
 			for(int j = 0; j < 9; j++){
@@ -132,46 +132,6 @@ public class TestTableDigger {
 				System.out.print(", ");
 			}
 		}
-	}
-	
-	private int[][] erase(int[][] table, Spot[] holes2) {
-		int [][] result = deepcopy(table);
-		for(Spot s : holes2)
-			result[s.geti()][s.getj()] = -1;
-		return result;
-	}
-
-	private Spot[] dig(int[][] puzzle, SudokuSolver solver, RandomSpotSeq randomSpotSeq, int requiredHoles) {
-		int [][] localPuzzle = deepcopy(puzzle);
-		int nrOfHoles = 0;
-		Spot[] result = new Spot[requiredHoles];
-		while(nrOfHoles < requiredHoles && randomSpotSeq.nrOfCandidates() != 0){
-			Spot next = randomSpotSeq.next();
-			int x = next.geti();
-			int y = next.getj();
-			int temp = localPuzzle[x][y];
-			localPuzzle[x][y] = -1;
-			ArrayList<int[][]> solutions = new ArrayList<int[][]>();
-			solver.solve(localPuzzle, solutions);
-			if(solutions.size() == 1){
-				result[nrOfHoles++] = next;
-			}else{
-				localPuzzle[x][y]= temp;
-			}
-		}
-		if (nrOfHoles == requiredHoles)
-			return result;
-		return null;
-	}
-
-	private int[][] deepcopy(int[][] puzzle) {
-		int result[][] = new int [puzzle.length][puzzle[0].length];
-		for(int i = 0; i < puzzle.length; i ++){
-			for(int j = 0; j < puzzle[i].length; j++){
-				result[i][j] = puzzle[i][j];
-			}
-		}
-		return result;
 	}
 
 }

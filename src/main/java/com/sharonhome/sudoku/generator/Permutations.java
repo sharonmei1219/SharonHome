@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class Permutations {
 
-	private int [] seq;
+	private int [] originSeq;
 	private NumberingSystem numberingSystem;
 
 	public Permutations(int[] seq) {
-		this.seq = seq;
+		this.originSeq = seq;
 		int [] nChoices = new int[seq.length];
 		for(int i = 0; i < seq.length; i++)
 			nChoices[i] = seq.length - i;
@@ -20,10 +20,10 @@ public class Permutations {
 	}
 
 	public int[] get(int nth) {
-		int [] result = new int [seq.length];
+		int [] result = new int [originSeq.length];
 		ArrayList<Integer> pos = numberingSystem.getNthNumber(nth);
-		int [] rest = seq.clone();
-		for(int i = 0; i < seq.length; i++){
+		int [] rest = originSeq.clone();
+		for(int i = 0; i < originSeq.length; i++){
 			result[i] = rest[pos.get(i)];
 			rest = remove(rest, pos.get(i));
 		}
