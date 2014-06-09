@@ -45,7 +45,7 @@ public class SudokuSolver {
 		
 	}
 	
-	public void setCandidatePairs(int [] candidates){
+	public void setSolutionCandidates(int [] candidates){
 		this.candidatePairs = candidates;
 	}
 	

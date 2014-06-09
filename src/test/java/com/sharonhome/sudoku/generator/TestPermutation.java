@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class TestPermutationNew {
+public class TestPermutation {
 
 	@Test
 	public void test() {
@@ -15,5 +15,4 @@ public class TestPermutationNew {
 		assertEquals(2, per[0]);
 		assertEquals(1, per[1]);
 	}
-
 }

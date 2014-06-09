@@ -23,5 +23,10 @@ public class Spot {
 	public int getj() {
 		return j;
 	}
+	
+	@Override
+	public String toString(){
+		return "(" + i + ", "+j + ")";
+	}
 
 }

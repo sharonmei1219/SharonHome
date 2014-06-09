@@ -72,7 +72,7 @@ public class TestSudokuSolver {
 		int [][] puzzle = {{p0, p0},
 							{-1, p0}};
 		ArrayList<int[][]>solutions = new ArrayList<int[][]>();
-		solver.setCandidatePairs(new int[]{p0});
+		solver.setSolutionCandidates(new int[]{p0});
 		solver.solve(puzzle, solutions);
 		assertEquals(0, solutions.size());
 	}
@@ -82,7 +82,7 @@ public class TestSudokuSolver {
 		int [][] puzzle = {{p0, p0},
 							{-1, p0}};
 		ArrayList<int[][]>solutions = new ArrayList<int[][]>();
-		solver.setCandidatePairs(new int[]{p1});
+		solver.setSolutionCandidates(new int[]{p1});
 		solver.solve(puzzle, solutions);
 		assertEquals(1, solutions.size());
 	}
@@ -92,7 +92,7 @@ public class TestSudokuSolver {
 		int [][] puzzle = {{p1, -1},
 							{-1, -1}};
 		ArrayList<int[][]>solutions = new ArrayList<int[][]>();
-		solver.setCandidatePairs(new int[]{p0, p1});
+		solver.setSolutionCandidates(new int[]{p0, p1});
 		solver.solve(puzzle, solutions);
 		assertEquals(1, solutions.size());
 		int [][] solution = solutions.get(0);
@@ -125,7 +125,7 @@ public class TestSudokuSolver {
 							{-1, -1, -1, p9, -1, p8, p3, -1, -1}};
 		
        ArrayList<int[][]>solutions = new ArrayList<int[][]>();
-       solver.setCandidatePairs(candidates);
+       solver.setSolutionCandidates(candidates);
        solver.solve(puzzle, solutions);
        assertEquals(1, solutions.size());
        int[][] s = solutions.get(0);
