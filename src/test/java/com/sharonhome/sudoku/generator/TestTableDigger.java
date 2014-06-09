@@ -36,9 +36,10 @@ public class TestTableDigger {
 	@Test
 	public void testDig1Hole(){
 		int [][] puzzle = {{0, 0}, {0, 0}};
+		
 		SudokuSolver solver = new SudokuSolver(1);
 		solver.setSolutionCandidates(new int []{1});
-		Spot[] pos = new Spot[]{new Spot(0,0), new Spot(0, 1), new Spot(1, 0), new Spot(1, 1)};
+		
 		HolesCandidate candidates = new HolesCandidate(2, 2);
 		final RandomNumberGen rand = context.mock(RandomNumberGen.class);
 		RandomSpotSeq randomSpotSeq = new RandomSpotSeq(candidates, rand);
@@ -49,8 +50,7 @@ public class TestTableDigger {
 		    oneOf(rand).nextInt(1);inSequence(randSeq);will(returnValue(3));
 		}}
 		);
-//		TestingRandomSeq candidateHoles = new TestingRandomSeq();
-//		candidateHoles.setSeq(pos);
+
 		Spot[] holes = dig(puzzle, solver, randomSpotSeq, 1);
 		assertEquals(1, holes.length);
 		assertEquals(new Spot(0, 0), holes[0]);
@@ -61,7 +61,7 @@ public class TestTableDigger {
 		int [][] puzzle = {{0, 0}, {0, 0}};
 		SudokuSolver solver = new SudokuSolver(1);
 		solver.setSolutionCandidates(new int []{1});
-		Spot[] pos = new Spot[]{new Spot(0,0), new Spot(0, 1), new Spot(1, 0), new Spot(1, 1)};
+
 		HolesCandidate candidates = new HolesCandidate(2, 2);
 		final RandomNumberGen rand = context.mock(RandomNumberGen.class);
 		RandomSpotSeq randomSpotSeq = new RandomSpotSeq(candidates, rand);
@@ -72,8 +72,8 @@ public class TestTableDigger {
 		    oneOf(rand).nextInt(1);inSequence(randSeq);will(returnValue(0));
 		}}
 		);
-		TestingRandomSeq candidateHoles = new TestingRandomSeq();
-		candidateHoles.setSeq(pos);
+		
+
 		Spot[] holes2 = dig(puzzle, solver, randomSpotSeq, 2);
 		assertEquals(2, holes2.length);
 		assertEquals(new Spot(0, 0), holes2[0]);
@@ -85,7 +85,7 @@ public class TestTableDigger {
 		int [][] puzzle = {{0, 1}, {0, 1}};
 		SudokuSolver solver = new SudokuSolver(1);
 		solver.setSolutionCandidates(new int []{1});
-		Spot[] pos = new Spot[]{new Spot(0,0), new Spot(0, 1), new Spot(1, 0), new Spot(1, 1)};
+		
 		HolesCandidate candidates = new HolesCandidate(2, 2);
 		final RandomNumberGen rand = context.mock(RandomNumberGen.class);
 		RandomSpotSeq randomSpotSeq = new RandomSpotSeq(candidates, rand);
@@ -96,40 +96,43 @@ public class TestTableDigger {
 		    oneOf(rand).nextInt(1);inSequence(randSeq);will(returnValue(0));
 		}}
 		);
-		TestingRandomSeq candidateHoles = new TestingRandomSeq();
-		candidateHoles.setSeq(pos);
+	
 		Spot[] holes2 = dig(puzzle, solver, randomSpotSeq, 2);
 		assertNull(holes2);
 	}
 	
-//	@Test
-//	public void testDigARealOne(){
-//		int [][] table = {{8,2,4,7,5,3,9,1,6},
-//						   {9,5,3,2,1,6,8,7,4},
-//						   {6,7,1,8,4,9,5,2,3},
-//						   {4,6,9,1,8,2,7,3,5},
-//						   {5,1,7,3,9,4,2,6,8},
-//						   {2,3,8,6,7,5,4,9,1},
-//						   {3,8,6,5,2,7,1,4,9},
-//						   {7,9,5,4,3,1,6,8,2},
-//						   {1,4,2,9,6,8,3,5,7}};
-//		SudokuSolver solver = new SudokuSolver(1);
-//		solver.setSolutionCandidates(new int []{1, 2, 3, 4, 5, 6, 7, 8, 9});
-//		HolesInRandomSeq candidateHoles = new HolesInRandomSeqWithMathRandom(81, 9);
-//		Spot[] holes2 = dig(table, solver, candidateHoles, 32);
-//		System.out.print(holes2.length);
-//		int [][] puzzle = erase(table, holes2);
-//		for(int i = 0; i < 9; i++){
-//			System.out.println();
-//			for(int j = 0; j < 9; j++){
-//				if(puzzle[i][j] == -1){
-//					System.out.print(" ");
-//				}else{
-//				System.out.print(puzzle[i][j]);}
-//				System.out.print(", ");
-//			}
-//		}
-//	}
+	@Test
+	public void testDigARealOne(){
+		int [][] table = {{8,2,4,7,5,3,9,1,6},
+						   {9,5,3,2,1,6,8,7,4},
+						   {6,7,1,8,4,9,5,2,3},
+						   {4,6,9,1,8,2,7,3,5},
+						   {5,1,7,3,9,4,2,6,8},
+						   {2,3,8,6,7,5,4,9,1},
+						   {3,8,6,5,2,7,1,4,9},
+						   {7,9,5,4,3,1,6,8,2},
+						   {1,4,2,9,6,8,3,5,7}};
+		SudokuSolver solver = new SudokuSolver(1);
+		solver.setSolutionCandidates(new int []{1, 2, 3, 4, 5, 6, 7, 8, 9});
+		
+		HolesCandidate candidates = new HolesCandidate(9, 9);
+		RandomNumberGen rand = new RandomNumberGenbyRandom();
+		RandomSpotSeq randomSpotSeq = new RandomSpotSeq(candidates, rand);
+
+		Spot[] holes2 = dig(table, solver, randomSpotSeq, 32);
+		System.out.print(holes2.length);
+		int [][] puzzle = erase(table, holes2);
+		for(int i = 0; i < 9; i++){
+			System.out.println();
+			for(int j = 0; j < 9; j++){
+				if(puzzle[i][j] == -1){
+					System.out.print(" ");
+				}else{
+				System.out.print(puzzle[i][j]);}
+				System.out.print(", ");
+			}
+		}
+	}
 	
 	private int[][] erase(int[][] table, Spot[] holes2) {
 		int [][] result = deepcopy(table);
@@ -171,68 +174,4 @@ public class TestTableDigger {
 		return result;
 	}
 
-	private Spot[] mapNumberToSpot(int[] per, int nrColumn) {
-		Spot [] result = new Spot[per.length];
-		for(int i = 0; i < per.length; i++){
-			int x = per[i]/nrColumn;
-			int y = per[i]%nrColumn;
-			result[i] = new Spot(x, y);
-		}
-		return result;
-	}
-	class TestingRandomSeq implements HolesInRandomSeq{
-		private Spot[] seq;
-		private int index;
-
-		public void setSeq(Spot[] seq){
-			this.seq = seq;
-			this.index = 0;
-		}
-
-		public boolean noMoreCandidate() {
-			return index == seq.length;
-		}
-
-		public Spot next() {
-			return seq[index++];
-		}
-	};
-	
-	class HolesInRandomSeqWithMathRandom implements HolesInRandomSeq{
-		private int[] reminningPosIndex;
-		private int columnWidth;
-		private Random rand;
-
-		public HolesInRandomSeqWithMathRandom(int total, int columnWidth){
-			this.reminningPosIndex = new int [total];
-			for(int i = total - 1; i >= 0; i--)
-				this.reminningPosIndex[i] = i;
-			this.columnWidth = columnWidth;
-			this.rand = new Random();
-		}
-		public boolean noMoreCandidate() {
-			return reminningPosIndex.length == 0;
-		}
-
-		public Spot next() {
-			int index = rand.nextInt(reminningPosIndex.length);
-			Spot result = mapIntToPos(reminningPosIndex[index]);
-			reminningPosIndex = remove(reminningPosIndex, index);
-			return result;
-		}
-		private int[] remove(int[] reminningPosIndex2, int index) {
-			int []result = new int[reminningPosIndex2.length - 1];
-			int resultIndex = 0;
-			for(int i = 0; i < reminningPosIndex2.length; i++){
-				if(i == index) continue;
-				result[resultIndex++] = reminningPosIndex2[i];
-			}
-			return result;
-		}
-		private Spot mapIntToPos(int index) {
-			int x = index/columnWidth;
-			int y = index%columnWidth;
-			return new Spot(x, y);
-		}
-	}
 }
