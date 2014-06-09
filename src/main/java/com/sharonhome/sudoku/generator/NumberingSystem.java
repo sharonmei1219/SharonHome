@@ -26,7 +26,6 @@ public class NumberingSystem {
 	}
 
 	public int total() {
-		// TODO Auto-generated method stub
 		return cumilatedScales[0] * topScale;
 	}
 

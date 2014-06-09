@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 public class TestCSLCRGenerator {
@@ -24,31 +25,19 @@ public class TestCSLCRGenerator {
 		assertEquals(1, nrSystem.get(2).total());
 		assertEquals(216, highOrderNrSystem.total());
 	}
+
 	
-//	@Test
-//	public void testGenerateAllSelections(){
-//		CSLCRNumberingSystem CSLCRns = new CSLCRNumberingSystem();
-//		SetSet ss = new SetSet(new int[][]{{11, 12, 13}, {21, 22, 23}, {31, 32, 33}});
-//		AllSelectionGenerator allGen = new AllSelectionGenerator(ss, CSLCRns);
-//		
-//		for(int i = 0; i < CSLCRns.total(); i++)
-//			printAllSelection(allGen.getAllSelection(i));
-//
-//	}
-	
-	void printAllSelection(ArrayList<int[]> allSelection){
-		System.out.println();
-		printArray(allSelection.get(0));
-		printArray(allSelection.get(1));
-		printArray(allSelection.get(2));
+	@Test
+	public void testShuffledCSLCR(){
+		ArrayList<int []> cslcr = new ArrayList<int []>();
+		cslcr.add(new int[] {11, 12, 13});
+		cslcr.add(new int[] {21, 22, 23});
+		cslcr.add(new int[] {31, 32, 33});
+		PermutateCSLCR sCSLCRs = new PermutateCSLCR(cslcr);
+		Assert.assertArrayEquals(new int []{11, 12, 13, 21, 22, 23, 31, 32, 33}, sCSLCRs.getNthPermutation(0));
+		Assert.assertArrayEquals(new int []{11, 12, 13, 21, 22, 23, 33, 32, 31}, sCSLCRs.getNthPermutation(6 - 1));
+		Assert.assertArrayEquals(new int []{11, 12, 13, 23, 22, 21, 33, 32, 31}, sCSLCRs.getNthPermutation(6*6 - 1));
+		Assert.assertArrayEquals(new int []{13, 12, 11, 23, 22, 21, 33, 32, 31}, sCSLCRs.getNthPermutation(6*6*6 - 1));
 	}
-	
-	void printArray(int [] array){
-		System.out.print("{");
-		for(int num:array){
-			System.out.print(num);
-			System.out.print(", ");
-		}
-		System.out.print("}, ");
-	}
+
 }

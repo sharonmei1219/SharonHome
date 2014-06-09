@@ -39,7 +39,4 @@ public class Permutations {
 		}
 		return result;
 	}
-	
-	
-
 }

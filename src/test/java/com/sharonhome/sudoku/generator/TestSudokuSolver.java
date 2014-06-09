@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 public class TestSudokuSolver {
@@ -128,13 +129,14 @@ public class TestSudokuSolver {
        solver.solve(puzzle, solutions);
        assertEquals(1, solutions.size());
        int[][] s = solutions.get(0);
-       for(int i = 0; i < 9; i++){
-    	   for(int j = 0; j < 9; j++){
-    		   System.out.print(s[i][j] + " ");
-    	   }
-    	   System.out.println();
-       }
-    	   
-
+       Assert.assertArrayEquals(new int []{8,2,4,7,5,3,9,1,6},s[0]);
+       Assert.assertArrayEquals(new int []{9,5,3,2,1,6,8,7,4},s[1]);
+       Assert.assertArrayEquals(new int []{6,7,1,8,4,9,5,2,3},s[2]);
+       Assert.assertArrayEquals(new int []{4,6,9,1,2,8,7,3,5},s[3]);
+       Assert.assertArrayEquals(new int []{5,1,7,3,9,4,2,6,8},s[4]);
+       Assert.assertArrayEquals(new int []{2,3,8,6,7,5,4,9,1},s[5]);
+       Assert.assertArrayEquals(new int []{3,8,6,5,2,7,1,4,9},s[6]);
+       Assert.assertArrayEquals(new int []{7,9,5,4,3,1,6,8,2},s[7]);
+       Assert.assertArrayEquals(new int []{1,4,2,9,6,8,3,5,7},s[8]);
 	}
 }
