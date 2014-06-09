@@ -5,23 +5,32 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.jmock.Expectations;
+import org.jmock.Mockery;
+import org.jmock.Sequence;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class TestTableDigger {
-
+	Mockery context = new Mockery();
+	final Sequence randSeq= context.sequence("predefined sequence");
 	@Test
 	public void testShufflePos() {
-		Permutations pers = new Permutations(new int[]{0, 1, 2, 3});
-		int perNr = 23;
-		assertEquals(24, pers.total());
-		int[] per = pers.get(perNr);
-		Assert.assertArrayEquals(new int []{3,  2, 1, 0}, per);
-		Spot[] pos = mapNumberToSpot(per, 2);
-		assertEquals(new Spot(1, 1), pos[0]);
-		assertEquals(new Spot(1, 0), pos[1]);
-		assertEquals(new Spot(0, 1), pos[2]);
-		assertEquals(new Spot(0, 0), pos[3]);
+		final RandomNumberGen rand = context.mock(RandomNumberGen.class);
+		HolesCandidate candidates = new HolesCandidate(2, 2);
+		RandomSpotSeq randomSpotSeq = new RandomSpotSeq(candidates, rand);
+		context.checking(new Expectations() {{
+		    oneOf(rand).nextInt(4);inSequence(randSeq);will(returnValue(3));
+		    oneOf(rand).nextInt(3);inSequence(randSeq);will(returnValue(2));
+		    oneOf(rand).nextInt(2);inSequence(randSeq);will(returnValue(1));
+		    oneOf(rand).nextInt(1);inSequence(randSeq);will(returnValue(0));
+		}}
+		);
+
+		assertEquals(new Spot(1, 1), randomSpotSeq.next());
+		assertEquals(new Spot(1, 0), randomSpotSeq.next());
+		assertEquals(new Spot(0, 1), randomSpotSeq.next());
+		assertEquals(new Spot(0, 0), randomSpotSeq.next());
 	}
 	
 	@Test
@@ -30,17 +39,21 @@ public class TestTableDigger {
 		SudokuSolver solver = new SudokuSolver(1);
 		solver.setSolutionCandidates(new int []{1});
 		Spot[] pos = new Spot[]{new Spot(0,0), new Spot(0, 1), new Spot(1, 0), new Spot(1, 1)};
-		TestingRandomSeq candidateHoles = new TestingRandomSeq();
-		candidateHoles.setSeq(pos);
-		Spot[] holes = dig(puzzle, solver, candidateHoles, 1);
+		HolesCandidate candidates = new HolesCandidate(2, 2);
+		final RandomNumberGen rand = context.mock(RandomNumberGen.class);
+		RandomSpotSeq randomSpotSeq = new RandomSpotSeq(candidates, rand);
+		context.checking(new Expectations() {{
+		    oneOf(rand).nextInt(4);inSequence(randSeq);will(returnValue(0));
+		    oneOf(rand).nextInt(3);inSequence(randSeq);will(returnValue(1));
+		    oneOf(rand).nextInt(2);inSequence(randSeq);will(returnValue(2));
+		    oneOf(rand).nextInt(1);inSequence(randSeq);will(returnValue(3));
+		}}
+		);
+//		TestingRandomSeq candidateHoles = new TestingRandomSeq();
+//		candidateHoles.setSeq(pos);
+		Spot[] holes = dig(puzzle, solver, randomSpotSeq, 1);
 		assertEquals(1, holes.length);
 		assertEquals(new Spot(0, 0), holes[0]);
-		candidateHoles = new TestingRandomSeq();
-		candidateHoles.setSeq(pos);
-		Spot[] holes2 = dig(puzzle, solver, candidateHoles, 2);
-		assertEquals(2, holes2.length);
-		assertEquals(new Spot(0, 0), holes2[0]);
-		assertEquals(new Spot(1, 1), holes2[1]);
 	}
 	
 	@Test
@@ -49,9 +62,19 @@ public class TestTableDigger {
 		SudokuSolver solver = new SudokuSolver(1);
 		solver.setSolutionCandidates(new int []{1});
 		Spot[] pos = new Spot[]{new Spot(0,0), new Spot(0, 1), new Spot(1, 0), new Spot(1, 1)};
+		HolesCandidate candidates = new HolesCandidate(2, 2);
+		final RandomNumberGen rand = context.mock(RandomNumberGen.class);
+		RandomSpotSeq randomSpotSeq = new RandomSpotSeq(candidates, rand);
+		context.checking(new Expectations() {{
+		    oneOf(rand).nextInt(4);inSequence(randSeq);will(returnValue(0));
+		    oneOf(rand).nextInt(3);inSequence(randSeq);will(returnValue(0));
+		    oneOf(rand).nextInt(2);inSequence(randSeq);will(returnValue(0));
+		    oneOf(rand).nextInt(1);inSequence(randSeq);will(returnValue(0));
+		}}
+		);
 		TestingRandomSeq candidateHoles = new TestingRandomSeq();
 		candidateHoles.setSeq(pos);
-		Spot[] holes2 = dig(puzzle, solver, candidateHoles, 2);
+		Spot[] holes2 = dig(puzzle, solver, randomSpotSeq, 2);
 		assertEquals(2, holes2.length);
 		assertEquals(new Spot(0, 0), holes2[0]);
 		assertEquals(new Spot(1, 1), holes2[1]);
@@ -63,40 +86,50 @@ public class TestTableDigger {
 		SudokuSolver solver = new SudokuSolver(1);
 		solver.setSolutionCandidates(new int []{1});
 		Spot[] pos = new Spot[]{new Spot(0,0), new Spot(0, 1), new Spot(1, 0), new Spot(1, 1)};
+		HolesCandidate candidates = new HolesCandidate(2, 2);
+		final RandomNumberGen rand = context.mock(RandomNumberGen.class);
+		RandomSpotSeq randomSpotSeq = new RandomSpotSeq(candidates, rand);
+		context.checking(new Expectations() {{
+		    oneOf(rand).nextInt(4);inSequence(randSeq);will(returnValue(0));
+		    oneOf(rand).nextInt(3);inSequence(randSeq);will(returnValue(0));
+		    oneOf(rand).nextInt(2);inSequence(randSeq);will(returnValue(0));
+		    oneOf(rand).nextInt(1);inSequence(randSeq);will(returnValue(0));
+		}}
+		);
 		TestingRandomSeq candidateHoles = new TestingRandomSeq();
 		candidateHoles.setSeq(pos);
-		Spot[] holes2 = dig(puzzle, solver, candidateHoles, 2);
+		Spot[] holes2 = dig(puzzle, solver, randomSpotSeq, 2);
 		assertNull(holes2);
 	}
 	
-	@Test
-	public void testDigARealOne(){
-		int [][] table = {{8,2,4,7,5,3,9,1,6},
-						   {9,5,3,2,1,6,8,7,4},
-						   {6,7,1,8,4,9,5,2,3},
-						   {4,6,9,1,8,2,7,3,5},
-						   {5,1,7,3,9,4,2,6,8},
-						   {2,3,8,6,7,5,4,9,1},
-						   {3,8,6,5,2,7,1,4,9},
-						   {7,9,5,4,3,1,6,8,2},
-						   {1,4,2,9,6,8,3,5,7}};
-		SudokuSolver solver = new SudokuSolver(1);
-		solver.setSolutionCandidates(new int []{1, 2, 3, 4, 5, 6, 7, 8, 9});
-		HolesInRandomSeq candidateHoles = new HolesInRandomSeqWithMathRandom(81, 9);
-		Spot[] holes2 = dig(table, solver, candidateHoles, 32);
-		System.out.print(holes2.length);
-		int [][] puzzle = erase(table, holes2);
-		for(int i = 0; i < 9; i++){
-			System.out.println();
-			for(int j = 0; j < 9; j++){
-				if(puzzle[i][j] == -1){
-					System.out.print(" ");
-				}else{
-				System.out.print(puzzle[i][j]);}
-				System.out.print(", ");
-			}
-		}
-	}
+//	@Test
+//	public void testDigARealOne(){
+//		int [][] table = {{8,2,4,7,5,3,9,1,6},
+//						   {9,5,3,2,1,6,8,7,4},
+//						   {6,7,1,8,4,9,5,2,3},
+//						   {4,6,9,1,8,2,7,3,5},
+//						   {5,1,7,3,9,4,2,6,8},
+//						   {2,3,8,6,7,5,4,9,1},
+//						   {3,8,6,5,2,7,1,4,9},
+//						   {7,9,5,4,3,1,6,8,2},
+//						   {1,4,2,9,6,8,3,5,7}};
+//		SudokuSolver solver = new SudokuSolver(1);
+//		solver.setSolutionCandidates(new int []{1, 2, 3, 4, 5, 6, 7, 8, 9});
+//		HolesInRandomSeq candidateHoles = new HolesInRandomSeqWithMathRandom(81, 9);
+//		Spot[] holes2 = dig(table, solver, candidateHoles, 32);
+//		System.out.print(holes2.length);
+//		int [][] puzzle = erase(table, holes2);
+//		for(int i = 0; i < 9; i++){
+//			System.out.println();
+//			for(int j = 0; j < 9; j++){
+//				if(puzzle[i][j] == -1){
+//					System.out.print(" ");
+//				}else{
+//				System.out.print(puzzle[i][j]);}
+//				System.out.print(", ");
+//			}
+//		}
+//	}
 	
 	private int[][] erase(int[][] table, Spot[] holes2) {
 		int [][] result = deepcopy(table);
@@ -105,12 +138,12 @@ public class TestTableDigger {
 		return result;
 	}
 
-	private Spot[] dig(int[][] puzzle, SudokuSolver solver, HolesInRandomSeq candidateHoles, int requiredHoles) {
+	private Spot[] dig(int[][] puzzle, SudokuSolver solver, RandomSpotSeq randomSpotSeq, int requiredHoles) {
 		int [][] localPuzzle = deepcopy(puzzle);
 		int nrOfHoles = 0;
 		Spot[] result = new Spot[requiredHoles];
-		while(nrOfHoles < requiredHoles && !candidateHoles.noMoreCandidate()){
-			Spot next = candidateHoles.next();
+		while(nrOfHoles < requiredHoles && randomSpotSeq.nrOfCandidates() != 0){
+			Spot next = randomSpotSeq.next();
 			int x = next.geti();
 			int y = next.getj();
 			int temp = localPuzzle[x][y];
