@@ -51,7 +51,9 @@ function PuzzleController(puzzleView, puzzleModel){
 
 	this.numberInput = function(value, i, j){
 		puzzleModel.change(value, i, j);
-		if(puzzleModel.finished()) puzzleFinished();
+		if(puzzleModel.finished()) {
+			puzzleFinished()
+		};
 	};
 
 }
@@ -89,13 +91,17 @@ function StopWatch(){
 	}
 
 	var tic;
+	var cnt = 0;
 
 	this.start = function(){
 		startTime = Date.now();
 		tic = setInterval(update, interval);
+		cnt = cnt + 1;
+		alert("start" + cnt);
 	};
 
 	this.stop = function(){
+		alert("stop" + cnt);
 		clearInterval(tic);
 	}
 }
@@ -115,6 +121,7 @@ function getNewPuzzle(){
 			puzzleController = new PuzzleController(puzzleView, puzzleModel);
 			puzzleController.loadPuzzleNew();
 			puzzleController.lockPuzzle();
+			timer.stop();
 			timer.start();
 			puzzleView.setResetbuttonDelegation(puzzleController.clearSolution);
 			puzzleView.setKeyUpDelegation(puzzleController.numberInput);
@@ -137,6 +144,12 @@ function onDocReady(){
 	puzzleView.setResetbuttonDelegation(puzzleController.clearSolution);
 	puzzleView.setKeyUpDelegation(puzzleController.numberInput);
 	$('#button-new').click(getNewPuzzle);
+	$('#button-start').click(function(){
+		timer.start();
+	});
+	$('#button-stop').click(function(){
+		timer.stop();
+	});
 }
 
 $(onDocReady);

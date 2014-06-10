@@ -16,6 +16,8 @@
 	<%@ include file="table.jsp"%>
 	<button id="button-clear">Reset</button>
 	<button id="button-new">New</button>
+	<button id="button-start">Start</button>
+	<button id="button-stop">Stop</button>
 	<p id="timing">00:00:00</p>
 	<p id="messaging"></p>
 </body>

@@ -45,7 +45,7 @@ function PuzzleModel(puzzle, blocksize){
 	this.finished = function(){
 		if (!_.every(puzzle, function(row){
 			return !_.contains(row, '');
-		})) return false;
+		}))	return false;
 
 		return _.every(_.range(size.i), function(i){
 			return _.every(_.range(size.j), function(j){
