@@ -14,9 +14,7 @@ public class HolesCandidate {
 		}
 	}
 
-	private HolesCandidate() {
-		// TODO Auto-generated constructor stub
-	}
+	private HolesCandidate() {}
 
 	public Spot getNthCandidate(int i) {
 		return this.candidates[i];

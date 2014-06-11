@@ -2,12 +2,12 @@ package com.sharonhome.sudoku.generator;
 
 import java.util.ArrayList;
 
-public class PermutateCSLCR {
+public class CSLCRPermutations {
 
 	private NumberingSystem ns;
 	ArrayList<Permutations> perms;
 
-	public PermutateCSLCR(ArrayList <int[]> cslcr) {
+	public CSLCRPermutations(ArrayList <int[]> cslcr) {
 		this.ns = new NumberingSystem(new int []{6, 6, 6});
 		this.perms = new ArrayList<Permutations>();
 		perms.add(new Permutations(cslcr.get(0)));

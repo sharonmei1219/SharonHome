@@ -33,7 +33,7 @@ public class TestCSLCRGenerator {
 		cslcr.add(new int[] {11, 12, 13});
 		cslcr.add(new int[] {21, 22, 23});
 		cslcr.add(new int[] {31, 32, 33});
-		PermutateCSLCR sCSLCRs = new PermutateCSLCR(cslcr);
+		CSLCRPermutations sCSLCRs = new CSLCRPermutations(cslcr);
 		Assert.assertArrayEquals(new int []{11, 12, 13, 21, 22, 23, 31, 32, 33}, sCSLCRs.getNthPermutation(0));
 		Assert.assertArrayEquals(new int []{11, 12, 13, 21, 22, 23, 33, 32, 31}, sCSLCRs.getNthPermutation(6 - 1));
 		Assert.assertArrayEquals(new int []{11, 12, 13, 23, 22, 21, 33, 32, 31}, sCSLCRs.getNthPermutation(6*6 - 1));

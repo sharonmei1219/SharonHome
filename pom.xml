@@ -34,6 +34,18 @@
 		</dependency>
 
 		<dependency>
+      		<groupId>org.springframework</groupId>
+      		<artifactId>spring-jdbc</artifactId>
+      		<version>${spring.version}</version>
+    	</dependency>
+
+    	<dependency>
+      		<groupId>org.springframework</groupId>
+      		<artifactId>spring-test</artifactId>
+      		<version>${spring.version}</version>
+    	</dependency>
+
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
@@ -83,6 +95,12 @@
 		    <artifactId>jackson-mapper-asl</artifactId>
 		    <version>1.9.13</version>
 		</dependency>
+
+		<dependency>
+	      <groupId>org.hsqldb</groupId>
+	      <artifactId>hsqldb</artifactId>
+	      <version>2.3.2</version>
+	    </dependency>
   
 	</dependencies>
 
@@ -117,11 +135,102 @@
 					<skipTests>true</skipTests>
 				</configuration>
 			</plugin>
-    <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>2.4.2</version>
-      </plugin>
+
+	    	<plugin>
+	        	<groupId>org.apache.maven.plugins</groupId>
+	          	<artifactId>maven-resources-plugin</artifactId>
+	          	<version>2.4.2</version>
+	      	</plugin>
+
+	      	<plugin>
+		        <groupId>org.codehaus.mojo</groupId>
+	            <artifactId>exec-maven-plugin</artifactId>
+	            <version>1.2.1</version>
+	            <executions>
+	              <execution>
+	                <goals>
+	                  <goal>java</goal>
+	                </goals>
+	              </execution>
+	            </executions>
+	            <configuration>
+	              <mainClass>org.hsqldb.Server</mainClass>
+	              <arguments>
+	                  <argument>--database.0</argument>
+	                  <argument>file:target/db/test</argument>
+	              </arguments>
+	            </configuration>
+	      	</plugin>
+
+	      	<plugin>
+	      		<!-- (1) plugin info -->
+	      		<groupId>org.codehaus.mojo</groupId>
+	      		<artifactId>sql-maven-plugin</artifactId>
+	      		<version>1.5</version>
+
+	      		<!-- (2) jdbc driver -->
+	      		<dependencies>
+	      			<dependency>
+	      				<groupId>org.hsqldb</groupId>
+	      				<artifactId>hsqldb</artifactId>
+	      				<version>2.3.2</version>
+	      			</dependency>
+	      		</dependencies>
+
+	      		<!-- (3) connection setting -->
+	      		<configuration>
+	      			<driver>org.hsqldb.jdbcDriver</driver>
+	      			<url>jdbc:hsqldb:hsql://localhost</url>
+	      			<username>sa</username>
+	      			<password></password>
+	      		</configuration>
+
+	      		<!-- (4) phase, goal & SQL (command or file) -->
+	      		<executions>
+	      			<execution>
+	      				<id>drop-table</id>
+	      				<phase>process-test-resources</phase>
+	      				<goals>
+	      					<goal>execute</goal>
+	      				</goals>
+	      				<configuration>
+	      					<autocommit>true</autocommit>
+	      					<srcFiles>
+	      						<srcFile>src/test/db/drop_tables.sql</srcFile>
+	      					</srcFiles>
+	      				</configuration>
+	      			</execution>
+
+	      			<execution>
+		                <id>create-table</id>
+		                <phase>process-test-resources</phase>
+		                <goals>
+		                  	<goal>execute</goal>
+		                </goals>
+		                <configuration>
+		                  <autocommit>true</autocommit>
+		                  <srcFiles>
+		                      <srcFile>db/schema.sql</srcFile>
+		                  </srcFiles>
+		                </configuration>
+		            </execution>
+
+		            <execution>
+		                <id>insert-data</id>
+		                <phase>process-test-resources</phase>
+		                <goals>
+		                    <goal>execute</goal>
+		                </goals>
+		                <configuration>
+		                    <autocommit>true</autocommit>
+		                    <srcFiles>
+		                        <srcFile>src/test/db/test_data.sql</srcFile>
+		                    </srcFiles>
+		                </configuration>
+		             </execution>
+
+	      		</executions>
+	      	</plugin>
       
     </plugins>
 

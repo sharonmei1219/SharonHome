@@ -15,7 +15,7 @@ public class TestSudokuSolutionTableGeneration {
 		CSLCRNumberingSystem cslcrNs = new CSLCRNumberingSystem();
 		CSLCRGenerator gen = new CSLCRGenerator(ss, cslcrNs);
 		ArrayList<int []> cslcr = gen.getAllSelection(0);
-		PermutateCSLCR per = new PermutateCSLCR(cslcr);
+		CSLCRPermutations per = new CSLCRPermutations(cslcr);
 		int [] column = per.getNthPermutation(0);
 		SudokuTableTemplateGenerator tableGen = new SudokuTableTemplateGenerator();
 		int [][] sudokuSolutionTable = tableGen.genTable(column);
