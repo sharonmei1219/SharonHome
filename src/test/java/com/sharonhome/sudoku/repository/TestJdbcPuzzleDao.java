@@ -6,7 +6,7 @@ import org.springframework.test.AbstractTransactionalDataSourceSpringContextTest
 
 import com.sharonhome.sudoku.generator.RandomNumberGen;
 
-public class TestJdbcEasyPuzzleDao extends
+public class TestJdbcPuzzleDao extends
 		AbstractTransactionalDataSourceSpringContextTests {
 	private JdbcPuzzleDao puzzleDao;
 	Mockery context = new Mockery();
