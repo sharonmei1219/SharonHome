@@ -3,16 +3,18 @@ package com.sharonhome.sudoku.repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 
 import com.sharonhome.sudoku.generator.RandomNumberGen;
+import com.sharonhome.sudoku.generator.RandomNumberGenbyRandom;
 
 
 public class JdbcPuzzleDao extends SimpleJdbcDaoSupport implements
 		PuzzleDao {
-	private RandomNumberGen rand;
+	private RandomNumberGen rand = new RandomNumberGenbyRandom();
 	
 	public void setRand(RandomNumberGen rand){
 		this.rand = rand;
