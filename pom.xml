@@ -101,6 +101,12 @@
 	      <artifactId>hsqldb</artifactId>
 	      <version>2.3.2</version>
 	    </dependency>
+
+	    <dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>sqltool</artifactId>
+			<version>2.3.2</version>
+		</dependency>
   
 	</dependencies>
 
@@ -157,7 +163,9 @@
 	              <mainClass>org.hsqldb.Server</mainClass>
 	              <arguments>
 	                  <argument>--database.0</argument>
-	                  <argument>file:target/db/test</argument>
+	                  <argument>file:target/db/test/</argument>
+	                  <argument>--dbname.0</argument>
+	                  <argument>test</argument>
 	              </arguments>
 	            </configuration>
 	      	</plugin>
@@ -180,7 +188,7 @@
 	      		<!-- (3) connection setting -->
 	      		<configuration>
 	      			<driver>org.hsqldb.jdbcDriver</driver>
-	      			<url>jdbc:hsqldb:hsql://localhost</url>
+	      			<url>jdbc:hsqldb:hsql://localhost/test</url>
 	      			<username>sa</username>
 	      			<password></password>
 	      		</configuration>
