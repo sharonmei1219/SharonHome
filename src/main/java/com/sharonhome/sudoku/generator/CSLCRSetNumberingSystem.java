@@ -2,10 +2,10 @@ package com.sharonhome.sudoku.generator;
 
 import java.util.ArrayList;
 
-class CSLCRNumberingSystem{
+class CSLCRSetNumberingSystem{
 	ArrayList<NumberingSystem> nrSystem = new ArrayList<NumberingSystem>();
 	NumberingSystem highOrderNrSystem;
-	public CSLCRNumberingSystem(){
+	public CSLCRSetNumberingSystem(){
 		nrSystem.add(new NumberingSystem(new int [] {3, 3, 3}));
 		nrSystem.add(new NumberingSystem(new int [] {2, 2, 2}));
 		nrSystem.add(new NumberingSystem(new int [] {1, 1, 1}));

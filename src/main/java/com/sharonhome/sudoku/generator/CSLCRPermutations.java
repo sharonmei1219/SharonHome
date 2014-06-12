@@ -4,11 +4,10 @@ import java.util.ArrayList;
 
 public class CSLCRPermutations {
 
-	private NumberingSystem ns;
+	static private NumberingSystem ns = new NumberingSystem(new int []{6, 6, 6});
 	ArrayList<Permutations> perms;
 
 	public CSLCRPermutations(ArrayList <int[]> cslcr) {
-		this.ns = new NumberingSystem(new int []{6, 6, 6});
 		this.perms = new ArrayList<Permutations>();
 		perms.add(new Permutations(cslcr.get(0)));
 		perms.add(new Permutations(cslcr.get(1)));
@@ -26,6 +25,10 @@ public class CSLCRPermutations {
 		for (int item : perms.get(2).get(shufflePos.get(2)))
 			result[k++] = item;
 		return result;
+	}
+	
+	static public int total(){
+		return ns.total();
 	}
 
 }

@@ -12,8 +12,8 @@ public class TestSudokuSolutionTableGeneration {
 	@Test
 	public void test() {
 		SetSet ss = new SetSet(new int [][]{{0, 3, 6},{1, 4, 7},{2, 5, 8}});
-		CSLCRNumberingSystem cslcrNs = new CSLCRNumberingSystem();
-		CSLCRGenerator gen = new CSLCRGenerator(ss, cslcrNs);
+		CSLCRSetNumberingSystem cslcrNs = new CSLCRSetNumberingSystem();
+		CSLCRSetGenerator gen = new CSLCRSetGenerator(ss, cslcrNs);
 		ArrayList<int []> cslcr = gen.getAllSelection(0);
 		CSLCRPermutations per = new CSLCRPermutations(cslcr);
 		int [] column = per.getNthPermutation(0);

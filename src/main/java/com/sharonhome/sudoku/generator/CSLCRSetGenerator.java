@@ -2,11 +2,11 @@ package com.sharonhome.sudoku.generator;
 
 import java.util.ArrayList;
 
-class CSLCRGenerator{
+class CSLCRSetGenerator{
 	private SetSet ss;
-	private CSLCRNumberingSystem nrs;
+	private CSLCRSetNumberingSystem nrs;
 
-	public CSLCRGenerator(SetSet ss, CSLCRNumberingSystem nrs){
+	public CSLCRSetGenerator(SetSet ss, CSLCRSetNumberingSystem nrs){
 		this.ss = ss;
 		this.nrs = nrs;
 	}
@@ -21,5 +21,9 @@ class CSLCRGenerator{
 		rest = rest.subSelection(selection.get(1));
 		result.add(rest.getSelectedValue(selection.get(2)));
 		return result;
+	}
+	
+	public int total(){
+		return nrs.total();
 	}
 }

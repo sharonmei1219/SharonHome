@@ -39,5 +39,50 @@ public class TestCSLCRGenerator {
 		Assert.assertArrayEquals(new int []{11, 12, 13, 23, 22, 21, 33, 32, 31}, sCSLCRs.getNthPermutation(6*6 - 1));
 		Assert.assertArrayEquals(new int []{13, 12, 11, 23, 22, 21, 33, 32, 31}, sCSLCRs.getNthPermutation(6*6*6 - 1));
 	}
+	
+	@Test
+	public void testCSLCRSetGenerator(){
+		SetSet ss = new SetSet(new int [][]{{11, 12, 13}, {21, 22, 23}, {31, 32, 33}});
+		CSLCRSetNumberingSystem setNs = new CSLCRSetNumberingSystem();
+		CSLCRSetGenerator setGen = new CSLCRSetGenerator(ss, setNs);
+		Assert.assertArrayEquals(new int[] {11, 21, 31},   setGen.getAllSelection(0).get(0));
+		Assert.assertArrayEquals(new int[] {12, 22, 32},   setGen.getAllSelection(0).get(1));
+		Assert.assertArrayEquals(new int[] {13, 23, 33},   setGen.getAllSelection(0).get(2));
+		
+		Assert.assertArrayEquals(new int[] {11, 21, 32},   setGen.getAllSelection(8).get(0));
+		Assert.assertArrayEquals(new int[] {12, 22, 31},   setGen.getAllSelection(8).get(1));
+		Assert.assertArrayEquals(new int[] {13, 23, 33},   setGen.getAllSelection(8).get(2));
+		
+		Assert.assertArrayEquals(new int[] {11, 21, 33},   setGen.getAllSelection(16).get(0));
+		Assert.assertArrayEquals(new int[] {12, 22, 31},   setGen.getAllSelection(16).get(1));
+		Assert.assertArrayEquals(new int[] {13, 23, 32},   setGen.getAllSelection(16).get(2));
+		
+		
+		Assert.assertArrayEquals(new int[] {13, 23, 33},   setGen.getAllSelection(215).get(0));
+		Assert.assertArrayEquals(new int[] {12, 22, 32},   setGen.getAllSelection(215).get(1));
+		Assert.assertArrayEquals(new int[] {11, 21, 31},   setGen.getAllSelection(215).get(2));
+	}
+	
+	@Test
+	public void testCSLCRSetGeneratorTotalDifferentSets(){
+		SetSet ss = new SetSet(new int [][]{{11, 12, 13}, {21, 22, 23}, {31, 32, 33}});
+		CSLCRSetNumberingSystem setNs = new CSLCRSetNumberingSystem();
+		CSLCRSetGenerator setGen = new CSLCRSetGenerator(ss, setNs);
+		assertEquals(216, setGen.total());
+
+	}
+	
+	@Test
+	public void testCSLCRPerNumberingSystem(){
+		SetSet ss = new SetSet(new int [][]{{11, 12, 13}, {21, 22, 23}, {31, 32, 33}});
+		CSLCRSetNumberingSystem setNs = new CSLCRSetNumberingSystem();
+		CSLCRSetGenerator setGen = new CSLCRSetGenerator(ss, setNs);
+		CSLCRPerGenerator perGen = new CSLCRPerGenerator(setGen);
+
+		assertEquals(216 * 216, perGen.total());
+		
+		Assert.assertArrayEquals(new int []{11, 21, 31, 12, 22, 32, 13, 23, 33}, perGen.getNthPerCSLCR(0));
+		Assert.assertArrayEquals(new int []{33, 23, 13, 32, 22, 12, 31, 21, 11}, perGen.getNthPerCSLCR(perGen.total() -1));
+	}
 
 }
