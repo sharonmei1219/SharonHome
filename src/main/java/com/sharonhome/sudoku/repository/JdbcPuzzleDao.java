@@ -1,0 +1,41 @@
+package com.sharonhome.sudoku.repository;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
+import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
+
+import com.sharonhome.sudoku.generator.RandomNumberGen;
+
+
+public class JdbcPuzzleDao extends SimpleJdbcDaoSupport implements
+		PuzzleDao {
+	private RandomNumberGen rand;
+	
+	public void setRand(RandomNumberGen rand){
+		this.rand = rand;
+	}
+	
+	public String getPuzzle(String level) {
+		String getCntSql = "SELECT COUNT(*) FROM " + level +"puzzle";
+		int count = getSimpleJdbcTemplate().queryForInt(getCntSql);
+		int id = rand.nextInt(count);
+		String sql = "select puzzle from " + level + "puzzle where id = ?";
+		String puzzle = getSimpleJdbcTemplate().queryForObject(sql, new PuzzleMapper(), id);
+		return puzzle;
+	}
+	
+//	public void insertPuzzle(String level, String puzzle) {
+//		String getCntSql = "SELECT COUNT(*) FROM " + level +"puzzle";
+//		int count = getSimpleJdbcTemplate().queryForInt(getCntSql);
+//	}
+	
+	private static class PuzzleMapper implements ParameterizedRowMapper<String>{
+		public String mapRow(ResultSet rs, int rowNum) throws SQLException{
+			return rs.getString("puzzle");
+		}
+	}
+
+}

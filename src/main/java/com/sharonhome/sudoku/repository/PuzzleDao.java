@@ -1,6 +1,6 @@
 package com.sharonhome.sudoku.repository;
 
 public interface PuzzleDao {
-	public String getNewPuzzleByID(String id);
+	public String getPuzzle(String level);
 }
 
