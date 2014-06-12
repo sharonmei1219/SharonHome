@@ -33,16 +33,18 @@ public class TestJdbcEasyPuzzleDao extends
 		assertEquals("incorrect puzzle ?", "[[11],[11]]", puzzle);
 	}
 	
-//	public void testInsertHardPuzzle(){
-//		final RandomNumberGen rand = context.mock(RandomNumberGen.class);
-//		puzzleDao.setRand(rand);
-//		
-//		context.checking(new Expectations() {{
-//		    oneOf(rand).nextInt(2);will(returnValue(0));
-//		}}
-//		);
-//		
-//		String puzzle = puzzleDao.getPuzzle("easy");
-//		assertEquals("incorrect puzzle ?", "[[11],[11]]", puzzle);
-//	}
+	public void testInsertHardPuzzle(){
+		final RandomNumberGen rand = context.mock(RandomNumberGen.class);
+		puzzleDao.setRand(rand);
+		
+		
+		puzzleDao.insertPuzzle("hard", "this is a hard one");
+		context.checking(new Expectations() {{
+			oneOf(rand).nextInt(2);will(returnValue(1));
+		}}
+		);
+		
+		String puzzle = puzzleDao.getPuzzle("hard");
+		assertEquals("incorrect puzzle ?", "this is a hard one", puzzle);
+	}
 }

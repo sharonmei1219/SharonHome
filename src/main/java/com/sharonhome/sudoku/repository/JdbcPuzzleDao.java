@@ -27,10 +27,12 @@ public class JdbcPuzzleDao extends SimpleJdbcDaoSupport implements
 		return puzzle;
 	}
 	
-//	public void insertPuzzle(String level, String puzzle) {
-//		String getCntSql = "SELECT COUNT(*) FROM " + level +"puzzle";
-//		int count = getSimpleJdbcTemplate().queryForInt(getCntSql);
-//	}
+	public void insertPuzzle(String level, String puzzle) {
+		String getCntSql = "SELECT COUNT(*) FROM " + level +"puzzle";
+		int count = getSimpleJdbcTemplate().queryForInt(getCntSql);
+		String insertSql = "INSERT INTO " + level + "puzzle (id, puzzle) values(?,?)";
+		getSimpleJdbcTemplate().update(insertSql, new Object[]{count, puzzle});
+	}
 	
 	private static class PuzzleMapper implements ParameterizedRowMapper<String>{
 		public String mapRow(ResultSet rs, int rowNum) throws SQLException{

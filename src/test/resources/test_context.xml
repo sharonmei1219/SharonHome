@@ -5,7 +5,7 @@
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
 	                       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-	<bean id="puzzleDao" class="com.sharonhome.sudoku.repository.JdbcEasyPuzzleDao">
+	<bean id="puzzleDao" class="com.sharonhome.sudoku.repository.JdbcPuzzleDao">
 		<property name = "dataSource" ref="dataSource"/>
 	</bean>
 
