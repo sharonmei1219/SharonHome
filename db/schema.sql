@@ -18,13 +18,11 @@ CREATE TABLE evilpuzzle(
 	puzzle varchar(600)
 );
 
+-- for puzzle generation process
 
-CREATE TABLE lastcslcr(
-	level varchar(10) NOT NULL PRIMARY KEY,
-	lastcslcrnumber int
+CREATE TABLE puzzletemplates(
+	id int NOT NULL PRIMARY KEY,
+	puzzle varchar(600),
+	solution varchar(600),
+	nrOfHoles int
 );
-
-INSERT INTO lastcslcr(level, lastcslcrnumber) VALUES ('easy', 0);
-INSERT INTO lastcslcr(level, lastcslcrnumber) VALUES ('normal', 0);
-INSERT INTO lastcslcr(level, lastcslcrnumber) VALUES ('hard', 0);
-INSERT INTO lastcslcr(level, lastcslcrnumber) VALUES ('evil', 0);
