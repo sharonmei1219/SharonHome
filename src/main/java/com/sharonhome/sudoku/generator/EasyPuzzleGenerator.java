@@ -30,19 +30,21 @@ public class EasyPuzzleGenerator {
 		SudokuTableTemplateGenerator tableGen = new SudokuTableTemplateGenerator();
 
 		int totalCslcrPermutations = perGen.total();
+		
+		int holeCount = 56;
 		for (int i = 0; i < totalCslcrPermutations; i++) {
 			int[] cslcr = perGen.getNthPerCSLCR(i);
 
 			int[][] table = tableGen.genTable(cslcr);
-			for (int count = 0; count < 2; count++) {
+			for (int count = 0; count < 1; count++) {
 				RandomSpotSeq randomSpotSeq = new RandomSpotSeq(candidates,
 						rand);
-				Spot[] holes = digger.dig(table, solver, randomSpotSeq, 58);
+				Spot[] holes = digger.dig(table, solver, randomSpotSeq, holeCount);
 				if(holes == null) continue;
 				int[][] puzzle = digger.eraseHoles(table, holes);
 				String puzzleInString = gson.toJson(puzzle);
-				System.out.println(puzzleInString);
-				System.out.println();
+				System.out.println(i);
+				puzzleDao.insertTemplate(puzzleInString, gson.toJson(table), holeCount);
 			}
 		}
 	}

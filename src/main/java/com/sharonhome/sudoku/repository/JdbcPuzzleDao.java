@@ -36,6 +36,28 @@ public class JdbcPuzzleDao extends SimpleJdbcDaoSupport implements
 		getSimpleJdbcTemplate().update(insertSql, new Object[]{count, puzzle});
 	}
 	
+	public void insertTemplate(String puzzle, String table, int holeCount){
+		String getCntSql = "SELECT COUNT(*) FROM puzzletemplates";
+		int count = getSimpleJdbcTemplate().queryForInt(getCntSql);
+		String insertSql = "INSERT INTO puzzletemplates (id, puzzle, solution, holecount) values(?,?, ?, ?)";
+		getSimpleJdbcTemplate().update(insertSql, new Object[]{count, 
+															   puzzle,
+															   table,
+															   holeCount});
+	}
+	
+	public String getTemplate(int id){
+		String sql = "select puzzle from puzzletemplates where id = ?";
+		String puzzle = getSimpleJdbcTemplate().queryForObject(sql, new PuzzleMapper(), id);
+		return puzzle;
+
+	}
+	
+	public String getSolution(int id){
+		String sql = "select solution from puzzletemplates where id = ?";
+		String solution = getSimpleJdbcTemplate().queryForObject(sql, new PuzzleMapper(), id);
+		return solution;
+	}
 	
 	private static class PuzzleMapper implements ParameterizedRowMapper<String>{
 		public String mapRow(ResultSet rs, int rowNum) throws SQLException{

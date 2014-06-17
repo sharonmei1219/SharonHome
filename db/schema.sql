@@ -24,5 +24,5 @@ CREATE TABLE puzzletemplates(
 	id int NOT NULL PRIMARY KEY,
 	puzzle varchar(600),
 	solution varchar(600),
-	nrOfHoles int
+	holecount int
 );
