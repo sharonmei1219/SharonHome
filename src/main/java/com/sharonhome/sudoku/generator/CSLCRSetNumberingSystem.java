@@ -2,7 +2,7 @@ package com.sharonhome.sudoku.generator;
 
 import java.util.ArrayList;
 
-class CSLCRSetNumberingSystem{
+public class CSLCRSetNumberingSystem{
 	ArrayList<NumberingSystem> nrSystem = new ArrayList<NumberingSystem>();
 	NumberingSystem highOrderNrSystem;
 	public CSLCRSetNumberingSystem(){

@@ -2,7 +2,7 @@ package com.sharonhome.sudoku.generator;
 
 import java.util.ArrayList;
 
-class CSLCRSetGenerator{
+public class CSLCRSetGenerator{
 	private SetSet ss;
 	private CSLCRSetNumberingSystem nrs;
 

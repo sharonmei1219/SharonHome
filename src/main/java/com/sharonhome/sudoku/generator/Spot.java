@@ -26,7 +26,7 @@ public class Spot {
 	
 	@Override
 	public String toString(){
-		return "(" + i + ", "+j + ")";
+		return "i: " + i + ", "+ "j: " + j + "";
 	}
 
 }

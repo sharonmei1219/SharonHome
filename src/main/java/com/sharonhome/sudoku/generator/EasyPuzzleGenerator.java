@@ -13,6 +13,8 @@ public class EasyPuzzleGenerator {
 		ApplicationContext context = new ClassPathXmlApplicationContext(
 				"EasyPuzzleTempGen_context.xml");
 		PuzzleDao puzzleDao = (PuzzleDao) context.getBean("puzzleDao");
+		
+		
 		SetSet ss = new SetSet(new int[][] { { 0, 3, 6 }, { 1, 4, 7 },
 				{ 2, 5, 8 } });
 		CSLCRSetNumberingSystem setNs = new CSLCRSetNumberingSystem();
