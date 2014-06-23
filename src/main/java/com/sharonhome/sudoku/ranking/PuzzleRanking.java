@@ -56,7 +56,7 @@ public class PuzzleRanking {
 			}
 			if(newLockedList.size() > 0) continue;
 			
-			newLockedList = PP.findNewLocked(lockedlist);
+			newLockedList = PP.findNewLocked();
 			for(Locked locked : newLockedList){
 				PV.update(locked);
 				PP.update(locked);

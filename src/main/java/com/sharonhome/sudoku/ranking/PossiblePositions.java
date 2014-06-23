@@ -104,4 +104,109 @@ public class PossiblePositions {
 		return cnt == 1;
 	}
 
+	public int getNumberOfPossiblePositionsInRow(int row) {
+		int count = 0;
+		for(int j = 0; j < 9; j++)
+			if(posiblePos[row][j]) count ++;
+		return count;
+	}
+
+	public int getNumberOfPossiblePositionsInColumn(int column) {
+		int count = 0;
+		for (int i = 0; i < 9; i++)
+			if(posiblePos[i][column]) count++;
+		return count;
+	}
+
+	public int getNumberOfPossiblePositionsInBlock(int br, int bc) {
+		int count = 0;
+		for(int i = br * 3; i < br * 3 + 3; i ++)
+			for(int j = bc * 3; j < bc * 3 + 3; j ++)
+				if(posiblePos[i][j]) count ++;
+		return count;
+	}
+
+	public boolean matchesInRow(PossiblePositions pp2, int row) {
+		for(int j = 0; j < 9; j++)
+			if(this.posiblePos[row][j] != pp2.posiblePos[row][j]) return false;
+		return true;
+	}
+	
+	public int [] possiblePosInRow(int row){
+		int cnt = getNumberOfPossiblePositionsInRow(row);
+		int [] result = new int [cnt];
+		int resultIndex = 0;
+		for(int j = 0; j < 9; j++){
+			if(posiblePos[row][j])	result[resultIndex++] = j;
+		}
+		return result;
+	}
+
+	public boolean matchesInColumn(PossiblePositions pp2, int column) {
+		for(int i = 0; i < 9; i ++)
+			if(this.posiblePos[i][column] != pp2.posiblePos[i][column]) return false;
+		return true;
+	}
+
+	public int[] possiblePosInColumn(int column) {
+		int [] result = new int [getNumberOfPossiblePositionsInColumn(column)];
+		int resultIndex = 0;
+		for(int i = 0; i < 9; i++){
+			if(posiblePos[i][column]) result[resultIndex ++] = i;
+		}
+		return result;
+	}
+
+	public boolean matchesInBlock(PossiblePositions pp2, int br, int bc) {
+		for(int i = br * 3; i < br * 3 + 3; i++){
+			for(int j = bc * 3; j < bc * 3 + 3; j++){
+				if(this.posiblePos[i][j] != pp2.posiblePos[i][j]) return false;
+			}
+		}
+		return true;
+	}
+
+	public Spot[] possiblePosInBlock(int br, int bc) {
+		Spot [] result = new Spot[getNumberOfPossiblePositionsInBlock(br, bc)];
+		int resultIndex = 0;
+		for(int i = br *3; i < br*3 + 3; i++)
+			for(int j = bc*3; j < bc*3 + 3; j++)
+				if(posiblePos[i][j]) result[resultIndex ++] = new Spot(i, j);
+		return result;
+	}
+
+	public Spot[] inBlock(int br, int bc) {
+		ArrayList<Spot> list = new ArrayList<Spot>();
+		for(int i = br*3; i < br*3 + 3; i ++){
+			for(int j = bc *3; j < bc*3 + 3; j++){
+				if (posiblePos[i][j])	list.add(new Spot(i, j));
+			}
+		}
+		return listToArray(list);
+	}
+
+	private Spot[] listToArray(ArrayList<Spot> list) {
+		Spot[] result = new Spot[list.size()];
+		int resultIndex = 0;
+		for(Spot p : list)
+			result[resultIndex++] = p;
+		return result;
+	}
+	
+	
+
+	public Spot[] inRow(int row) {
+		ArrayList<Spot> list = new ArrayList<Spot>();
+		for(int j = 0; j < 9; j++)
+			if(posiblePos[row][j]) list.add(new Spot(row, j));
+		return listToArray(list);
+	}
+
+	public Spot[] inColumn(int column) {
+		ArrayList<Spot> list = new ArrayList<Spot>();
+		for(int i = 0; i < 9; i ++)
+			if(posiblePos[i][column]) list.add(new Spot(i, column));
+		return listToArray(list);
+	}
+
 }

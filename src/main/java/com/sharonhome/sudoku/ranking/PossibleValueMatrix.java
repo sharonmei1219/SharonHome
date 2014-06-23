@@ -165,6 +165,17 @@ public class PossibleValueMatrix {
 	}
 
 	public void update(Locked locked) {
+		if(locked.inABlock()){
+			int br = locked.br();
+			int bc = locked.bc();
+			int num = locked.num();
+			for(int i = br * 3; i < br * 3 + 3; i ++){
+				for(int j = bc * 3; j < bc * 3 + 3; j ++){
+					if(locked.contains(new Spot(i, j))) continue;
+					matrix[i][j].remove(num);
+				}
+			}
+		}
 		
 	}
 

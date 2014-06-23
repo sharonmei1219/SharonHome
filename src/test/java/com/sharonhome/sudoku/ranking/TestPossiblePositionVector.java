@@ -24,21 +24,27 @@ public class TestPossiblePositionVector {
 	ArrayList<Single> singleList = new ArrayList<Single>(); 
 
 	@Test
-	public void testConstruction() {
+	public void testConstruction(){
 		singleList = PP.findNewSingle(singleList);
 		assertEquals(0, singleList.size());
 	}
 	
 	@Test
 	public void testUpdateSingleWithRowImpacted() {
-		PP.update(new Single(0, new Spot(0, 0)));
-		PP.update(new Single(1, new Spot(0, 1)));
-		PP.update(new Single(2, new Spot(0, 2)));
-		PP.update(new Single(3, new Spot(0, 3)));
-		PP.update(new Single(4, new Spot(0, 4)));
-		PP.update(new Single(5, new Spot(0, 5)));
-		PP.update(new Single(6, new Spot(0, 6)));
-		PP.update(new Single(7, new Spot(0, 7)));
+		
+		Puzzle puzzle = new Puzzle(new int [][]{
+				{ 0,  1,  2,  3,  4,  5,  6,  7, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1}
+		});
+		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
+
 		singleList = PP.findNewSingle(singleList);
 		assertEquals(1, singleList.size());
 		assertEquals(8, singleList.get(0).getValue());
@@ -48,14 +54,18 @@ public class TestPossiblePositionVector {
 	
 	@Test
 	public void testUpdateSingleWithColumnImpacted() {
-		PP.update(new Single(0, new Spot(0, 2)));
-		PP.update(new Single(1, new Spot(1, 2)));
-		PP.update(new Single(2, new Spot(2, 2)));
-		PP.update(new Single(3, new Spot(3, 2)));
-		PP.update(new Single(4, new Spot(4, 2)));
-		PP.update(new Single(5, new Spot(6, 2)));
-		PP.update(new Single(7, new Spot(7, 2)));
-		PP.update(new Single(8, new Spot(8, 2)));
+		Puzzle puzzle = new Puzzle(new int [][]{
+				{-1, -1,  0, -1, -1, -1, -1, -1, -1},
+				{-1, -1,  1, -1, -1, -1, -1, -1, -1},
+				{-1, -1,  2, -1, -1, -1, -1, -1, -1},
+				{-1, -1,  3, -1, -1, -1, -1, -1, -1},
+				{-1, -1,  4, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1,  5, -1, -1, -1, -1, -1, -1},
+				{-1, -1,  7, -1, -1, -1, -1, -1, -1},
+				{-1, -1,  8, -1, -1, -1, -1, -1, -1}
+		});
+		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
 		
 		singleList = PP.findNewSingle(singleList);
 		assertEquals(1, singleList.size());
@@ -66,14 +76,18 @@ public class TestPossiblePositionVector {
 	
 	@Test
 	public void testUpdateSingleWithBlockImpacted() {
-		PP.update(new Single(0, new Spot(3, 6)));
-		PP.update(new Single(1, new Spot(4, 6)));
-		PP.update(new Single(2, new Spot(5, 6)));
-		PP.update(new Single(3, new Spot(3, 7)));
-		PP.update(new Single(4, new Spot(4, 7)));
-		PP.update(new Single(6, new Spot(5, 7)));
-		PP.update(new Single(7, new Spot(3, 8)));
-		PP.update(new Single(8, new Spot(5, 8)));
+		Puzzle puzzle = new Puzzle(new int [][]{
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1,  0,  3,  7},
+				{-1, -1, -1, -1, -1, -1,  1,  4, -1},
+				{-1, -1, -1, -1, -1, -1,  2,  6,  8},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1}
+		});
+		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
 		
 		singleList = PP.findNewSingle(singleList);
 		assertEquals(1, singleList.size());
@@ -84,17 +98,341 @@ public class TestPossiblePositionVector {
 	
 	@Test
 	public void testUpdateSingleWithMixedImpact() {
-		PP.update(new Single(3, new Spot(4, 0)));
-		PP.update(new Single(3, new Spot(7, 2)));
-		PP.update(new Single(3, new Spot(0, 3)));
-		PP.update(new Single(3, new Spot(1, 8)));
-
+		Puzzle puzzle = new Puzzle(new int [][]{
+				{-1, -1, -1,  3, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1,  3},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{ 3, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1,  3, -1, -1, -1, -1, -1, -1, -1}
+		});
+		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
 		
 		singleList = PP.findNewSingle(singleList);
 
 		assertEquals(1, singleList.size());
 		assertEquals(3, singleList.get(0).getValue());
-		assertEquals(2, singleList.get(0).geti());
-		assertEquals(1, singleList.get(0).getj());
+		assertEquals(1, singleList.get(0).geti());
+		assertEquals(2, singleList.get(0).getj());
+	}
+	
+	@Test
+	public void testFindHiddenPairInRow(){
+		//(0, 1)(0, 4) are only possible position for both 7 and 8
+		
+		Puzzle puzzle = new Puzzle(new int [][]{
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1,  8, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1,  7},
+				{-1, -1, -1,  7, -1, -1, -1, -1, -1},
+				{ 7, -1, -1,  8, -1, -1, -1, -1, -1},
+				{ 8, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1,  8, -1, -1,  7, -1, -1, -1},
+				{-1, -1,  7, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1,  8, -1, -1, -1}
+		});
+		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
+		
+		ArrayList<Pair> pairlist = new ArrayList<Pair>();
+		ArrayList<Pair> newPairList = PP.findNewHiddenPair(pairlist);
+		
+		assertEquals(1, newPairList.size());
+		assertEquals(new Pair(new PossibleValues(new int[]{7, 8}),
+				              new Spot(0, 1),
+				              new Spot(0, 4)), 
+				     newPairList.get(0));
+		
+		newPairList = PP.findNewHiddenPair(pairlist);
+		assertEquals(0, newPairList.size());
+	}
+	
+	@Test
+	public void testFindHiddenPairInColumn(){
+		//(2, 3)(6, 3) are only possible position for both 2 and 6
+		Puzzle puzzle = new Puzzle(new int [][]{
+				{ 2,  6, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1,  2,  6, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1,  2, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1,  6, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1,  2,  6, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1,  2,  6}
+		});
+		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
+		
+		ArrayList<Pair> pairlist = new ArrayList<Pair>();
+		ArrayList<Pair> newPairList = PP.findNewHiddenPair(pairlist);
+		
+		assertEquals(1, newPairList.size());
+		assertEquals(new Pair(new PossibleValues(new int[]{2, 6}),
+				              new Spot(2, 3),
+				              new Spot(6, 3)), 
+				     newPairList.get(0));
+		
+		newPairList = PP.findNewHiddenPair(pairlist);
+		assertEquals(0, newPairList.size());
+	}
+	
+	@Test
+	public void testFindHiddenPairInBlock(){
+		//(8, 3)(7, 5) are only possible position for both 3 and 5
+		Puzzle puzzle = new Puzzle(new int [][]{
+				{-1, -1, -1, -1,  3, -1, -1, -1, -1},
+				{-1, -1, -1, -1,  5, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{ 3,  5, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1,  7, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1,  8, -1, -1, -1}
+		});
+		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
+		
+		ArrayList<Pair> pairlist = new ArrayList<Pair>();
+		ArrayList<Pair> newPairList = PP.findNewHiddenPair(pairlist);
+		
+		assertEquals(1, newPairList.size());
+		assertEquals(new Pair(new PossibleValues(new int[]{3, 5}),
+				              new Spot(8, 3),
+				              new Spot(7, 5)), 
+				     newPairList.get(0));
+		
+		newPairList = PP.findNewHiddenPair(pairlist);
+		assertEquals(0, newPairList.size());
+	}
+	
+	@Test
+	public void testUpdatePairInRow(){
+		//(0, 6)(0, 8) are only possible position for both 5 and 6
+		Puzzle puzzle = new Puzzle(new int [][]{
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1,  0, -1,  2},
+				{-1, -1, -1,  0, -1, -1,  1, -1,  3},
+				{-1, -1, -1, -1,  6, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1,  6, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1,  5, -1},
+				{-1, -1, -1, -1, -1, -1, -1,  6, -1}
+		});
+		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
+		
+		ArrayList<Pair> pairlist = new ArrayList<Pair>();
+		ArrayList<Pair> newPairList = PP.findNewHiddenPair(pairlist);
+		
+		assertEquals(1, newPairList.size());
+		assertEquals(new Pair(new PossibleValues(new int[]{5, 6}),
+				              new Spot(0, 6),
+				              new Spot(0, 8)), 
+				     newPairList.get(0));
+		
+		PP.update(newPairList.get(0));
+		singleList = PP.findNewSingle(singleList);
+		assertEquals(1, singleList.size());
+		assertEquals(new Single(6, new Spot(1, 3)), singleList.get(0));
+	}
+	
+	@Test
+	public void testUpdatePairInColumn(){
+		//(3, 4)(5, 4) are only possible position for both 7 and 8
+		Puzzle puzzle = new Puzzle(new int [][]{
+				{-1, -1, -1, -1, -1,  0, -1, -1, -1},
+				{ 7, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1,  7},
+				{-1, -1, -1,  0, -1,  2, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1,  7,  8},
+				{-1, -1, -1,  1, -1,  3, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1}
+		});
+		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
+		
+		ArrayList<Pair> pairlist = new ArrayList<Pair>();
+		ArrayList<Pair> newPairList = PP.findNewHiddenPair(pairlist);
+		
+		assertEquals(1, newPairList.size());
+		assertEquals(new Pair(new PossibleValues(new int[]{7, 8}),
+				              new Spot(3, 4),
+				              new Spot(5, 4)), 
+				     newPairList.get(0));
+		
+		PP.update(newPairList.get(0));
+		singleList = PP.findNewSingle(singleList);
+		assertEquals(1, singleList.size());
+		assertEquals(new Single(7, new Spot(0, 3)), singleList.get(0));
+	}
+	
+	@Test
+	public void testUpdatePairInBlock(){
+		//(0, 6)(0, 8) are only possible position for both 5 and 6
+		Puzzle puzzle = new Puzzle(new int [][]{
+				{ 0,  1,  2,  3,  4,  5, -1,  7, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1,  0},
+				{-1, -1, -1, -1, -1, -1, -1, -1,  1},
+				{-1, -1, -1, -1, -1, -1, -1, -1,  2},
+				{-1, -1, -1, -1, -1, -1, -1, -1,  3},
+				{-1, -1, -1,  6, -1, -1, -1, -1, -1},
+				{-1,  6, -1, -1, -1, -1, -1, -1, -1}
+		});
+		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
+		
+		ArrayList<Pair> pairlist = new ArrayList<Pair>();
+		ArrayList<Pair> newPairList = PP.findNewHiddenPair(pairlist);
+		
+		assertEquals(1, newPairList.size());
+		assertEquals(new Pair(new PossibleValues(new int[]{6, 8}),
+				              new Spot(0, 6),
+				              new Spot(0, 8)), 
+				     newPairList.get(0));
+		
+		PP.update(newPairList.get(0));
+		singleList = PP.findNewSingle(singleList);
+
+		assertEquals(1, singleList.size());
+		assertEquals(new Single(6, new Spot(0, 8)), singleList.get(0));
+	}
+	
+	@Test
+	public void testFindLockedCell(){
+		//(0, 6)(0, 8) are only possible position for both 5 and 6
+		Puzzle puzzle = new Puzzle(new int [][]{
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1,  6, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1,  6, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{ 1,  4, -1, -1, -1, -1,  7, -1,  5},
+				{ 2, -1, -1, -1, -1, -1,  0, -1,  3}
+		});
+		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
+		
+		ArrayList<Locked> lockedList = new ArrayList<Locked>();
+		lockedList = PP.findNewLocked();
+		assertTrue(lockedList.contains(new Locked(6, new Spot[] {new Spot(6, 6), new Spot(6, 8)})));
+		
+		PP.update(lockedList.get(0));
+
+		singleList = PP.findNewSingle(singleList);
+		assertEquals(1, singleList.size());
+	}
+	
+	@Test
+	public void testFindLockedCellNoDuplication(){
+		//(0, 6)(0, 8) are only possible position for both 5 and 6
+		Puzzle puzzle = new Puzzle(new int [][]{
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1,  6, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1,  6, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{ 1,  4, -1, -1, -1, -1,  7, -1,  5},
+				{ 2, -1, -1, -1, -1, -1,  0, -1,  3}
+		});
+		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
+		
+		ArrayList<Locked> lockedList = new ArrayList<Locked>();
+		lockedList = PP.findNewLocked();
+		lockedList = PP.findNewLocked();
+			
+		assertEquals(0, lockedList.size());
+	}
+	
+	@Test
+	public void testFindLockedCellInAColumn(){
+		//(0, 6)(0, 8) are only possible position for both 5 and 6
+		Puzzle puzzle = new Puzzle(new int [][]{
+				{-1, -1, -1, -1, -1, -1, -1,  5,  3},
+				{-1, -1, -1, -1, -1, -1, -1,  7,  0},
+				{-1, -1, -1, -1, -1,  6, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1,  6, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1,  4, -1},
+				{-1, -1, -1, -1, -1, -1, -1,  1,  2}
+		});
+		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
+		
+		ArrayList<Locked> lockedList = new ArrayList<Locked>();
+		lockedList = PP.findNewLocked();
+		assertTrue(lockedList.contains(new Locked(6, new Spot[]{new Spot(0, 6), new Spot(1, 6)})));
+		
+		PP.update(lockedList.get(0));
+		singleList = PP.findNewSingle(singleList);
+		assertEquals(1, singleList.size());
+		assertEquals(new Single(6, new Spot(7, 8)), singleList.get(0));
+	}
+	
+	@Test
+	public void testFindLockedCellRow(){
+		//(0, 6)(0, 8) are only possible position for both 5 and 6
+		Puzzle puzzle = new Puzzle(new int [][]{
+				{-1, -1,  0, -1, -1,  1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{ 1,  2, -1,  4,  5, -1,  7,  8, -1},
+				{ 6, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1,  6, -1, -1, -1, -1,  3},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1,  6, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1,  6, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1}
+		});
+		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
+		PossibleValueMatrix PV = new PossibleValueMatrix(puzzle);
+		
+		singleList = PV.findNewSingle(singleList);
+		assertEquals(0, singleList.size());
+		
+		ArrayList<Locked> lockedList = new ArrayList<Locked>();
+		lockedList = PP.findNewLocked();
+		assertTrue(lockedList.contains(new Locked(6, new Spot[]{new Spot(0, 6), new Spot(0, 7), new Spot(0, 8)})));
+		
+		PV.update(new Locked(6, new Spot[]{new Spot(0, 6), new Spot(0, 7), new Spot(0, 8)}));
+		singleList = PV.findNewSingle(singleList);
+		assertEquals(1, singleList.size());
+		assertEquals(new Single(0, new Spot(2, 8)), singleList.get(0));
+	}
+	
+	@Test
+	public void testFindLockedCellColumn(){
+		//(0, 6)(0, 8) are only possible position for both 5 and 6
+		Puzzle puzzle = new Puzzle(new int [][]{
+				{-1, -1, -1, -1,  3, -1, -1, -1, -1},
+				{-1, -1,  8, -1, -1, -1, -1, -1, -1},
+				{-1, -1,  7, -1, -1, -1, -1, -1, -1},
+				{ 1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1,  5, -1, -1, -1, -1, -1,  6},
+				{-1, -1,  4, -1,  6, -1, -1, -1, -1},
+				{ 0, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1,  2, -1, -1, -1,  6, -1, -1},
+				{-1, -1,  1,  6, -1, -1, -1, -1, -1}
+		});
+		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
+		PossibleValueMatrix PV = new PossibleValueMatrix(puzzle);
+		
+		singleList = PV.findNewSingle(singleList);
+		assertEquals(0, singleList.size());
+		
+		ArrayList<Locked> lockedList = new ArrayList<Locked>();
+		lockedList = PP.findNewLocked();
+		assertTrue(lockedList.contains(new Locked(6, new Spot[]{new Spot(0, 0), new Spot(1, 0), new Spot(2, 0)})));
+		
+		PV.update(new Locked(6, new Spot[]{new Spot(0, 0), new Spot(1, 0), new Spot(2, 0)}));
+		singleList = PV.findNewSingle(singleList);
+		assertEquals(1, singleList.size());
+		assertEquals(new Single(0, new Spot(0, 2)), singleList.get(0));
 	}
 }

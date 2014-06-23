@@ -11,6 +11,13 @@ public class PossibleValues {
 			possibilities.add(i);
 	}
 
+	public PossibleValues(int[] possibilities) {
+		this.possibilities = new ArrayList<Integer>();
+		for(int num : possibilities)
+			this.possibilities.add(num);
+
+	}
+
 	public boolean hasSingleValue() {
 		return possibilities.size() == 1;
 	}
@@ -66,5 +73,13 @@ public class PossibleValues {
 		for(Integer p : pvsToRemove.possibilities)
 			this.possibilities.remove(p);
 		
+	}
+	
+	public int [] possibleValue(){
+		int [] result = new int [possibilities.size()];
+		int resultIndex = 0;
+		for(Integer value : possibilities)
+			result[resultIndex++] = value.intValue();
+		return result;
 	}
 }
