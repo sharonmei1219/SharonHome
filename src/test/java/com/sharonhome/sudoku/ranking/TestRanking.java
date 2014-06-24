@@ -26,22 +26,16 @@ public class TestRanking {
 
 	@Test
 	public void test() {
-		Random rand = new Random();
-		for(int i = 0; i < 100; i++){
-		int tableIndex = rand.nextInt(46656);
-		PuzzleGenerator gen = new PuzzleGenerator();
-		int [][] puzzle = gen.generatePuzzle(tableIndex, 58);
-		if(puzzle == null) continue;
-		Puzzle inputPuzzle = new Puzzle(puzzle);
-		int rank = ranking.ranking(inputPuzzle);
-		System.out.println(rank);
-		}
-
-//		System.out.println(inputPuzzle);
-//		System.out.println();
-//		System.out.println("rank is " + rank);
-//		System.out.println();
-
+//		Random rand = new Random();
+//		for(int i = 0; i < 100; i++){
+//		int tableIndex = rand.nextInt(46656);
+//		PuzzleGenerator gen = new PuzzleGenerator();
+//		int [][] puzzle = gen.generatePuzzle(tableIndex, 58);
+//		if(puzzle == null) continue;
+//		Puzzle inputPuzzle = new Puzzle(puzzle);
+//		int rank = ranking.ranking(inputPuzzle);
+//		System.out.println(rank);
+//		}
 	}
 	
 	@Test
@@ -335,15 +329,5 @@ public class TestRanking {
 		});
 		int rank = ranking.ranking(inputPuzzle);
 		System.out.println("Solved: rand 9 #2 " + rank); 
-	}
-	
-	void printPuzzle(int [][] puzzle){
-		for(int i = 0; i < 9; i ++){
-			System.out.println();
-			for(int j = 0; j < 9; j++){
-				System.out.print(puzzle[i][j]);
-				System.out.print(", ");
-			}
-		}
 	}
 }

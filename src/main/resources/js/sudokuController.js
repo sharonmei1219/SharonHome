@@ -97,11 +97,9 @@ function StopWatch(){
 		startTime = Date.now();
 		tic = setInterval(update, interval);
 		cnt = cnt + 1;
-		alert("start" + cnt);
 	};
 
 	this.stop = function(){
-		alert("stop" + cnt);
 		clearInterval(tic);
 	}
 }
