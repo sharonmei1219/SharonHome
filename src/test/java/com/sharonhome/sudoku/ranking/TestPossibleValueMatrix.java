@@ -26,7 +26,7 @@ public class TestPossibleValueMatrix {
 
 	@Test
 	public void testConstucting() {
-		assertEquals(0, PV.findNewSingle(singleList).size());
+		assertEquals(0, PV.findNewSingle().size());
 	}
 	
 	@Test
@@ -36,7 +36,7 @@ public class TestPossibleValueMatrix {
 			PV.update(new Single(i, new Spot(0,i)));
 		}
 
-		singleList = PV.findNewSingle(singleList);
+		singleList = PV.findNewSingle();
 
 		assertEquals(1, singleList.size());
 		assertEquals(8, singleList.get(0).getValue());
@@ -51,7 +51,7 @@ public class TestPossibleValueMatrix {
 			PV.update(new Single(i, new Spot(i,2)));
 		}
 
-		singleList = PV.findNewSingle(singleList);
+		singleList = PV.findNewSingle();
 
 		assertEquals(1, singleList.size());
 		assertEquals(8, singleList.get(0).getValue());
@@ -71,7 +71,7 @@ public class TestPossibleValueMatrix {
 		PV.update(new Single(6, new Spot(5,4)));
 		PV.update(new Single(7, new Spot(5,5)));
 		
-		singleList = PV.findNewSingle(singleList);
+		singleList = PV.findNewSingle();
 
 		assertEquals(1, singleList.size());
 		assertEquals(8, singleList.get(0).getValue());
@@ -93,7 +93,7 @@ public class TestPossibleValueMatrix {
 				{-1, -1, -1, -1, -1, -1, -1, -1, -1}
 		});
 		PossibleValueMatrix PV = new PossibleValueMatrix(puzzle);
-		singleList = PV.findNewSingle(singleList);
+		singleList = PV.findNewSingle();
 		assertEquals(1, singleList.size());
 		assertEquals(8, singleList.get(0).getValue());
 		assertEquals(0, singleList.get(0).geti());
@@ -114,7 +114,7 @@ public class TestPossibleValueMatrix {
 				{-1, -1, -1, -1, -1, -1, -1, -1, -1}
 		});
 		PossibleValueMatrix PV = new PossibleValueMatrix(puzzle);
-		singleList = PV.findNewSingle(singleList);
+		singleList = PV.findNewSingle();
 		assertEquals(0, singleList.size());
 		
 		ArrayList<Pair> pairList = new ArrayList<Pair>();
@@ -139,7 +139,7 @@ public class TestPossibleValueMatrix {
 				{-1, -1, -1, -1, -1, -1, -1, -1, -1}
 		});
 		PossibleValueMatrix PV = new PossibleValueMatrix(puzzle);
-		singleList = PV.findNewSingle(singleList);
+		singleList = PV.findNewSingle();
 		assertEquals(0, singleList.size());
 		
 		ArrayList<Pair> pairList = new ArrayList<Pair>();
@@ -164,7 +164,7 @@ public class TestPossibleValueMatrix {
 				{-1, -1, -1, -1, -1, -1, -1, -1, -1}
 		});
 		PossibleValueMatrix PV = new PossibleValueMatrix(puzzle);
-		singleList = PV.findNewSingle(singleList);
+		singleList = PV.findNewSingle();
 		assertEquals(0, singleList.size());
 		
 		ArrayList<Pair> pairList = new ArrayList<Pair>();
@@ -220,7 +220,7 @@ public class TestPossibleValueMatrix {
 		assertTrue(newPairList.contains(p));
 		
 		PV.update(p);
-		ArrayList<Single> sList = PV.findNewSingle(singleList);
+		ArrayList<Single> sList = PV.findNewSingle();
 		assertEquals(1, sList.size());
 		assertEquals(new Single(2, new Spot(0, 0)), sList.get(0));
 	}
@@ -247,7 +247,7 @@ public class TestPossibleValueMatrix {
 		assertTrue(newPairList.contains(p));
 		
 		PV.update(p);
-		ArrayList<Single> sList = PV.findNewSingle(singleList);
+		ArrayList<Single> sList = PV.findNewSingle();
 		assertEquals(1, sList.size());
 		assertEquals(new Single(0, new Spot(0, 3)), sList.get(0));
 	}
@@ -274,8 +274,235 @@ public class TestPossibleValueMatrix {
 		assertTrue(newPairList.contains(p));
 		
 		PV.update(p);
-		ArrayList<Single> sList = PV.findNewSingle(singleList);
+		ArrayList<Single> sList = PV.findNewSingle();
 		assertEquals(1, sList.size());
 		assertEquals(new Single(2, new Spot(4, 4)), sList.get(0));
+	}
+	
+	@Test
+	public void testTrippleInARow(){
+		Triple expTriple = new Triple(new PossibleValues(new int[]{2, 3, 4}),
+				                      new Spot[]{new Spot(0, 0),
+				                                 new Spot(0, 3),
+				                                 new Spot(0, 6)
+			                                     
+		});
+		
+		Puzzle puzzle = new Puzzle(new int [][]{
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1,  1, -1, -1, -1, -1, -1},
+				{ 5, -1, -1, -1, -1, -1,  0, -1,  6},
+				{-1,  3, -1, -1, -1, -1, -1,  2, -1},
+				{-1,  2, -1, -1,  3, -1, -1,  4, -1},
+				{-1, -1, -1, -1,  4, -1,  5,  3, -1},
+				{-1, -1,  3, -1, -1, -1, -1, -1,  2},
+				{-1, -1,  2, -1, -1,  3, -1, -1,  4},
+				{-1, -1, -1, -1, -1,  4,  3,  5, -1}
+		});
+		
+		
+		PossibleValueMatrix PV = new PossibleValueMatrix(puzzle);
+		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
+		ArrayList<Pair> pairList = PP.findNewHiddenPair();
+		for(Pair p : pairList){
+			PV.update(p);
+		}
+		
+		ArrayList<Triple> tripleList = PV.findNewNakedTriple();	
+
+		assertTrue(tripleList.contains(expTriple));
+
+		PV.update(expTriple);
+		
+		ArrayList<Single> sList = PV.findNewSingle();
+		assertEquals(1, sList.size());
+		assertEquals(new Single(5, new Spot(0, 8)), sList.get(0));
+	}
+	
+	@Test
+	public void testTrippleInAColumn(){
+		Triple expTriple = new Triple(new PossibleValues(new int[]{2, 3, 4}),
+				                      new Spot[]{new Spot(2, 0),
+				                                 new Spot(5, 0),
+				                                 new Spot(8, 0)
+			                                     
+		});
+		
+		Puzzle puzzle = new Puzzle(new int [][]{
+				{-1, -1,  6, -1, -1, -1,  2,  4, -1},
+				{-1, -1, -1,  2,  4,  3, -1, -1,  5},
+				{-1, -1,  0, -1, -1,  5, -1, -1,  3},
+				{-1, -1, -1, -1, -1, -1, -1,  3,  4},
+				{-1, -1, -1, -1,  3,  4, -1, -1, -1},
+				{-1,  1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1,  3,  2, -1},
+				{-1, -1, -1,  3,  2, -1, -1, -1, -1},
+				{-1, -1,  5, -1, -1, -1, -1, -1, -1}
+		});
+		
+		
+		PossibleValueMatrix PV = new PossibleValueMatrix(puzzle);
+		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
+		ArrayList<Pair> pairList = PP.findNewHiddenPair();
+		for(Pair p : pairList){
+			PV.update(p);
+		}
+		
+		ArrayList<Triple> tripleList = PV.findNewNakedTriple();	
+
+		assertTrue(tripleList.contains(expTriple));
+
+		PV.update(expTriple);
+		
+		ArrayList<Single> sList = PV.findNewSingle();
+		assertEquals(1, sList.size());
+		assertEquals(new Single(5, new Spot(0, 0)), sList.get(0));
+	}
+	
+	@Test
+	public void testTrippleInABlock(){
+		Triple expTriple = new Triple(new PossibleValues(new int[]{2, 3, 4}),
+				                      new Spot[]{new Spot(0, 0),
+				                                 new Spot(0, 2),
+				                                 new Spot(1, 1)
+			                                     
+		});
+		
+		Puzzle puzzle = new Puzzle(new int [][]{
+				{-1, -1, -1,  5, -1, -1,  7,  8, -1},
+				{-1, -1, -1, -1,  2, -1, -1,  0, -1},
+				{-1,  1,  6, -1, -1, -1, -1, -1, -1},
+				{ 4,  5,  3, -1, -1, -1, -1, -1, -1},
+				{ 0, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1,  7, -1, -1, -1, -1, -1, -1, -1},
+				{-1,  8,  0, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1}
+		});
+		
+		
+		PossibleValueMatrix PV = new PossibleValueMatrix(puzzle);
+
+		
+		ArrayList<Triple> tripleList = PV.findNewNakedTriple();	
+		assertTrue(tripleList.contains(expTriple));
+
+		PV.update(expTriple);
+		
+		ArrayList<Single> sList = PV.findNewSingle();
+		assertEquals(1, sList.size());
+		assertEquals(new Single(0, new Spot(0, 1)), sList.get(0));
+	}
+	
+	@Test
+	public void testTrippleUpdatePPInRow(){
+		Triple expTriple = new Triple(new PossibleValues(new int[]{2, 3, 4}),
+				                      new Spot[]{new Spot(0, 0),
+				                                 new Spot(0, 3),
+				                                 new Spot(0, 6)
+			                                     
+		});
+		
+		Puzzle puzzle = new Puzzle(new int [][]{
+				{-1, -1, -1, -1,  6, -1, -1, -1, -1},
+				{-1, -1, -1,  1, -1, -1, -1, -1, -1},
+				{ 5, -1, -1, -1, -1,  8,  0, -1,  6},
+				{ 4, -1, -1, -1, -1, -1, -1,  2, -1},
+				{ 0, -1, -1, -1,  3, -1, -1,  4, -1},
+				{-1, -1, -1, -1,  4, -1, -1, -1, -1},
+				{ 1, -1, -1, -1, -1, -1, -1, -1,  2},
+				{ 7, -1, -1, -1, -1,  3, -1, -1,  4},
+				{ 8, -1, -1, -1,  2,  4, -1, -1, -1}
+		});
+		
+		
+		PossibleValueMatrix PV = new PossibleValueMatrix(puzzle);
+		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
+		ArrayList<Pair> pairList = PP.findNewHiddenPair();
+		for(Pair p : pairList){
+			PV.update(p);
+			PP.update(p);
+		}
+		
+		ArrayList<Triple> tripleList = PV.findNewNakedTriple();	
+		assertTrue(tripleList.contains(expTriple));
+		
+		PP.update(expTriple);
+		ArrayList<Single> sList = PP.findNewSingle();
+		assertTrue(sList.contains(new Single(2, new Spot(1, 5))));
+	}
+	
+	@Test
+	public void testTrippleUpdatePPInColumn(){
+		Triple expTriple = new Triple(new PossibleValues(new int[]{2, 3, 4}),
+				                      new Spot[]{new Spot(0, 0),
+				                                 new Spot(3, 0),
+				                                 new Spot(6, 0)
+			                                     
+		});
+		
+		Puzzle puzzle = new Puzzle(new int [][]{
+				{-1, -1,  5,  4,  0, -1,  1,  7,  8},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1,  1, -1, -1, -1, -1, -1, -1, -1},
+				{ 6, -1, -1, -1,  3,  4, -1, -1,  2},
+				{-1, -1,  8, -1, -1, -1, -1,  3,  4},
+				{-1, -1,  0, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1,  2,  4, -1, -1, -1, -1},
+				{-1, -1,  6, -1, -1, -1,  2,  4, -1}
+		});
+		
+		
+		PossibleValueMatrix PV = new PossibleValueMatrix(puzzle);
+		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
+		ArrayList<Pair> pairList = PP.findNewHiddenPair();
+		for(Pair p : pairList){
+			PV.update(p);
+			PP.update(p);
+		}
+		
+		ArrayList<Triple> tripleList = PV.findNewNakedTriple();	
+		assertTrue(tripleList.contains(expTriple));
+		
+		PP.update(expTriple);
+		ArrayList<Single> sList = PP.findNewSingle();
+		assertTrue(sList.contains(new Single(2, new Spot(5, 1))));
+	}
+	
+	@Test
+	public void testUpdatePPTrippleInABlock(){
+		Triple expTriple = new Triple(new PossibleValues(new int[]{2, 3, 4}),
+				                      new Spot[]{new Spot(0, 0),
+				                                 new Spot(0, 2),
+				                                 new Spot(1, 1)
+			                                     
+		});
+		
+		Puzzle puzzle = new Puzzle(new int [][]{
+				{-1,  8, -1,  5, -1, -1,  7, -1, -1},
+				{-1, -1, -1, -1,  2, -1, -1,  0, -1},
+				{-1,  1,  6, -1, -1, -1, -1, -1, -1},
+				{ 4,  5,  3, -1, -1, -1, -1, -1, -1},
+				{ 0, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1,  2,  2, -1},
+				{-1,  7,  0, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1}
+		});
+		
+		
+		PossibleValueMatrix PV = new PossibleValueMatrix(puzzle);
+		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
+
+		
+		ArrayList<Triple> tripleList = PV.findNewNakedTriple();	
+		assertTrue(tripleList.contains(expTriple));
+
+		PP.update(expTriple);
+		
+		ArrayList<Single> sList = PP.findNewSingle();
+		assertEquals(1, sList.size());
+		assertEquals(new Single(2, new Spot(2, 8)), sList.get(0));
 	}
 }

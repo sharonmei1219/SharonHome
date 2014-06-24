@@ -82,4 +82,30 @@ public class PossibleValues {
 			result[resultIndex++] = value.intValue();
 		return result;
 	}
+
+	public PossibleValues union(PossibleValues that) {
+		PossibleValues result = new PossibleValues();
+		result.clearAllPossibility();
+		for(Integer p : this.possibilities)
+			result.possibilities.add(p);
+		for(Integer p : that.possibilities){
+			if(this.possibilities.contains(p)) continue;
+			result.possibilities.add(p);
+		}
+		return result;
+	}
+
+	public int size() {
+		return this.possibilities.size();
+	}
+	
+	@Override
+	public boolean equals(Object obj){
+		if(!(obj instanceof PossibleValues)) return false;
+		PossibleValues that = (PossibleValues) obj;
+		if(this.size() != that.size()) return false;
+		for(Integer p : that.possibilities)
+			if(!this.possibilities.contains(p)) return false;
+		return true;
+	}
 }

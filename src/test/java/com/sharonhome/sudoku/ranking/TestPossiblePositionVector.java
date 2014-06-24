@@ -25,7 +25,7 @@ public class TestPossiblePositionVector {
 
 	@Test
 	public void testConstruction(){
-		singleList = PP.findNewSingle(singleList);
+		singleList = PP.findNewSingle();
 		assertEquals(0, singleList.size());
 	}
 	
@@ -45,7 +45,7 @@ public class TestPossiblePositionVector {
 		});
 		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
 
-		singleList = PP.findNewSingle(singleList);
+		singleList = PP.findNewSingle();
 		assertEquals(1, singleList.size());
 		assertEquals(8, singleList.get(0).getValue());
 		assertEquals(0, singleList.get(0).geti());
@@ -67,7 +67,7 @@ public class TestPossiblePositionVector {
 		});
 		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
 		
-		singleList = PP.findNewSingle(singleList);
+		singleList = PP.findNewSingle();
 		assertEquals(1, singleList.size());
 		assertEquals(6, singleList.get(0).getValue());
 		assertEquals(5, singleList.get(0).geti());
@@ -89,7 +89,7 @@ public class TestPossiblePositionVector {
 		});
 		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
 		
-		singleList = PP.findNewSingle(singleList);
+		singleList = PP.findNewSingle();
 		assertEquals(1, singleList.size());
 		assertEquals(5, singleList.get(0).getValue());
 		assertEquals(4, singleList.get(0).geti());
@@ -111,7 +111,7 @@ public class TestPossiblePositionVector {
 		});
 		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
 		
-		singleList = PP.findNewSingle(singleList);
+		singleList = PP.findNewSingle();
 
 		assertEquals(1, singleList.size());
 		assertEquals(3, singleList.get(0).getValue());
@@ -137,7 +137,7 @@ public class TestPossiblePositionVector {
 		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
 		
 		ArrayList<Pair> pairlist = new ArrayList<Pair>();
-		ArrayList<Pair> newPairList = PP.findNewHiddenPair(pairlist);
+		ArrayList<Pair> newPairList = PP.findNewHiddenPair();
 		
 		assertEquals(1, newPairList.size());
 		assertEquals(new Pair(new PossibleValues(new int[]{7, 8}),
@@ -145,7 +145,7 @@ public class TestPossiblePositionVector {
 				              new Spot(0, 4)), 
 				     newPairList.get(0));
 		
-		newPairList = PP.findNewHiddenPair(pairlist);
+		newPairList = PP.findNewHiddenPair();
 		assertEquals(0, newPairList.size());
 	}
 	
@@ -166,7 +166,7 @@ public class TestPossiblePositionVector {
 		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
 		
 		ArrayList<Pair> pairlist = new ArrayList<Pair>();
-		ArrayList<Pair> newPairList = PP.findNewHiddenPair(pairlist);
+		ArrayList<Pair> newPairList = PP.findNewHiddenPair();
 		
 		assertEquals(1, newPairList.size());
 		assertEquals(new Pair(new PossibleValues(new int[]{2, 6}),
@@ -174,7 +174,7 @@ public class TestPossiblePositionVector {
 				              new Spot(6, 3)), 
 				     newPairList.get(0));
 		
-		newPairList = PP.findNewHiddenPair(pairlist);
+		newPairList = PP.findNewHiddenPair();
 		assertEquals(0, newPairList.size());
 	}
 	
@@ -195,7 +195,7 @@ public class TestPossiblePositionVector {
 		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
 		
 		ArrayList<Pair> pairlist = new ArrayList<Pair>();
-		ArrayList<Pair> newPairList = PP.findNewHiddenPair(pairlist);
+		ArrayList<Pair> newPairList = PP.findNewHiddenPair();
 		
 		assertEquals(1, newPairList.size());
 		assertEquals(new Pair(new PossibleValues(new int[]{3, 5}),
@@ -203,7 +203,7 @@ public class TestPossiblePositionVector {
 				              new Spot(7, 5)), 
 				     newPairList.get(0));
 		
-		newPairList = PP.findNewHiddenPair(pairlist);
+		newPairList = PP.findNewHiddenPair();
 		assertEquals(0, newPairList.size());
 	}
 	
@@ -224,7 +224,7 @@ public class TestPossiblePositionVector {
 		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
 		
 		ArrayList<Pair> pairlist = new ArrayList<Pair>();
-		ArrayList<Pair> newPairList = PP.findNewHiddenPair(pairlist);
+		ArrayList<Pair> newPairList = PP.findNewHiddenPair();
 		
 		assertEquals(1, newPairList.size());
 		assertEquals(new Pair(new PossibleValues(new int[]{5, 6}),
@@ -233,7 +233,7 @@ public class TestPossiblePositionVector {
 				     newPairList.get(0));
 		
 		PP.update(newPairList.get(0));
-		singleList = PP.findNewSingle(singleList);
+		singleList = PP.findNewSingle();
 		assertEquals(1, singleList.size());
 		assertEquals(new Single(6, new Spot(1, 3)), singleList.get(0));
 	}
@@ -255,7 +255,7 @@ public class TestPossiblePositionVector {
 		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
 		
 		ArrayList<Pair> pairlist = new ArrayList<Pair>();
-		ArrayList<Pair> newPairList = PP.findNewHiddenPair(pairlist);
+		ArrayList<Pair> newPairList = PP.findNewHiddenPair();
 		
 		assertEquals(1, newPairList.size());
 		assertEquals(new Pair(new PossibleValues(new int[]{7, 8}),
@@ -264,7 +264,7 @@ public class TestPossiblePositionVector {
 				     newPairList.get(0));
 		
 		PP.update(newPairList.get(0));
-		singleList = PP.findNewSingle(singleList);
+		singleList = PP.findNewSingle();
 		assertEquals(1, singleList.size());
 		assertEquals(new Single(7, new Spot(0, 3)), singleList.get(0));
 	}
@@ -286,7 +286,7 @@ public class TestPossiblePositionVector {
 		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
 		
 		ArrayList<Pair> pairlist = new ArrayList<Pair>();
-		ArrayList<Pair> newPairList = PP.findNewHiddenPair(pairlist);
+		ArrayList<Pair> newPairList = PP.findNewHiddenPair();
 		
 		assertEquals(1, newPairList.size());
 		assertEquals(new Pair(new PossibleValues(new int[]{6, 8}),
@@ -295,7 +295,7 @@ public class TestPossiblePositionVector {
 				     newPairList.get(0));
 		
 		PP.update(newPairList.get(0));
-		singleList = PP.findNewSingle(singleList);
+		singleList = PP.findNewSingle();
 
 		assertEquals(1, singleList.size());
 		assertEquals(new Single(6, new Spot(0, 8)), singleList.get(0));
@@ -323,7 +323,7 @@ public class TestPossiblePositionVector {
 		
 		PP.update(lockedList.get(0));
 
-		singleList = PP.findNewSingle(singleList);
+		singleList = PP.findNewSingle();
 		assertEquals(1, singleList.size());
 	}
 	
@@ -371,7 +371,7 @@ public class TestPossiblePositionVector {
 		assertTrue(lockedList.contains(new Locked(6, new Spot[]{new Spot(0, 6), new Spot(1, 6)})));
 		
 		PP.update(lockedList.get(0));
-		singleList = PP.findNewSingle(singleList);
+		singleList = PP.findNewSingle();
 		assertEquals(1, singleList.size());
 		assertEquals(new Single(6, new Spot(7, 8)), singleList.get(0));
 	}
@@ -393,7 +393,7 @@ public class TestPossiblePositionVector {
 		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
 		PossibleValueMatrix PV = new PossibleValueMatrix(puzzle);
 		
-		singleList = PV.findNewSingle(singleList);
+		singleList = PV.findNewSingle();
 		assertEquals(0, singleList.size());
 		
 		ArrayList<Locked> lockedList = new ArrayList<Locked>();
@@ -401,7 +401,7 @@ public class TestPossiblePositionVector {
 		assertTrue(lockedList.contains(new Locked(6, new Spot[]{new Spot(0, 6), new Spot(0, 7), new Spot(0, 8)})));
 		
 		PV.update(new Locked(6, new Spot[]{new Spot(0, 6), new Spot(0, 7), new Spot(0, 8)}));
-		singleList = PV.findNewSingle(singleList);
+		singleList = PV.findNewSingle();
 		assertEquals(1, singleList.size());
 		assertEquals(new Single(0, new Spot(2, 8)), singleList.get(0));
 	}
@@ -423,7 +423,7 @@ public class TestPossiblePositionVector {
 		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
 		PossibleValueMatrix PV = new PossibleValueMatrix(puzzle);
 		
-		singleList = PV.findNewSingle(singleList);
+		singleList = PV.findNewSingle();
 		assertEquals(0, singleList.size());
 		
 		ArrayList<Locked> lockedList = new ArrayList<Locked>();
@@ -431,8 +431,71 @@ public class TestPossiblePositionVector {
 		assertTrue(lockedList.contains(new Locked(6, new Spot[]{new Spot(0, 0), new Spot(1, 0), new Spot(2, 0)})));
 		
 		PV.update(new Locked(6, new Spot[]{new Spot(0, 0), new Spot(1, 0), new Spot(2, 0)}));
-		singleList = PV.findNewSingle(singleList);
+		singleList = PV.findNewSingle();
 		assertEquals(1, singleList.size());
 		assertEquals(new Single(0, new Spot(0, 2)), singleList.get(0));
+	}
+	
+	@Test
+	public void testFindXWingColumn(){
+		XWing expXWing = new XWing(XWing.COLUMN, 3, new Spot[]{
+			new Spot(3, 2),
+			new Spot(6, 2),
+			new Spot(3, 3),
+			new Spot(6, 3)
+		});
+		
+		Puzzle puzzle = new Puzzle(new int [][]{
+				{ 3, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1,  3, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1,  3, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1,  0,  1, -1, -1, -1, -1, -1},
+				{-1, -1,  1,  2, -1, -1, -1,  0, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1,  3},
+				{-1, -1,  2,  0, -1, -1, -1, -1, -1}
+		});
+		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
+		
+		ArrayList<XWing> xList = PP.findNewXWing();
+		assertTrue(xList.contains(expXWing));
+		
+		PP.update(expXWing);
+		singleList = PP.findNewSingle();
+		assertEquals(1, singleList.size());
+		assertEquals(new Single(3, new Spot(4, 7)), singleList.get(0));
+	}
+	
+	@Test
+	public void testFindXWingRow(){
+		XWing expXWing = new XWing(XWing.ROW, 3, new Spot[]{
+			new Spot(2, 3),
+			new Spot(2, 6),
+			new Spot(3, 3),
+			new Spot(3, 6)
+		});
+		
+		Puzzle puzzle = new Puzzle(new int [][]{
+				{ 3, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1,  0,  1, -1, -1,  2},
+				{-1, -1, -1, -1,  1,  2, -1, -1,  0},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1,  3, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1,  3, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1,  0, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1,  3, -1}
+		});
+		
+		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
+		
+		ArrayList<XWing> xList = PP.findNewXWing();
+		assertTrue(xList.contains(expXWing));
+		
+		PP.update(expXWing);
+		singleList = PP.findNewSingle();
+		assertEquals(1, singleList.size());
+		assertEquals(new Single(3, new Spot(7, 4)), singleList.get(0));
 	}
 }

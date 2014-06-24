@@ -9,6 +9,7 @@ public class PossiblePositionVector {
 	PossiblePositions[] vector = new PossiblePositions[9];
 	private ArrayList<Pair> pairList = new ArrayList<Pair>();
 	private ArrayList<Locked> lockedList = new ArrayList<Locked>();
+	private ArrayList<XWing> xWingList = new ArrayList<XWing>();
 
 	public PossiblePositionVector(Puzzle puzzle) {
 		for (int i = 0; i < 9; i++)
@@ -66,23 +67,28 @@ public class PossiblePositionVector {
 		int bc = pair.block().getj();
 		for (int i = br * 3; i < br * 3 + 3; i++) {
 			for (int j = bc * 3; j < bc * 3 + 3; j++) {
-				if (pair.has(new Spot(i, j)))
-					continue;
-				vector[pv[0]].notPossibleIn(i, j);
-				vector[pv[1]].notPossibleIn(i, j);
+				if (pair.has(new Spot(i, j))){
+					notPossibleExcept(pv, i, j);
+				}
+				else{
+					vector[pv[0]].notPossibleIn(i, j);
+					vector[pv[1]].notPossibleIn(i, j);
+				}
 			}
 		}
-
 	}
 
 	private void updatePairInColumn(Pair pair) {
 		int[] pv = pair.possibilities().possibleValue();
 		int column = pair.column();
 		for (int i = 0; i < 9; i++) {
-			if (pair.has(new Spot(i, column)))
-				continue;
-			vector[pv[0]].notPossibleIn(i, column);
-			vector[pv[1]].notPossibleIn(i, column);
+			if (pair.has(new Spot(i, column))){
+				notPossibleExcept(pv, i, column);
+			}
+			else{
+				vector[pv[0]].notPossibleIn(i, column);
+				vector[pv[1]].notPossibleIn(i, column);
+			}
 		}
 	}
 
@@ -90,14 +96,23 @@ public class PossiblePositionVector {
 		int[] pv = pair.possibilities().possibleValue();
 		int row = pair.row();
 		for (int j = 0; j < 9; j++) {
-			if (pair.has(new Spot(row, j)))
-				continue;
-			vector[pv[0]].notPossibleIn(row, j);
-			vector[pv[1]].notPossibleIn(row, j);
+			if (pair.has(new Spot(row, j))){
+				notPossibleExcept(pv, row, j);
+			}else{
+				vector[pv[0]].notPossibleIn(row, j);
+				vector[pv[1]].notPossibleIn(row, j);
+			}
 		}
 	}
 
-	public ArrayList<Single> findNewSingle(ArrayList<Single> singlelist) {
+	private void notPossibleExcept(int[] pv, int row, int j) {
+		for(int value = 0; value < 9; value ++){
+			if(contains(pv, value)) continue;
+			vector[value].notPossibleIn(row, j);
+		}
+	}
+
+	public ArrayList<Single> findNewSingle() {
 		ArrayList<Single> result = new ArrayList<Single>();
 		for (int i = 0; i < 9; i++) {
 			ArrayList<Spot> determinedPos = vector[i]
@@ -109,7 +124,7 @@ public class PossiblePositionVector {
 		return result;
 	}
 
-	public ArrayList<Pair> findNewHiddenPair(ArrayList<Pair> pairlist) {
+	public ArrayList<Pair> findNewHiddenPair() {
 		ArrayList<Pair> result = new ArrayList<Pair>();
 		for (int row = 0; row < 9; row++)
 			findPairsInRow(result, row);
@@ -281,24 +296,163 @@ public class PossiblePositionVector {
 		return true;
 	}
 
-	public void update(Tripple tripple) {
-		// TODO Auto-generated method stub
+	public void update(Triple tripple) {
+		if(tripple.inARow()){
+			updateTrippleInRow(tripple);
+		}
+		if(tripple.inAColumn()){
+			updateTrippleInColumn(tripple);
+		}
+		if(tripple.inABlock()){
+			updateTrippleInBlock(tripple);
+		}
 
 	}
 
-	public ArrayList<Tripple> findNewTripple(ArrayList<Tripple> tripplelist) {
-		ArrayList<Tripple> result = new ArrayList<Tripple>();
+	private void updateTrippleInBlock(Triple tripple) {
+		int br = tripple.br();
+		int bc = tripple.bc();
+		int [] pv = tripple.possibleValues().possibleValue();
+		for(int i = br * 3; i < br * 3 + 3; i ++){
+			for(int j = bc * 3; j < bc * 3 + 3; j++){
+				if(tripple.contains(new Spot(i, j))){
+					notPossibleExcept(pv, i, j);
+				}else{
+					for(int value: pv)
+						vector[value].notPossibleIn(i, j);
+				}
+			}
+		}
+	}
+
+	private void updateTrippleInColumn(Triple tripple) {
+		int column = tripple.column();
+		int[] pv = tripple.possibleValues().possibleValue();
+		for(int i = 0; i < 9; i++){
+			if(tripple.contains(new Spot(i, column))){
+				notPossibleExcept(pv, i, column);
+			}else{
+				for(int value: pv)
+					vector[value].notPossibleIn(i, column);
+			}
+		}
+	}
+
+	private void updateTrippleInRow(Triple tripple) {
+		int row = tripple.row();
+		int[] pv = tripple.possibleValues().possibleValue();
+		for(int j = 0; j < 9; j++){
+			if(tripple.contains(new Spot(row, j))){
+				notPossibleExcept(pv, row, j);
+			}else{
+				for(int value : pv) {
+					vector[value].notPossibleIn(row, j);
+				}
+			}
+		}
+	}
+
+	private boolean contains(int[] pv, int value) {
+		for(int v : pv)
+			if(v == value) return true;
+		return false;
+	}
+
+	public ArrayList<Triple> findNewHiddenTriple() {
+		ArrayList<Triple> result = new ArrayList<Triple>();
 		return result;
 	}
 
 	public void update(XWing xwing) {
-		// TODO Auto-generated method stub
+		if(xwing.columnXWing()){
+			setRowsInXWingNotImpossible(xwing);
+		}
+		if(xwing.rowXWing()){
+			int[] columns = xwing.columns();
+			int num = xwing.num();
+			for(int i = 0; i < 9; i++){
+				if(xwing.contains(new Spot(i, columns[0]))) continue;
+				vector[num].notPossibleIn(i, columns[0]);
+				vector[num].notPossibleIn(i, columns[1]);
+			}
+		}
 
 	}
 
-	public ArrayList<XWing> findNewXWing(ArrayList<XWing> xwinglist) {
+	private void setRowsInXWingNotImpossible(XWing xwing) {
+		int [] rows = xwing.rows();
+		int num = xwing.num();
+		for(int j = 0; j < 9; j++){
+			if(xwing.contains(new Spot(rows[0], j)))continue;
+			vector[num].notPossibleIn(rows[0], j);
+			vector[num].notPossibleIn(rows[1], j);
+		}
+	}
+
+	public ArrayList<XWing> findNewXWing() {
 		ArrayList<XWing> result = new ArrayList<XWing>();
+		for(int num = 0; num < 9; num ++){
+			findShaddowColumn(result, num);
+			findShadowRows(result, num);
+		}
 		return result;
 	}
+
+	private void findShadowRows(ArrayList<XWing> result, int num) {
+		for(int r1 = 0; r1 < 8; r1 ++){
+			Spot[] spotInR1 = vector[num].inRow(r1);
+			if(spotInR1.length != 2) continue;
+			for(int r2 = r1 + 1; r2 < 9; r2 ++){
+				Spot[] spotInR2 = vector[num].inRow(r2);
+				if(spotInR2.length != 2) continue;
+				if(!shadowRow(spotInR1, spotInR2)) continue;
+				XWing found = new XWing(XWing.ROW, num, new Spot[]{
+						               spotInR1[0], spotInR1[1],
+						               spotInR2[0], spotInR2[1]});
+				addToResult(result, found);
+			}
+		}
+	}
+
+	private boolean shadowRow(Spot[] spotInR1, Spot[] spotInR2) {
+		int column1 = spotInR1[0].getj();
+		int column2 = spotInR1[1].getj();
+		if(spotInR2[0].getj() == column1 && spotInR2[1].getj() == column2) return true;
+		if(spotInR2[0].getj() == column2 && spotInR2[1].getj() == column1) return true;
+		return false;
+	}
+
+	private void findShaddowColumn(ArrayList<XWing> result, int num) {
+		for(int c1 = 0; c1 < 8; c1 ++){
+			Spot[] posInC1 = vector[num].inColumn(c1);
+			if(posInC1.length != 2) continue;
+			for(int c2 = c1+1; c2 < 9; c2 ++ ){
+				Spot[] posInC2 = vector[num].inColumn(c2);
+				if(posInC2.length != 2) continue;
+				if(!shadowColumn(posInC1, posInC2)) continue;
+				XWing found = new XWing(XWing.COLUMN, num, new Spot[]{
+						posInC1[0], posInC1[1],
+						posInC2[0], posInC2[1]
+					});
+				addToResult(result, found);
+			}
+		}
+	}
+
+	private void addToResult(ArrayList<XWing> result, XWing found) {
+		if(!xWingList.contains(found)){
+		result.add(found);
+		xWingList.add(found);}
+	}
+
+	private boolean shadowColumn(Spot[] posInC1, Spot[] posInC2) {
+		int row1 = posInC1[0].geti();
+		int row2 = posInC1[1].geti();
+		if((posInC2[0].geti() == row1 && posInC2[1].geti() == row2)) return true;
+		if((posInC2[0].geti() == row2 && posInC2[1].geti() == row1)) return true;
+		return false;
+	}
+
+
 
 }

@@ -26,18 +26,49 @@ public class TestRanking {
 
 	@Test
 	public void test() {
-
+		Random rand = new Random();
+		int tableIndex = rand.nextInt(46656);
 		PuzzleGenerator gen = new PuzzleGenerator();
-		int [][] puzzle = gen.generatePuzzle(100, 56);
+		int [][] puzzle = gen.generatePuzzle(tableIndex, 57);
 		if(puzzle == null) return;
 		Puzzle inputPuzzle = new Puzzle(puzzle);
 		int rank = ranking.ranking(inputPuzzle);
 
-		printPuzzle(puzzle);
+		System.out.println(inputPuzzle);
 		System.out.println();
 		System.out.println("rank is " + rank);
 		System.out.println();
 
+	}
+	
+	@Test
+	public void testRankIs4(){
+		Puzzle inputPuzzle = new Puzzle(new int [][]{
+				{-1, -1, -1, -1, 3, -1, -1, -1, -1}, 
+				{4, 3, -1, 8, -1, -1, -1, -1, -1}, 
+				{-1, -1, -1, -1, 0, 1, 5, -1, -1}, 
+				{2, -1, -1, -1, -1, 5, 0, 7, -1}, 
+				{5, 4, -1, -1, -1, 8, -1, -1, -1}, 
+				{-1, -1, -1, 3, -1, -1, -1, 4, -1}, 
+				{-1, 2, -1, -1, 5, -1, -1, -1, -1}, 
+				{-1, -1, 7, -1, -1, -1, -1, -1, 3}, 
+				{0, -1, 1, -1, 2, 3, 7, -1, -1}});
+		System.out.println("Solved: rank is 4 " + ranking.ranking(inputPuzzle));
+	}
+	
+	@Test
+	public void testRankIs7(){
+		Puzzle inputPuzzle = new Puzzle(new int [][]{
+		{-1, -1, -1, -1, -1, -1, -1, -1, 5}, 
+		{-1, -1, -1, -1, 3, -1, 1, 6, -1}, 
+		{-1, -1, -1, 7, -1, 5, -1, 0, 2}, 
+		{-1, 3, -1, 2, -1, -1, 8, 4, 6}, 
+		{8, -1, -1, -1, 4, 3, -1, 7, 0}, 
+		{2, -1, -1, -1, -1, -1, -1, -1, -1}, 
+		{-1, -1, 8, -1, -1, -1, 0, -1, 7}, 
+		{-1, 7, -1, 6, -1, 4, -1, -1, -1}, 
+		{-1, -1, 5, -1, -1, -1, -1, 2, -1}});
+		System.out.println("Solved: rank is 7 " + ranking.ranking(inputPuzzle)); 
 	}
 
 	
@@ -72,7 +103,22 @@ public class TestRanking {
 		System.out.println();
 		System.out.println("Solved: Naked Pair " + ranking.ranking(inputPuzzle));
 	}
-	
+	@Test
+	public void testPuzzleRank12(){
+		Puzzle inputPuzzle = new Puzzle(new int [][] {
+				{1, -1, -1, -1, -1, -1, 8, -1, -1}, 
+				{-1, 3, 5, -1, -1, 7, 2, -1, -1}, 
+				{-1, -1, -1, -1, 0, -1, 5, -1, -1}, 
+				{-1, -1, -1, -1, -1, 5, -1, 7, -1}, 
+				{-1, -1, 6, -1, -1, -1, 3, -1, -1}, 
+				{8, 7, -1, -1, -1, -1, 6, 4, -1}, 
+				{3, -1, -1, 7, -1, -1, -1, -1, -1}, 
+				{-1, 5, -1, -1, -1, 0, -1, 2, -1}, 
+				{-1, -1, 1, 4, 2, -1, -1, -1, 6}, 
+		});
+
+		System.out.println("Solved: rank = 12 " + ranking.ranking(inputPuzzle));
+	}
 
 	
 	@Test
@@ -139,7 +185,7 @@ public class TestRanking {
 								{-1, -1, -1, 1, -1, -1, -1, -1, -1}, 
 								{-1, 8, 1, 4, -1, -1, -1, -1, 6}}); 
 
-		System.out.println("Not Solved #2 " + ranking.ranking(inputPuzzle));
+		System.out.println("Solved: pair or tripple " + ranking.ranking(inputPuzzle));
 
 	}
 	
@@ -203,7 +249,7 @@ public class TestRanking {
 				{-1, -1, -1, -1, -1, -1, 1, -1, -1}, 
 				{6, -1, -1, 1, -1, -1, 4, 2, -1}, 
 				{0, 8, -1, -1, 2, -1, -1, -1, 6}}); 
-		System.out.println("Not Solved #6 " + ranking.ranking(inputPuzzle)); 
+		System.out.println("Solved: triple in a block  " + ranking.ranking(inputPuzzle)); 
 	}
 	
 
@@ -222,7 +268,6 @@ public class TestRanking {
 		System.out.println("Not Solved #7 " + ranking.ranking(inputPuzzle)); 
 	}
 	
-	
 	@Test
 	public void puzzleNotSolved8(){
 		Puzzle inputPuzzle = new Puzzle(new int [][] {
@@ -240,6 +285,22 @@ public class TestRanking {
 	}
 	
 	@Test
+	public void puzzleNotSolved9(){
+		Puzzle inputPuzzle = new Puzzle(new int [][] {
+				{-1, -1, 2, 5, 3, -1, -1, 6, 7}, 
+				{4, -1, -1, -1, -1, -1, -1, -1, -1}, 
+				{-1, -1, 8, -1, -1, -1, 5, 3, -1}, 
+				{-1, -1, -1, 6, 4, 5, -1, 7, -1}, 
+				{-1, -1, -1, -1, -1, -1, -1, -1, 2}, 
+				{-1, -1, -1, 3, 1, -1, 6, -1, -1}, 
+				{-1, -1, -1, -1, -1, -1, 1, -1, -1}, 
+				{-1, 5, 7, -1, 8, 0, -1, 2, -1}, 
+				{-1, -1, -1, -1, -1, -1, -1, 5, 6}, 
+				}); 
+		System.out.println("Not Solved #9 " + ranking.ranking(inputPuzzle)); 
+	}
+	
+	@Test
 	public void whyRankIs9(){
 		Puzzle inputPuzzle = new Puzzle(new int[][]{
 				{1, 0, -1, -1, 3, -1, -1, -1, -1}, 
@@ -254,6 +315,23 @@ public class TestRanking {
 		});
 		int rank = ranking.ranking(inputPuzzle);
 		System.out.println("Solved: Naked Pair + Hidden Pair + Locked * 2 " + rank); 
+	}
+	
+	@Test
+	public void rankIs9No2(){
+		Puzzle inputPuzzle = new Puzzle(new int[][]{
+				{1, 0, -1, -1, -1, -1, 8, -1, -1}, 
+				{-1, -1, -1, 8, -1, -1, -1, 0, -1}, 
+				{7, 6, -1, -1, -1, -1, 5, -1, 4}, 
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1}, 
+				{-1, -1, -1, 0, -1, -1, -1, 1, 2}, 
+				{8, 7, -1, -1, -1, -1, 6, -1, -1}, 
+				{-1, -1, -1, -1, 5, -1, -1, -1, 0}, 
+				{-1, 5, 7, -1, 8, 0, 4, -1, -1}, 
+				{-1, -1, 1, -1, 2, -1, -1, -1, 6} 
+		});
+		int rank = ranking.ranking(inputPuzzle);
+		System.out.println("Solved: rand 9 #2 " + rank); 
 	}
 	
 	void printPuzzle(int [][] puzzle){

@@ -23,7 +23,8 @@ public class SudokuController {
 							  {"","","","6","7","5","","",""},
 							  {"3","8","","","2","7","","4","9"},
 							  {"","","5","4","","","","8",""},
-							  {"","","","9","","8","3","",""}};
+							  {"","","","9","","8","3","",""}
+							  };
 		String jsonPuzzle = gson.toJson(puzzle);
  		model.addAttribute("puzzle", jsonPuzzle);
 		return "sudoku";

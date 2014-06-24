@@ -92,5 +92,20 @@ public class Puzzle {
 		return count == 1;
 	}
 
+	@Override
+	public String toString(){
+		String result = "";
+
+			for(int i = 0; i < 9; i ++){
+				result += "{" + puzzle[i][0];
+				
+				for(int j = 1; j < 9; j++){
+					result += ", " + puzzle[i][j];
+				}
+				result += "},\n";
+			}
+		
+		return result;
+	}
 
 }
