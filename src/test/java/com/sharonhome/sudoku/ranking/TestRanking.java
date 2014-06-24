@@ -27,17 +27,20 @@ public class TestRanking {
 	@Test
 	public void test() {
 		Random rand = new Random();
+		for(int i = 0; i < 100; i++){
 		int tableIndex = rand.nextInt(46656);
 		PuzzleGenerator gen = new PuzzleGenerator();
-		int [][] puzzle = gen.generatePuzzle(tableIndex, 57);
-		if(puzzle == null) return;
+		int [][] puzzle = gen.generatePuzzle(tableIndex, 58);
+		if(puzzle == null) continue;
 		Puzzle inputPuzzle = new Puzzle(puzzle);
 		int rank = ranking.ranking(inputPuzzle);
+		System.out.println(rank);
+		}
 
-		System.out.println(inputPuzzle);
-		System.out.println();
-		System.out.println("rank is " + rank);
-		System.out.println();
+//		System.out.println(inputPuzzle);
+//		System.out.println();
+//		System.out.println("rank is " + rank);
+//		System.out.println();
 
 	}
 	
@@ -238,7 +241,7 @@ public class TestRanking {
 	}
 	
 	@Test
-	public void puzzleNotSolved6(){
+	public void puzzleSolvedByTripple(){
 		Puzzle inputPuzzle = new Puzzle(new int [][] {
 				{-1, -1, -1, -1, -1, -1, -1, 6, -1}, 
 				{-1, 3, 5, -1, -1, 7, 2, -1, -1}, 

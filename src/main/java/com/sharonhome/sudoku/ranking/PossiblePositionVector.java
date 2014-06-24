@@ -10,6 +10,7 @@ public class PossiblePositionVector {
 	private ArrayList<Pair> pairList = new ArrayList<Pair>();
 	private ArrayList<Locked> lockedList = new ArrayList<Locked>();
 	private ArrayList<XWing> xWingList = new ArrayList<XWing>();
+	private ArrayList<Triple> tripleList = new ArrayList<Triple>();
 
 	public PossiblePositionVector(Puzzle puzzle) {
 		for (int i = 0; i < 9; i++)
@@ -360,6 +361,51 @@ public class PossiblePositionVector {
 
 	public ArrayList<Triple> findNewHiddenTriple() {
 		ArrayList<Triple> result = new ArrayList<Triple>();
+		for(int br = 0; br < 3; br ++){
+			for(int bc = 0; bc < 3; bc ++){
+				for(int n1 = 0; n1 < 7; n1++){
+					Spot[] sN1 = vector[n1].inBlock(br, bc);
+					if(sN1.length > 3 || sN1.length == 0) continue;
+					for(int n2 = n1 + 1; n2 < 8; n2 ++){
+						Spot[] sN2 = vector[n2].inBlock(br, bc);
+						if(sN2.length > 3 || sN2.length == 0) continue;
+						Spot[] sunion = union(sN1, sN2);
+						if(sunion.length != 3) continue;
+						for(int n3 = n2 + 1; n3 < 9; n3++){
+							Spot[] sN3 = vector[n3].inBlock(br, bc);
+							if(sN3.length > 3 || sN3.length == 0) continue;
+							sunion = union(sunion, sN3);
+							if (sunion.length == 3){
+								Triple found = new Triple(new PossibleValues(new int[]{n1, n2, n3}),
+										                   sunion);
+								if(!tripleList.contains(found)){
+									result.add(found);
+									tripleList.add(found);
+								}
+							}
+						}
+						
+					}
+				}
+			}
+		}
+		return result;
+	}
+
+	private Spot[] union(Spot[] sN1, Spot[] sN2) {
+		ArrayList <Spot> list = new ArrayList<Spot>();
+		for(Spot eachS : sN1)
+			list.add(eachS);
+		for(Spot eachS : sN2)
+			if(!list.contains(eachS))
+				list.add(eachS);
+		return listToArray(list);
+	}
+
+	private Spot[] listToArray(ArrayList<Spot> list) {
+		Spot [] result = new Spot[list.size()];
+		for(int i = 0; i < result.length; i++)
+			result[i] = list.get(i);
 		return result;
 	}
 
@@ -452,7 +498,5 @@ public class PossiblePositionVector {
 		if((posInC2[0].geti() == row2 && posInC2[1].geti() == row1)) return true;
 		return false;
 	}
-
-
 
 }

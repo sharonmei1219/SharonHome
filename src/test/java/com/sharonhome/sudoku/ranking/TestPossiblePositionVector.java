@@ -498,4 +498,38 @@ public class TestPossiblePositionVector {
 		assertEquals(1, singleList.size());
 		assertEquals(new Single(3, new Spot(7, 4)), singleList.get(0));
 	}
+	
+	@Test
+	public void testHiddenTrippleInBlock(){
+		Triple expTriple = new Triple(new PossibleValues(new int[]{0, 1, 2}),
+				                      new Spot[]{new Spot(2, 0), new Spot(1, 2), new Spot(2, 2)});
+		Locked expLocked = new Locked(8, new Spot[]{new Spot(1, 1), new Spot(2, 1)});
+		Puzzle inputPuzzle = new Puzzle(new int [][]{
+				{-1, -1, -1,  0,  1, -1,  2,  8, -1},
+				{ 6, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1,  0, -1, -1, -1, -1, -1, -1, -1},
+				{-1,  1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1,  2, -1,  8, -1, -1, -1, -1, -1},
+				{-1, -1,  7, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, -1, -1,  8}
+		});
+		
+		PossiblePositionVector PP = new PossiblePositionVector(inputPuzzle);
+		
+		ArrayList<Triple> tList = PP.findNewHiddenTriple();
+		assertEquals(1, tList.size());
+		assertEquals(expTriple, tList.get(0));
+		
+		PP.update(expTriple);
+		
+		ArrayList<Locked> lList = PP.findNewLocked();
+		assertTrue(lList.contains(expLocked));
+		
+		PP.update(expLocked);
+		ArrayList<Single> sList = PP.findNewSingle();
+		assertTrue(sList.contains(new Single(8, new Spot(7, 0))));
+		
+	}
 }

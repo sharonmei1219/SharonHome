@@ -10,7 +10,6 @@ public class PuzzleRanking {
 		Puzzle puzzle = inputPuzzle.deepCopy();
 		PossibleValueMatrix PV = new PossibleValueMatrix(puzzle);
 		PossiblePositionVector PP = new PossiblePositionVector(puzzle);
-//		ArrayList<Single> singlelist = new ArrayList<Single>();
 
 		while (true) {
 			ArrayList<Single> newSingleList = PV.findNewSingle();
@@ -19,7 +18,10 @@ public class PuzzleRanking {
 				PP.update(vpt);
 				puzzle.update(vpt);
 			}
-			if(newSingleList.size() > 0) continue;
+			if(newSingleList.size() > 0){
+				ranking += 1;
+				continue;
+			}
 			
 			newSingleList = PP.findNewSingle();
 			for (Single vpt : newSingleList) {
@@ -27,78 +29,97 @@ public class PuzzleRanking {
 				PP.update(vpt);
 				puzzle.update(vpt);
 			}
-			if(newSingleList.size() > 0) continue;
+			if(newSingleList.size() > 0) {
+				ranking += 1;
+				continue;
+			}
 			
-			ArrayList<Pair> newPairList = PV.findNewNakedPair();
-			for(Pair pair : newPairList){
-				PV.update(pair);
-				PP.update(pair);
-			}
-			if(newPairList.size() > 0) 	continue;
-
-			ranking += 1;
-			newPairList = PP.findNewHiddenPair();
-			for(Pair pair : newPairList){
-				PV.update(pair);
-				PP.update(pair);
-			}
-			if(newPairList.size() > 0)	continue;
-		
-			ranking += 1;
 			ArrayList<Locked> newLockedList = PV.findNewLocked();
 			for(Locked locked : newLockedList){
 				PV.update(locked);
 				PP.update(locked);
 			}
-			if(newLockedList.size() > 0) continue;
+			if(newLockedList.size() > 0) {
+				ranking += 3;
+				continue;
+			}
 			
 			newLockedList = PP.findNewLocked();
 			for(Locked locked : newLockedList){
 				PV.update(locked);
 				PP.update(locked);
 			}
-			if(newLockedList.size() > 0) continue;
+			if(newLockedList.size() > 0) {
+				ranking += 3;
+				continue;
+			}
+			
+			ArrayList<Pair> newPairList = PV.findNewNakedPair();
+			for(Pair pair : newPairList){
+				PV.update(pair);
+				PP.update(pair);
+			}
+			if(newPairList.size() > 0) 	{
+				ranking += 5;
+				continue;
+			}
 
-			ranking += 1;
+			newPairList = PP.findNewHiddenPair();
+			for(Pair pair : newPairList){
+				PV.update(pair);
+				PP.update(pair);
+			}
+			if(newPairList.size() > 0)	{
+				ranking += 5;
+				continue;
+			}
 			
 			ArrayList<Triple> newTripleList = PV.findNewNakedTriple();
 			for(Triple tripple : newTripleList){
 				PV.update(tripple);
 				PP.update(tripple);
 			}
-			if(newTripleList.size() > 0) continue;
+			if(newTripleList.size() > 0) {
+				ranking += 10;
+				continue;
+			}
 			
 			newTripleList = PP.findNewHiddenTriple();
 			for(Triple tripple : newTripleList){
 				PV.update(tripple);
 				PP.update(tripple);
 			}
-			if(newTripleList.size() > 0) continue;
+			if(newTripleList.size() > 0) {
+				ranking += 10;
+				continue;
+			}
 			
 			ArrayList<XWing> newXWingList = PV.findNewXWing();
 			for(XWing xwing : newXWingList){
 				PV.update(xwing);
 				PP.update(xwing);
 			}
-			if(newXWingList.size() > 0) continue;
+			if(newXWingList.size() > 0) {
+				ranking += 10;
+				continue;
+			}
 			
 			newXWingList = PP.findNewXWing();
 			for(XWing xwing : newXWingList){
 				PV.update(xwing);
 				PP.update(xwing);
 			}
-			if(newXWingList.size() > 0) continue;
+			if(newXWingList.size() > 0) {
+				ranking += 10;
+				continue;
+			}
 			
 			break;
 		}
 		
 		if(!puzzle.solved()){
-//			System.out.println("left unsolved puzzle");
-//			System.out.println(puzzle);
-			ranking += 100;
+			ranking = 500;
 		}
-		
-		
 		return ranking;
 	}
 
