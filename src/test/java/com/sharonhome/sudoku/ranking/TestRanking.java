@@ -26,15 +26,16 @@ public class TestRanking {
 
 	@Test
 	public void test() {
-//		Random rand = new Random();
+		Random rand = new Random();
 //		for(int i = 0; i < 100; i++){
-//		int tableIndex = rand.nextInt(46656);
-//		PuzzleGenerator gen = new PuzzleGenerator();
-//		int [][] puzzle = gen.generatePuzzle(tableIndex, 58);
-//		if(puzzle == null) continue;
-//		Puzzle inputPuzzle = new Puzzle(puzzle);
-//		int rank = ranking.ranking(inputPuzzle);
-//		System.out.println(rank);
+		int tableIndex = rand.nextInt(46656);
+		PuzzleGenerator gen = new PuzzleGenerator();
+		int [][] puzzle = gen.generatePuzzle(tableIndex, 57);
+		if(puzzle == null) return;
+		Puzzle inputPuzzle = new Puzzle(puzzle);
+		int rank = ranking.ranking(inputPuzzle);
+		System.out.println(inputPuzzle);
+		System.out.println(rank);
 //		}
 	}
 	
@@ -295,6 +296,22 @@ public class TestRanking {
 				{-1, -1, -1, -1, -1, -1, -1, 5, 6}, 
 				}); 
 		System.out.println("Not Solved #9 " + ranking.ranking(inputPuzzle)); 
+	}
+	
+	@Test
+	public void puzzleNotSolved10(){
+		Puzzle inputPuzzle = new Puzzle(new int [][] {
+				{8, -1, -1, -1, -1, -1, -1, -1, -1},
+				{-1, -1, -1, 6, 1, -1, -1, 7, -1},
+				{-1, -1, -1, -1, 4, -1, 2, -1, 3},
+				{0, -1, -1, 4, 8, -1, 6, -1, 7},
+				{-1, -1, 5, 7, -1, -1, -1, -1, -1},
+				{-1, -1, -1, -1, -1, 0, -1, -1, -1},
+				{-1, -1, -1, -1, -1, -1, 7, -1, 8},
+				{-1, -1, 6, -1, 3, 7, 1, 0, -1},
+				{-1, -1, 0, 2, -1, -1, -1, -1, -1}, 
+				}); 
+		System.out.println("Not Solved #10 " + ranking.ranking(inputPuzzle)); 
 	}
 	
 	@Test

@@ -6,7 +6,7 @@
     <%@ page isELIgnored="false"%> 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" href="http://v3.bootcss.com/docs-assets/ico/favicon.png">
+    <!-- <link rel="shortcut icon" href="http://v3.bootcss.com/docs-assets/ico/favicon.png"> -->
     <title>Sudoku Generator</title>
     <link href="<c:url value="/resources/js/dist/css/bootstrap.css"/>" rel="stylesheet">
     <link href="<c:url value="/resources/js/dist/css/starter.css" />" rel="stylesheet">
@@ -51,7 +51,7 @@
             <input type="text" class="form-control" placeholder="Number Of Empty Cells in Sudoku">
           </div>
           <br>
-          <button type="button" class="btn btn-default btn-lg">
+          <button type="button" class="btn btn-default btn-lg" id="start-button">
             <span class="glyphicon glyphicon-star"></span> GENERATE
           </button>
         </div>

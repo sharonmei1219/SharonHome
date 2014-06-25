@@ -361,6 +361,59 @@ public class PossiblePositionVector {
 
 	public ArrayList<Triple> findNewHiddenTriple() {
 		ArrayList<Triple> result = new ArrayList<Triple>();
+		findTrippleInBlocks(result);
+		findTrippleInRow(result);
+		for(int column = 0; column < 9; column ++){
+			for(int n1 = 0; n1 < 7; n1++){
+				Spot[] sN1 = vector[n1].inColumn(column);
+				if(sN1.length == 0 || sN1.length > 3) continue;
+				for(int n2 = n1 + 1; n2 < 8; n2 ++){
+					Spot[] sN2 = vector[n2].inColumn(column);
+					if(sN2.length == 0 || sN2.length > 3) continue;
+					Spot[] sunion = union(sN1, sN2);
+					if(sunion.length != 3) continue;
+					for(int n3 = n2 + 1; n3 < 9; n3 ++){
+						Spot[] sN3 = vector[n3].inColumn(column);
+						if(sN3.length == 0 || sN3.length > 3) continue;
+						sunion = union(sunion, sN3);
+						if(sunion.length == 3){
+							Triple found = new Triple(new PossibleValues(new int[]{n1, n2, n3}),
+					                   sunion);
+							addToResult(result, found);
+						}
+					}
+				}
+			}
+		}
+		return result;
+	}
+
+	private void findTrippleInRow(ArrayList<Triple> result) {
+		for(int row = 0; row < 9; row ++){
+			for(int n1 = 0; n1 < 7; n1 ++){
+				Spot[] sN1 = vector[n1].inRow(row);
+				if(sN1.length == 0 || sN1.length > 3) continue;
+				for(int n2 = n1 + 1; n2 < 8; n2 ++){
+					Spot[] sN2 = vector[n2].inRow(row);
+					if(sN2.length == 0 || sN2.length > 3) continue;
+					Spot[] sunion = union(sN1, sN2);
+					if(sunion.length != 3) continue;
+					for(int n3 = n2 + 1; n3 < 9; n3 ++){
+						Spot[] sN3 = vector[n3].inRow(row);
+						if(sN3.length == 0 || sN3.length > 3) continue;
+						sunion = union(sunion, sN3);
+						if(sunion.length == 3){
+							Triple found = new Triple(new PossibleValues(new int[]{n1, n2, n3}),
+					                   sunion);
+							addToResult(result, found);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private void findTrippleInBlocks(ArrayList<Triple> result) {
 		for(int br = 0; br < 3; br ++){
 			for(int bc = 0; bc < 3; bc ++){
 				for(int n1 = 0; n1 < 7; n1++){
@@ -378,10 +431,7 @@ public class PossiblePositionVector {
 							if (sunion.length == 3){
 								Triple found = new Triple(new PossibleValues(new int[]{n1, n2, n3}),
 										                   sunion);
-								if(!tripleList.contains(found)){
-									result.add(found);
-									tripleList.add(found);
-								}
+								addToResult(result, found);
 							}
 						}
 						
@@ -389,7 +439,13 @@ public class PossiblePositionVector {
 				}
 			}
 		}
-		return result;
+	}
+
+	private void addToResult(ArrayList<Triple> result, Triple found) {
+		if(!tripleList.contains(found)){
+			result.add(found);
+			tripleList.add(found);
+		}
 	}
 
 	private Spot[] union(Spot[] sN1, Spot[] sN2) {

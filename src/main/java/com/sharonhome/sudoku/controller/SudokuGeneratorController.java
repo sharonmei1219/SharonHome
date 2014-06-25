@@ -32,8 +32,8 @@ public class SudokuGeneratorController {
 	@RequestMapping(value = "/generationProgress", method = RequestMethod.GET)
 	public @ResponseBody
 	Progress getProgress() {
-		easy += 2;
-		hard++;
+		easy += inc;
+		hard += inc;
 		Progress progress = new Progress();
 		if (easy + hard + 5 + 7 >= 100) {
 			progress.setInProgress(false);
@@ -46,5 +46,14 @@ public class SudokuGeneratorController {
 		progress.setHard(hard);
 		progress.setEvil(7);
 		return progress;
+	}
+	private boolean notStop = true;
+	private int inc = 0;
+	
+	@RequestMapping(value = "/startGeneration", method = RequestMethod.POST)
+	public String startGeneration() {
+		inc = 1;
+		while(notStop){};
+		return "done";
 	}
 }
