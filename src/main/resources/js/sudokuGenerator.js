@@ -22,12 +22,14 @@ function renderProgressBar(category, percentage, number){
 	$(category).html(number);
 }
 
-var progressUpdatePeriod = setInterval(updateProgress, 50);
+// var progressUpdatePeriod = setInterval(updateProgress, 50);
 
 function startGeneration(){
 	$.ajax({
 		type : "POST",
 		url : "startGeneration",
+		data : JSON.stringify({numberOfPuzzleToGenerate:$('#input-numberOfPuzzles').val(), numberOfHolesInPuzzle:$('#input-numberOfHoles').val()}),
+		contentType: 'application/json',
 		async: true,
 		success : function(response){
 			alert('done');

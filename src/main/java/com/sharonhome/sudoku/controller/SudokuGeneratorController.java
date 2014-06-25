@@ -3,12 +3,14 @@ package com.sharonhome.sudoku.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sharonhome.sudoku.model.GeneratorStatus;
 import com.sharonhome.sudoku.model.Progress;
+import com.sharonhome.sudoku.model.StartParameter;
 
 @Controller
 public class SudokuGeneratorController {
@@ -51,9 +53,10 @@ public class SudokuGeneratorController {
 	private int inc = 0;
 	
 	@RequestMapping(value = "/startGeneration", method = RequestMethod.POST)
-	public String startGeneration() {
+	public @ResponseBody String startGeneration(@RequestBody StartParameter sp) {
 		inc = 1;
-		while(notStop){};
-		return "done";
+		System.out.println("sp received " + sp.toString());
+
+		return new String("get it");
 	}
 }

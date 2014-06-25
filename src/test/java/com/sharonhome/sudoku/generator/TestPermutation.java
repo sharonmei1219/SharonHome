@@ -15,4 +15,9 @@ public class TestPermutation {
 		assertEquals(2, per[0]);
 		assertEquals(1, per[1]);
 	}
+	@Test
+	public void testPer9() {
+		Permutations pers = new Permutations(new int [] {1, 2, 3, 4, 5, 6, 7, 8, 9});
+		int [] per = pers.get(pers.total() - 1);
+	}
 }

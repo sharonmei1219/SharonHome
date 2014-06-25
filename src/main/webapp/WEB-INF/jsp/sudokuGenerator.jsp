@@ -43,12 +43,12 @@
           <div class="panel-body">
           <div class="input-group">
             <span class="input-group-addon">@</span>
-            <input type="text" class="form-control" placeholder="Number Of Sudoku">
+            <input type="text" class="form-control" id="input-numberOfPuzzles" placeholder="Number Of Sudoku">
           </div>
           <br>
           <div class="input-group">
             <span class="input-group-addon">$</span>
-            <input type="text" class="form-control" placeholder="Number Of Empty Cells in Sudoku">
+            <input type="text" class="form-control" id = "input-numberOfHoles" placeholder="Number Of Empty Cells in Sudoku">
           </div>
           <br>
           <button type="button" class="btn btn-default btn-lg" id="start-button">
@@ -106,7 +106,6 @@
 
 
     </div><!-- /.container -->
-
 
     <script src="<c:url value="/resources/js/jquery-1.11.1.min.js" />"></script>
     <script src="<c:url value="/resources/js/sudokuGenerator.js" />"></script>
