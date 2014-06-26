@@ -12,9 +12,14 @@ function updateProgress(){
 				renderProgressBar('#normal-progress', response.percentageNormal, response.normal);
 				renderProgressBar('#hard-progress', response.percentageHard, response.hard);
 				renderProgressBar('#evil-progress', response.percentageEvil, response.evil);
+				renderWarning(response.warning);
 			}
 		}
 	});
+}
+
+function renderWarning(warning){
+	$('#info-warnings').text(warning);
 }
 
 function renderProgressBar(category, percentage, number){
@@ -32,7 +37,7 @@ function startGeneration(){
 		contentType: 'application/json',
 		async: true,
 		success : function(response){
-			// alert('done');
+			alert('done');
 		}
 	});
 	progressUpdatePeriod = setInterval(updateProgress, 50);

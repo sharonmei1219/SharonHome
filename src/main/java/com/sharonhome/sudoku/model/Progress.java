@@ -7,6 +7,15 @@ public class Progress {
 	private int evil;
 	private int total;
 	private boolean inProgress;
+	private String warning = "";
+	
+	public void setWarning(String warning){
+		this.warning = warning;
+	}
+	
+	public String getWarning(){
+		return warning;
+	}
 	
 	public void setInProgress(boolean inProgress){
 		this.inProgress = inProgress;

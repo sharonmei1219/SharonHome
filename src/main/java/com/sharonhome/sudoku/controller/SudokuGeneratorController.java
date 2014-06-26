@@ -63,10 +63,12 @@ public class SudokuGeneratorController {
 		progress.setNormal(normal);
 		progress.setHard(hard);
 		progress.setEvil(evil);
+		progress.setWarning(warning);
 		return progress;
 	}
 	private boolean notStop = true;
 	private int inc = 0;
+	private String warning = "";
 	
 	@RequestMapping(value = "/startGeneration", method = RequestMethod.POST)
 	public @ResponseBody String startGeneration(@RequestBody StartParameter sp) {
@@ -78,14 +80,29 @@ public class SudokuGeneratorController {
 			if(originPuzzle == null) continue;
 			String rank = rank(originPuzzle);
 			Puzzle permedPuzzle = permutate(originPuzzle);
-//			if(!validatePermedPuzzle(permedPuzzle)) continue;
-//			ApplicationContext context = new ClassPathXmlApplicationContext(
-//					"EasyPuzzleTempGen_context.xml");
-//			PuzzleDao puzzleDao = (PuzzleDao) context.getBean("puzzleDao");
-//			puzzleDao.insertPuzzle(rank, permedPuzzle.toString());
+			if(!validatePermedPuzzle(permedPuzzle)) {
+				alert("invalid puzzle generated");
+				continue;
+			}
+			ApplicationContext context = new ClassPathXmlApplicationContext(
+					"EasyPuzzleTempGen_context.xml");
+			try{
+			PuzzleDao puzzleDao = (PuzzleDao) context.getBean("puzzleDao");
+			
+			puzzleDao.insertPuzzle(rank, permedPuzzle.toString());
+			}catch(Exception e){
+				System.out.println(e);
+				alert(e.toString());
+			}
+			System.out.println(i);
 			updateProgress(rank);
 		}
 		return new String("Done!");
+	}
+
+	private void alert(String string) {
+		warning += "\n" + string;
+		
 	}
 
 	private boolean validatePermedPuzzle(Puzzle puzzle) {
@@ -104,6 +121,7 @@ public class SudokuGeneratorController {
 		normal = 0;
 		hard = 0;
 		evil = 0;
+		warning = "";
 	}
 
 	private void updateProgress(String rank) {
