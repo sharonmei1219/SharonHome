@@ -42,24 +42,40 @@
         <div class="panel panel-default">
           <div class="panel-body">
             <div class = "row">
-              <div class = "col-md-5">
+              <div class = "col-md-3">
 
                 <div class="input-group">
-                  <span class="input-group-addon">@</span>
+                  <!-- <span class="input-group-addon">@</span> -->
                   <input type="text" class="form-control" id="input-numberOfPuzzles" placeholder="Number Of Sudoku">
                 </div>
                 <br>
                 <div class="input-group">
-                  <span class="input-group-addon">$</span>
+                  <!-- <span class="input-group-addon">$</span> -->
                   <input type="text" class="form-control" id = "input-numberOfHoles" placeholder="Number Of Empty Cells in Sudoku">
                 </div>
                 <br>
-                <button type="button" class="btn btn-default btn-lg" id="start-button">
-                  <span class="glyphicon glyphicon-star"></span> GENERATE
+                <button type="button" class="btn btn-default btn" id="start-button">
+                  <!-- <span class="glyphicon glyphicon-star"></span> --> GENERATE
                 </button>
               </div>
-              <div class="col-md-6">
-                <h2>Warnings</h2>
+
+              
+              <div class="col-md-2">
+                <dl class="dl-horizontal">
+                  <dt>Overall</dt>
+                  <dd id="info-overall">${progress.storedAll}</dd>
+                  <dt>Easy</dt>
+                  <dd id="info-easy">${progress.storedEasy}</dd>
+                  <dt>Normal</dt>
+                  <dd id="info-normal">${progress.storedNormal}</dd>
+                  <dt>Hard</dt>
+                  <dd id="info-hard">${progress.storedHard}</dd>
+                  <dt>Evil</dt>
+                  <dd id="info-evil">${progress.storedEvil}</dd>
+                </dl>
+              </div>
+              <div class="col-md-7">
+                <p>Warnings</p>
                 <p id="info-warnings"><p>
               </div>
 

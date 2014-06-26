@@ -67,4 +67,9 @@ public class JdbcPuzzleDao extends SimpleJdbcDaoSupport implements
 		}
 	}
 
+	public int numberOfPuzzle(String level) {
+		String getCntSql = "SELECT COUNT(*) FROM " + level +"puzzle";
+		return getSimpleJdbcTemplate().queryForInt(getCntSql);
+	}
+
 }

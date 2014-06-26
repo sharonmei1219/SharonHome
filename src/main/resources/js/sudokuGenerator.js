@@ -12,10 +12,19 @@ function updateProgress(){
 				renderProgressBar('#normal-progress', response.percentageNormal, response.normal);
 				renderProgressBar('#hard-progress', response.percentageHard, response.hard);
 				renderProgressBar('#evil-progress', response.percentageEvil, response.evil);
+				renderPuzzleNumber('#info-overall', response.storedAll);
+				renderPuzzleNumber('#info-easy', response.storedEasy);
+				renderPuzzleNumber('#info-normal', response.storedNormal);
+				renderPuzzleNumber('#info-hard', response.storedHard);
+				renderPuzzleNumber('#info-evil', response.storedEvil);
 				renderWarning(response.warning);
 			}
 		}
 	});
+}
+
+function renderPuzzleNumber(category, number){
+	$(category).text(number)
 }
 
 function renderWarning(warning){

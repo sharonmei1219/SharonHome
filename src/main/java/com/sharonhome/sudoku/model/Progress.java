@@ -7,7 +7,48 @@ public class Progress {
 	private int evil;
 	private int total;
 	private boolean inProgress;
+	
+	private int storedEasy;
+	private int storedNormal;
+	private int storedHard;
+	private int storedEvil;
 	private String warning = "";
+	
+	public void setStoredEasy(int storedEasy){
+		this.storedEasy = storedEasy;
+	}
+	
+	public int getStoredEasy(){
+		return storedEasy;
+	}
+	
+	public void setStoredNormal(int storedNormal){
+		this.storedNormal = storedNormal;
+	}
+	
+	public int getStoredNormal(){
+		return storedNormal;
+	}
+	
+	public void setStoredHard(int storedHard){
+		this.storedHard = storedHard;
+	}
+	
+	public int getStoredHard(){
+		return storedHard;
+	}
+	
+	public void setStoredEvil(int storedEvil){
+		this.storedEvil = storedEvil;
+	}
+	
+	public int getStoredEvil(){
+		return storedEvil;
+	}
+	
+	public int getStoredAll(){
+		return storedEasy + storedNormal + storedHard + storedEvil;
+	}
 	
 	public void setWarning(String warning){
 		this.warning = warning;
@@ -71,7 +112,6 @@ public class Progress {
 
 	public void setEvil(int evil) {
 		this.evil = evil;
-		
 	}
 	
 	public int getEvil(){

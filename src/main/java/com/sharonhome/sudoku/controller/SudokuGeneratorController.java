@@ -32,19 +32,30 @@ public class SudokuGeneratorController {
 
 	@RequestMapping(value = "/sudokuGenerator", method = RequestMethod.GET)
 	public String sudokuPuzzle(ModelMap model) {
-
+		storedEasy = puzzleDao.numberOfPuzzle("easy");
+		storedNormal = puzzleDao.numberOfPuzzle("normal");
+		storedHard = puzzleDao.numberOfPuzzle("hard");
+		storedEvil = puzzleDao.numberOfPuzzle("evil");
 		Progress progress = new Progress();
 		progress.setTotal(100);
 		progress.setEasy(0);
 		progress.setNormal(0);
 		progress.setHard(0);
 		progress.setEvil(0);
+		progress.setStoredEasy(storedEasy);
+		progress.setStoredNormal(storedNormal);
+		progress.setStoredHard(storedHard);
+		progress.setStoredEvil(storedEvil);
 		model.addAttribute("progress", progress);
 		return "sudokuGenerator";
 	}
 
-	private int easy = 10;
-	private int hard = 20;
+	private int storedEasy;
+	private int storedNormal;
+	private int storedHard;
+	private int storedEvil;
+	private int easy;
+	private int hard;
 	private int normal;
 	private int evil;
 	private int total;
@@ -52,8 +63,6 @@ public class SudokuGeneratorController {
 	@RequestMapping(value = "/generationProgress", method = RequestMethod.GET)
 	public @ResponseBody
 	Progress getProgress() {
-		easy += inc;
-		hard += inc;
 		Progress progress = new Progress();
 		if (easy + hard + normal + evil > total) {
 			progress.setInProgress(false);
@@ -65,6 +74,10 @@ public class SudokuGeneratorController {
 		progress.setNormal(normal);
 		progress.setHard(hard);
 		progress.setEvil(evil);
+		progress.setStoredEasy(storedEasy + easy);
+		progress.setStoredNormal(storedNormal + normal);
+		progress.setStoredHard(storedHard + hard);
+		progress.setStoredEvil(storedEvil + evil);
 		progress.setWarning(warning);
 		return progress;
 	}
