@@ -10,10 +10,10 @@ public class EasyPuzzleGenerator {
 	public static void main(String[] args) {
 		Gson gson = new Gson();
 		
-		ApplicationContext context = new ClassPathXmlApplicationContext(
-				"EasyPuzzleTempGen_context.xml");
-		PuzzleDao puzzleDao = (PuzzleDao) context.getBean("puzzleDao");
-		puzzleDao.insertPuzzle("normal", "1234");
+//		ApplicationContext context = new ClassPathXmlApplicationContext(
+//				"EasyPuzzleTempGen_context.xml");
+//		PuzzleDao puzzleDao = (PuzzleDao) context.getBean("puzzleDao");
+//		puzzleDao.insertPuzzle("normal", "1234");
 		
 		
 //		SetSet ss = new SetSet(new int[][] { { 0, 3, 6 }, { 1, 4, 7 },

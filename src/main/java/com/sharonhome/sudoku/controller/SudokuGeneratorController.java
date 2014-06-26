@@ -27,6 +27,8 @@ import com.sharonhome.sudoku.repository.PuzzleDao;
 public class SudokuGeneratorController {
 
 	private static final int CSLCR_MAX = 46656;
+	@Autowired
+	PuzzleDao puzzleDao;
 
 	@RequestMapping(value = "/sudokuGenerator", method = RequestMethod.GET)
 	public String sudokuPuzzle(ModelMap model) {
@@ -87,9 +89,8 @@ public class SudokuGeneratorController {
 			ApplicationContext context = new ClassPathXmlApplicationContext(
 					"EasyPuzzleTempGen_context.xml");
 			try{
-			PuzzleDao puzzleDao = (PuzzleDao) context.getBean("puzzleDao");
-			
-			puzzleDao.insertPuzzle(rank, permedPuzzle.toString());
+//				PuzzleDao puzzleDao = (PuzzleDao) context.getBean("puzzleDao");
+				puzzleDao.insertPuzzle(rank, permedPuzzle.toString());
 			}catch(Exception e){
 				System.out.println(e);
 				alert(e.toString());
