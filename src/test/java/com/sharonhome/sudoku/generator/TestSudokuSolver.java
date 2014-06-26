@@ -113,7 +113,7 @@ public class TestSudokuSolver {
 		int p7  = 7;
 		int p8  = 8;
 		int p9  = 9;
-		int [] candidates = {p1, p2, p3, p4, p5, p6, p7, p8, p9};
+		int [] candidates = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 		int [][] puzzle = {{-1, -1, p4, p7, -1, p3, -1, -1, -1},
 							{-1, p5, -1, -1, -1, p6, p8, -1, -1},
 							{p6, p7, -1, p8, p4, -1, -1, p2, p3},

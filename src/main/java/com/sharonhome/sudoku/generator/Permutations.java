@@ -19,7 +19,7 @@ public class Permutations {
 		return numberingSystem.total();
 	}
 
-	public int[] get(int nth) {
+	public int[] get(final int nth) {
 		int [] result = new int [originSeq.length];
 		ArrayList<Integer> pos = numberingSystem.getNthNumber(nth);
 		int [] rest = originSeq.clone();

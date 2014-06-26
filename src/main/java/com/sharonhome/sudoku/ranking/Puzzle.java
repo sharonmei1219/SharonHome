@@ -2,17 +2,17 @@ package com.sharonhome.sudoku.ranking;
 
 import java.util.ArrayList;
 
+import com.google.gson.Gson;
 import com.sharonhome.sudoku.generator.Spot;
 
 public class Puzzle {
 
-	private int[][] puzzle;
+	public int[][] puzzle;
 	public Puzzle(int[][] puzzle) {
 		this.puzzle = puzzle;
 	}
 	
 	public Puzzle(){
-		
 	}
 	
 	public void update(Single vpt) {
@@ -54,9 +54,10 @@ public class Puzzle {
 		return puzzle[i][j] == -1;
 	}
 	
-	private boolean validate(){
+	public boolean validate(){
 		for(int i = 0; i < 9; i++){
 			for(int j = 0; j < 9; j++){
+				if(empty(i, j)) continue;
 				int value = puzzle[i][j];
 				if(!onlyOneInRow(value, i)) return false;
 				if(!onlyOneInColumn(value, j)) return false;
@@ -79,7 +80,7 @@ public class Puzzle {
 	}
 
 	private boolean onlyOneInColumn(int value, int column) {
-		int count = 9;
+		int count = 0;
 		for(int i = 0; i < 9; i++)
 			if(puzzle[i][column] == value) count ++;
 		return count == 1;
@@ -92,20 +93,48 @@ public class Puzzle {
 		return count == 1;
 	}
 
-	@Override
-	public String toString(){
-		String result = "";
-
-			for(int i = 0; i < 9; i ++){
-				result += "{" + puzzle[i][0];
-				
-				for(int j = 1; j < 9; j++){
-					result += ", " + puzzle[i][j];
+	public Puzzle permutate(final int[] permutation) {
+		Puzzle result = new Puzzle();
+		result.puzzle = new int[9][9];
+		for(int i = 0; i < 9; i++){
+			for(int j = 0; j <  9; j++){
+				int index = this.puzzle[i][j];
+				if(index != -1){
+					result.puzzle[i][j] = permutation[index];
+				}else{
+					result.puzzle[i][j] = -1;
 				}
-				result += "},\n";
 			}
-		
+		}
 		return result;
 	}
-
+	
+	@Override
+	public boolean equals(Object obj){
+		if(!(obj instanceof Puzzle)) return false;
+		Puzzle that = (Puzzle)obj;
+		for(int i = 0; i < 9; i ++){
+			for(int j = 0; j < 9; j++){
+				if(this.puzzle[i][j]!=that.puzzle[i][j]) return false;
+			}
+		}
+		return true;
+	}
+	
+	@Override
+	public String toString(){
+		Gson gson = new Gson();
+		String [][] result = new String[9][9];
+		for(int i = 0; i < 9; i ++){
+			for(int j = 0; j < 9; j++){
+				if(empty(i, j)){
+					result[i][j] = "";
+				}else{
+					result[i][j] = String.valueOf(puzzle[i][j]);
+				}
+			}
+		}
+		return gson.toJson(result);
+	}
+	
 }
