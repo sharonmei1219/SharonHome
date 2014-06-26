@@ -22,7 +22,7 @@ function renderProgressBar(category, percentage, number){
 	$(category).html(number);
 }
 
-// var progressUpdatePeriod = setInterval(updateProgress, 50);
+
 
 function startGeneration(){
 	$.ajax({
@@ -32,9 +32,10 @@ function startGeneration(){
 		contentType: 'application/json',
 		async: true,
 		success : function(response){
-			alert('done');
+			// alert('done');
 		}
 	});
+	progressUpdatePeriod = setInterval(updateProgress, 50);
 }
 $(function(){
 	$('#start-button').click(startGeneration);
