@@ -16,6 +16,10 @@ function PuzzleView(){
 		return $('#button-clear');
 	};
 
+	this.levelSelect = function(){
+		return $('#sudoku-level');
+	}
+
 	this.lock = function(i, j){
 		var cell = this.cellAt(i, j);
 		cell.attr('readonly', true);
@@ -46,6 +50,8 @@ function PuzzleView(){
 
 	var keyUpDelegation = new Delegation;
 	var resetButtonDelegation = new Delegation;
+	var levelSelectionDelegation = new Delegation;
+
 
 	this.setResetbuttonDelegation = function(action){
 		resetButtonDelegation.call = action;
@@ -59,6 +65,15 @@ function PuzzleView(){
 		resetButtonDelegation.call();
 	}
 
+	function levelChanged(){
+		level = $(this).val();
+		levelSelectionChangedDelegation(level);
+	};
+
+	this.setLevelSelectionDelegation = function(action){
+		levelSelectionChangedDelegation = action;
+	}
+
 	function keyUp(e){
 		var cellid = $(this).attr('id');
 		var i = parseInt(cellid[1]);
@@ -70,6 +85,8 @@ function PuzzleView(){
 	this.allCell().keyup(keyUp);
 	this.allCell().keydown(this.varifyKeyInIsNumber);
 	this.resetButton().click(resetTable);
+	this.levelSelect().change(levelChanged);
+
 	this.showTime = function(time){
 		$('#timing').text(time);
 	}
@@ -79,4 +96,5 @@ function PuzzleView(){
 			$('#timing').removeClass('animated pulse');
 		});
 	}
+
 }

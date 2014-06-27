@@ -36,6 +36,17 @@
 
 				<div class="col-md-6">
 					<p id="timing">00:00:00</p>
+					<div class="row">
+						<div class = "col-md-4 col-md-offset-4">
+							<select class="form-control" id="sudoku-level">
+							    <option value="easy">Easy</option>
+							    <option value="normal">Normal</option>
+							    <option value="hard">Hard</option>
+							    <option value="evil">Evil</option>
+							</select>
+						</div>
+					</div>
+					<br>
 					<%@ include file="table.jsp"%>
 					<br>
 					<button class="btn btn-default btn-lg" id="button-clear"><span class="glyphicon glyphicon-repeat"></span> Clear</button>
