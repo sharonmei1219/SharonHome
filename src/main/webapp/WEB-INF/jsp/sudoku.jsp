@@ -9,6 +9,7 @@
     <title>Prim Sudoku</title>
     <link href="<c:url value="/resources/js/dist/css/bootstrap.css"/>" rel="stylesheet">
     <link href="<c:url value="/resources/js/dist/css/starter.css" />" rel="stylesheet">
+    <link href="<c:url value="/resources/js/dist/css/animate.css" />" rel="stylesheet">
 
 	<script type="text/javascript">
 		var puzzle = ${puzzle};

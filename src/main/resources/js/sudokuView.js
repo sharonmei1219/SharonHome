@@ -73,4 +73,10 @@ function PuzzleView(){
 	this.showTime = function(time){
 		$('#timing').text(time);
 	}
+	this.seekAttentionToTimer = function(){
+		$('#timing').addClass('animated pulse');
+		$('#timing').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+			$('#timing').removeClass('animated pulse');
+		});
+	}
 }

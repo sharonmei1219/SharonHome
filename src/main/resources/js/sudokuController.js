@@ -42,11 +42,11 @@ function PuzzleController(puzzleView, puzzleModel){
 		});
 	};
 
-
 	this.clearSolution = function(){
 		_.each(blankPos, function(p){
 			puzzleView.clear(p.i, p.j);
 		});
+		puzzleView.seekAttentionToTimer();
 	};
 
 	this.numberInput = function(value, i, j){
@@ -60,7 +60,7 @@ function PuzzleController(puzzleView, puzzleModel){
 
 function puzzleFinished(){
 	timer.stop();
-	puzzleView.putMessage('Congratulations!');
+	puzzleView.seekAttentionToTimer();
 }
 
 function StopWatch(){
