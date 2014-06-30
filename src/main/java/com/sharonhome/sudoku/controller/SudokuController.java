@@ -19,17 +19,6 @@ public class SudokuController {
 	
 	@RequestMapping(value = "/sudoku", method = RequestMethod.GET)
 	public String sudokuPuzzle(ModelMap model) {
-//		String [][] puzzle = {{"","","4","7","","3","","",""},
-//							  {"","5","","","","6","8","",""},
-//							  {"6","7","","8","4","","","2","3"},
-//							  {"","","","1","8","2","","",""},
-//							  {"","","7","","","","2","",""},
-//							  {"","","","6","7","5","","",""},
-//							  {"3","8","","","2","7","","4","9"},
-//							  {"","","5","4","","","","8",""},
-//							  {"","","","9","","8","3","",""}
-//							  };
-//		String jsonPuzzle = gson.toJson(puzzle);
 		String puzzle = puzzleDao.getPuzzle("normal");
  		model.addAttribute("puzzle", puzzle);
 		return "sudoku";
@@ -40,17 +29,7 @@ public class SudokuController {
 			        headers = {"Content-type=application/json"})
 	@ResponseBody
 	public String NewPuzzle(@RequestBody Level l){
-//		String [][] puzzle = {{ "", "" , "" , "" , "5", "3", "" , "" , ""},
-//							  {"9", "5", "3",  "", "1",  "", "8",  "",  ""},
-//							  { "",  "", "1",  "", "4",  "",  "", "2", "3"},
-//							  { "", "" , "" , "", "" , "2", "7", "3",  ""},
-//							  { "", "",  "",  "", "9", "4", "2",  "", "8"},
-//							  { "", "",  "", "6", "7",  "",  "",  "",  ""},
-//							  {"3", "", "6", "",  "",  "", "1",  "",  ""},
-//							  {"7", "9", "5", "4", "3",  "",  "",  "",  ""},
-//							  { "", "4",  "", "9",  "", "8",  "",  "",  "" }};
-//		String jsonPuzzle = gson.toJson(puzzle);
-//		System.out.println("what is that" + l.toString());
+		System.out.println("get New " + l.getLevel());
 		String puzzle = puzzleDao.getPuzzle(l.getLevel());
 		return puzzle;
 	}

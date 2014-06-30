@@ -1,3 +1,5 @@
+var sudokulevel = 'normal';
+
 function createMatrix(m, n){
 	return _.flatten(
 				_.map(_.range(m), function(i){
@@ -104,12 +106,13 @@ function StopWatch(){
 	}
 }
 
-function getNewPuzzle(sudokuLevel){
+function getNewPuzzle(){
 	// alert('get new puzzle ' + sudokuLevel);
+	timer.stop();
 	$.ajax({
 		type : "POST",
 		url : "sudoku/new",
-		data : JSON.stringify({level:"hard"}),
+		data : JSON.stringify({level:sudokulevel}),
 		contentType: 'application/json',
 		success : function(response){
 			puzzleController.unlockPuzzle();
@@ -120,13 +123,17 @@ function getNewPuzzle(sudokuLevel){
 			puzzleController = new PuzzleController(puzzleView, puzzleModel);
 			puzzleController.loadPuzzleNew();
 			puzzleController.lockPuzzle();
-			timer.stop();
-			timer.start();
 			puzzleView.setResetbuttonDelegation(puzzleController.clearSolution);
 			puzzleView.setKeyUpDelegation(puzzleController.numberInput);
 			puzzle = undefined;
+			timer.start();
 		}
 	});
+}
+
+function levelChanged(inputLevel){
+	sudokulevel = inputLevel;
+	getNewPuzzle();
 }
 
 
@@ -142,7 +149,7 @@ function onDocReady(){
 	puzzle = undefined;
 	puzzleView.setResetbuttonDelegation(puzzleController.clearSolution);
 	puzzleView.setKeyUpDelegation(puzzleController.numberInput);
-	puzzleView.setLevelSelectionDelegation(getNewPuzzle);
+	puzzleView.setLevelSelectionDelegation(levelChanged);
 	$('#button-new').click(getNewPuzzle);
 	$('#button-start').click(function(){
 		timer.start();
