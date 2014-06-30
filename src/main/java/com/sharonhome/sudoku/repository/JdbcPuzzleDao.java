@@ -31,9 +31,7 @@ public class JdbcPuzzleDao extends SimpleJdbcDaoSupport implements
 	
 	public void insertPuzzle(String level, String puzzle) {
 		String getCntSql = "SELECT COUNT(*) FROM " + level +"puzzle";
-		System.out.println(getCntSql);
 		int count = getSimpleJdbcTemplate().queryForInt(getCntSql);
-		System.out.println(count);
 		String insertSql = "INSERT INTO " + level + "puzzle (id, puzzle) values(?,?)";
 		getSimpleJdbcTemplate().update(insertSql, new Object[]{count, puzzle});
 	}
