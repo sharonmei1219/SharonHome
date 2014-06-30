@@ -81,8 +81,7 @@ public class SudokuGeneratorController {
 		progress.setWarning(warning);
 		return progress;
 	}
-	private boolean notStop = true;
-	private int inc = 0;
+
 	private String warning = "";
 	
 	@RequestMapping(value = "/startGeneration", method = RequestMethod.POST)
@@ -102,7 +101,6 @@ public class SudokuGeneratorController {
 			ApplicationContext context = new ClassPathXmlApplicationContext(
 					"EasyPuzzleTempGen_context.xml");
 			try{
-//				PuzzleDao puzzleDao = (PuzzleDao) context.getBean("puzzleDao");
 				puzzleDao.insertPuzzle(rank, permedPuzzle.toString());
 			}catch(Exception e){
 				System.out.println(e);
