@@ -98,15 +98,13 @@ public class SudokuGeneratorController {
 				alert("invalid puzzle generated");
 				continue;
 			}
-			ApplicationContext context = new ClassPathXmlApplicationContext(
-					"EasyPuzzleTempGen_context.xml");
 			try{
 				puzzleDao.insertPuzzle(rank, permedPuzzle.toString());
 			}catch(Exception e){
 				System.out.println(e);
 				alert(e.toString());
 			}
-			System.out.println(i);
+
 			updateProgress(rank);
 		}
 		return new String("Done!");

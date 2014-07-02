@@ -9,6 +9,6 @@
 		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
 		<property name="url" value="jdbc:hsqldb:hsql://localhost/puzzles" />
 		<property name="username" value="sa" />
-		<property name="password" value="" />
+		<property name="password" value="Rff36xfnd95;" />
 	</bean>
 </beans>

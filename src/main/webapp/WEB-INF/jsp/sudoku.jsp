@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Prim Sudoku</title>
+    <LINK href="<c:url value="/resources/images/icon.png"/>" type=image/x-icon rel="shortcut icon" />
     <link href="<c:url value="/resources/js/dist/css/bootstrap.css"/>" rel="stylesheet">
     <link href="<c:url value="/resources/js/dist/css/starter.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/js/dist/css/animate.css" />" rel="stylesheet">
@@ -52,16 +53,11 @@
 					<button class="btn btn-default btn-lg" id="button-clear"><span class="glyphicon glyphicon-repeat"></span> Clear</button>
 					<button class="btn btn-default btn-lg" id="button-new"><span class="glyphicon glyphicon-download"></span> New </button>
 
-
-
 				</div>
 			</div>
       	</div>
 	</div>
 
-<!-- 	<button id="button-start">Start</button>
-	<button id="button-stop">Stop</button>
-	<p id="messaging"></p> -->
 	<script src="<c:url value="/resources/js/underscore-min.js"/>"></script>
 	<script src="<c:url value="/resources/js/jquery-1.11.1.min.js"/>"></script>
 	<script src="<c:url value="/resources/js/sudokuController.js"/>"></script>
