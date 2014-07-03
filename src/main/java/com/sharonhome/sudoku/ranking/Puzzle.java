@@ -8,8 +8,13 @@ import com.sharonhome.sudoku.generator.Spot;
 public class Puzzle {
 
 	public int[][] puzzle;
+	private int rowCount;
+	private int columnCount;
 	public Puzzle(int[][] puzzle) {
 		this.puzzle = puzzle;
+		this.rowCount = puzzle.length;
+		if(rowCount == 0){ this.columnCount = 0;}else{
+		this.columnCount = puzzle[0].length;}
 	}
 	
 	public Puzzle(){
@@ -124,9 +129,9 @@ public class Puzzle {
 	@Override
 	public String toString(){
 		Gson gson = new Gson();
-		String [][] result = new String[9][9];
-		for(int i = 0; i < 9; i ++){
-			for(int j = 0; j < 9; j++){
+		String [][] result = new String[rowCount][columnCount];
+		for(int i = 0; i < rowCount; i ++){
+			for(int j = 0; j < columnCount; j++){
 				if(empty(i, j)){
 					result[i][j] = "";
 				}else{

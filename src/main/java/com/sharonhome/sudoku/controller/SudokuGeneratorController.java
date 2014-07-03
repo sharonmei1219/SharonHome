@@ -26,7 +26,6 @@ import com.sharonhome.sudoku.repository.PuzzleDao;
 @Controller
 public class SudokuGeneratorController {
 
-	private static final int CSLCR_MAX = 46656;
 	@Autowired
 	private PuzzleDao puzzleDao;
 	public void setPuzzleDao(PuzzleDao puzzleDao){
@@ -40,63 +39,37 @@ public class SudokuGeneratorController {
 
 	@RequestMapping(value = "/sudokuGenerator", method = RequestMethod.GET)
 	public String loadPage(ModelMap model) {
-		newProgress.setTotal(100);
-		newProgress.setEasy(0);
-		newProgress.setNormal(0);
-		newProgress.setHard(0);
-		newProgress.setEvil(0);
+		newProgress.newProgress(0);
 		newProgress.setStoredEasy(puzzleDao.numberOfPuzzle("easy"));
 		newProgress.setStoredNormal(puzzleDao.numberOfPuzzle("normal"));
 		newProgress.setStoredHard(puzzleDao.numberOfPuzzle("hard"));
 		newProgress.setStoredEvil(puzzleDao.numberOfPuzzle("evil"));
-		storedEasy = newProgress.getStoredEasy();
-		storedNormal = newProgress.getStoredNormal();
-		storedHard =  newProgress.getStoredHard();
-		storedEvil = newProgress.getStoredEvil();
 		model.addAttribute("progress", newProgress);
 		return "sudokuGenerator";
 	}
 	
 	private Progress newProgress = new Progress();
 
-	private int storedEasy;
-	private int storedNormal;
-	private int storedHard;
-	private int storedEvil;
-	private int easy;
-	private int hard;
-	private int normal;
-	private int evil;
-	private int total;
-
 	@RequestMapping(value = "/generationProgress", method = RequestMethod.GET)
 	public @ResponseBody
 	Progress getProgress() {
-		Progress progress = new Progress();
-		if (easy + hard + normal + evil > total) {
-			progress.setInProgress(false);
-		} else {
-			progress.setInProgress(true);
-		}
-		progress.setTotal(total);
-		progress.setEasy(easy);
-		progress.setNormal(normal);
-		progress.setHard(hard);
-		progress.setEvil(evil);
-		progress.setStoredEasy(storedEasy + easy);
-		progress.setStoredNormal(storedNormal + normal);
-		progress.setStoredHard(storedHard + hard);
-		progress.setStoredEvil(storedEvil + evil);
-		progress.setWarning(warning);
 
-		return progress;
+		if (newProgress.progressEnd()) {
+			newProgress.setInProgress(false);
+		} else {
+			newProgress.setInProgress(true);
+		}
+		newProgress.setWarning(warning);
+
+		return newProgress;
 	}
 
 	private String warning = "";
 	
 	@RequestMapping(value = "/startGeneration", method = RequestMethod.POST)
 	public @ResponseBody String startGeneration(@RequestBody StartParameter sp) {
-		initProgress(sp);
+		int total = sp.getNumberOfPuzzleToGenerate();
+		newProgress.newProgress(total);
 		
 		int numberOfHoles = sp.getNumberOfHolesInPuzzle();
 		for(int i = 0; i < total; i++){
@@ -116,34 +89,12 @@ public class SudokuGeneratorController {
 				alert(e.toString());
 			}
 
-			updateProgress(rank);
+			newProgress.inc(rank);
 		}
 		return new String("Done!");
 	}
 
 	private void alert(String string) {
 		warning += "\n" + string;
-		
-	}
-
-	private void initProgress(StartParameter sp) {
-		total = sp.getNumberOfPuzzleToGenerate();
-		easy = 0;
-		normal = 0;
-		hard = 0;
-		evil = 0;
-		warning = "";
-	}
-
-	private void updateProgress(String rank) {
-		if(rank.equals("easy")){
-			easy ++;
-		}else if(rank.equals("normal")){
-			normal ++;
-		}else if(rank.equals("hard")){
-			hard ++;
-		}else if(rank.equals("evil")){
-			evil ++;
-		}
 	}
 }

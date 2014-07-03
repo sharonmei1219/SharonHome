@@ -14,6 +14,19 @@ public class Progress {
 	private int storedEvil;
 	private String warning = "";
 	
+	public boolean progressEnd(){
+		return getTotal() >= total;
+	}
+	
+	public void newProgress(int total){
+		this.total = total;
+		this.easy = 0;
+		this.hard = 0;
+		this.normal = 0;
+		this.evil = 0;
+		warning = "";
+	}
+	
 	public void setStoredEasy(int storedEasy){
 		this.storedEasy = storedEasy;
 	}
@@ -66,10 +79,6 @@ public class Progress {
 		return inProgress;
 	}
 	
-	public void setEasy(int easy){
-		this.easy = easy;
-	}
-	
 	public int getEasy(){
 		return this.easy;
 	}
@@ -78,20 +87,12 @@ public class Progress {
 		return percentage(easy);
 	}
 	
-	public void setNormal(int normal){
-		this.normal = normal;
-	}
-	
 	public int getNormal(){
 		return normal;
 	}
 	
 	public int getPercentageNormal(){
 		return percentage(normal);
-	}
-	
-	public void setHard(int hard){
-		this.hard = hard;
 	}
 	
 	public int getHard(){
@@ -104,14 +105,6 @@ public class Progress {
 	
 	private int percentage(int number){
 		return (number * 100) / total;
-	}
-	
-	public void setTotal(int total){
-		this.total = total;
-	}
-
-	public void setEvil(int evil) {
-		this.evil = evil;
 	}
 	
 	public int getEvil(){
@@ -128,5 +121,21 @@ public class Progress {
 	
 	public int getTotal(){
 		return easy + normal + hard + evil;
+	}
+
+	public void inc(String level) {
+		if(level.equals("easy")) {
+			easy++;
+			storedEasy ++;
+		}else if(level.equals("normal")){
+			normal ++;
+			storedNormal ++;
+		}else if(level.equals("hard")){
+			hard ++;
+			storedHard ++;
+		}else if(level.equals("evil")){
+			evil ++;
+			storedEvil ++;
+		}
 	}
 }
