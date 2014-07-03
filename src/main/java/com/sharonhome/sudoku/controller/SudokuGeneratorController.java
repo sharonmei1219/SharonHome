@@ -28,27 +28,36 @@ public class SudokuGeneratorController {
 
 	private static final int CSLCR_MAX = 46656;
 	@Autowired
-	PuzzleDao puzzleDao;
+	private PuzzleDao puzzleDao;
+	public void setPuzzleDao(PuzzleDao puzzleDao){
+		this.puzzleDao = puzzleDao;
+	}
+	
+	private HelperGeneratorInterface helperGen = new HelperGenerator();
+	public void setHelperGenerator(HelperGeneratorInterface helper){
+		this.helperGen = helper;
+	}
 
 	@RequestMapping(value = "/sudokuGenerator", method = RequestMethod.GET)
-	public String sudokuPuzzle(ModelMap model) {
-		storedEasy = puzzleDao.numberOfPuzzle("easy");
-		storedNormal = puzzleDao.numberOfPuzzle("normal");
-		storedHard = puzzleDao.numberOfPuzzle("hard");
-		storedEvil = puzzleDao.numberOfPuzzle("evil");
-		Progress progress = new Progress();
-		progress.setTotal(100);
-		progress.setEasy(0);
-		progress.setNormal(0);
-		progress.setHard(0);
-		progress.setEvil(0);
-		progress.setStoredEasy(storedEasy);
-		progress.setStoredNormal(storedNormal);
-		progress.setStoredHard(storedHard);
-		progress.setStoredEvil(storedEvil);
-		model.addAttribute("progress", progress);
+	public String loadPage(ModelMap model) {
+		newProgress.setTotal(100);
+		newProgress.setEasy(0);
+		newProgress.setNormal(0);
+		newProgress.setHard(0);
+		newProgress.setEvil(0);
+		newProgress.setStoredEasy(puzzleDao.numberOfPuzzle("easy"));
+		newProgress.setStoredNormal(puzzleDao.numberOfPuzzle("normal"));
+		newProgress.setStoredHard(puzzleDao.numberOfPuzzle("hard"));
+		newProgress.setStoredEvil(puzzleDao.numberOfPuzzle("evil"));
+		storedEasy = newProgress.getStoredEasy();
+		storedNormal = newProgress.getStoredNormal();
+		storedHard =  newProgress.getStoredHard();
+		storedEvil = newProgress.getStoredEvil();
+		model.addAttribute("progress", newProgress);
 		return "sudokuGenerator";
 	}
+	
+	private Progress newProgress = new Progress();
 
 	private int storedEasy;
 	private int storedNormal;
@@ -79,6 +88,7 @@ public class SudokuGeneratorController {
 		progress.setStoredHard(storedHard + hard);
 		progress.setStoredEvil(storedEvil + evil);
 		progress.setWarning(warning);
+
 		return progress;
 	}
 
@@ -90,15 +100,16 @@ public class SudokuGeneratorController {
 		
 		int numberOfHoles = sp.getNumberOfHolesInPuzzle();
 		for(int i = 0; i < total; i++){
-			Puzzle originPuzzle = generateOriginalPuzzle(numberOfHoles);
+			Puzzle originPuzzle = helperGen.generateOriginalPuzzle(numberOfHoles);
 			if(originPuzzle == null) continue;
-			String rank = rank(originPuzzle);
-			Puzzle permedPuzzle = permutate(originPuzzle);
-			if(!validatePermedPuzzle(permedPuzzle)) {
+			String rank = helperGen.rank(originPuzzle);
+			Puzzle permedPuzzle = helperGen.permutate(originPuzzle);
+			if(!helperGen.validatePermedPuzzle(permedPuzzle)) {
 				alert("invalid puzzle generated");
 				continue;
 			}
 			try{
+				System.out.println(permedPuzzle.toString());
 				puzzleDao.insertPuzzle(rank, permedPuzzle.toString());
 			}catch(Exception e){
 				System.out.println(e);
@@ -113,16 +124,6 @@ public class SudokuGeneratorController {
 	private void alert(String string) {
 		warning += "\n" + string;
 		
-	}
-
-	private boolean validatePermedPuzzle(Puzzle puzzle) {
-		if(! puzzle.validate()) return false;
-		SudokuSolver solver = new SudokuSolver(3);
-		solver.setSolutionCandidates(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
-		ArrayList<int[][]>solutions = new ArrayList<int[][]>();
-		solver.solve(puzzle.puzzle, solutions);
-		if(solutions.size() != 1) return false;
-		return true;
 	}
 
 	private void initProgress(StartParameter sp) {
@@ -144,37 +145,5 @@ public class SudokuGeneratorController {
 		}else if(rank.equals("evil")){
 			evil ++;
 		}
-	}
-	
-	private Puzzle generateOriginalPuzzle(int numberOfHoles){
-		Random rand = new Random();
-		PuzzleGenerator gen = new PuzzleGenerator();
-		int tableIndex = rand.nextInt(CSLCR_MAX);
-		int [][] puzzle = gen.generatePuzzle(tableIndex, numberOfHoles);
-		if(puzzle == null) return null;
-		return  new Puzzle(puzzle);
-	}
-	
-	private String rank(Puzzle puzzle){
-		PuzzleRanking ranking = new PuzzleRanking();
-		int rank =  ranking.ranking(puzzle);
-		if(rank <= 7){
-			return "easy";
-		}else if(rank <= 13){
-			return "normal";
-		}else if(rank <= 20){
-			return "hard";
-		}else if(rank <= 500){
-			return "evil";
-		}
-		return "bruteForce";
-	}
-	
-	private Puzzle permutate(Puzzle inputPuzzle){
-		Random rand = new Random();
-		Permutations permutations = new Permutations(new int [] {1, 2, 3, 4, 5, 6, 7, 8, 9});
-		int perIndex = rand.nextInt(permutations.total());
-		int [] permutation = permutations.get(perIndex);
-		return inputPuzzle.permutate(permutation);
 	}
 }
