@@ -31,6 +31,7 @@ public class SudokuController {
 	public String NewPuzzle(@RequestBody Level l){
 
 		String puzzle = puzzleDao.getPuzzle(l.getLevel());
+		System.out.print("\npuzzle is : " + puzzle + "\n");
 		return puzzle;
 	}
 }

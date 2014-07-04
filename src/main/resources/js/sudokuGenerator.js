@@ -54,4 +54,3 @@ function startGeneration(){
 $(function(){
 	$('#start-button').click(startGeneration);
 })
-

@@ -19,7 +19,7 @@ import com.sharonhome.sudoku.generator.RandomSpotSeq;
 import com.sharonhome.sudoku.generator.SetSet;
 import com.sharonhome.sudoku.generator.Spot;
 import com.sharonhome.sudoku.generator.SudokuSolver;
-import com.sharonhome.sudoku.generator.SudokuTableTemplateGenerator;
+import com.sharonhome.sudoku.generator.TableGenerator;
 
 public class TestRanking {
 	PuzzleRanking ranking = new PuzzleRanking();

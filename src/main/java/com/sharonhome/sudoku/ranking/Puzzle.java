@@ -99,8 +99,8 @@ public class Puzzle {
 	}
 
 	public Puzzle permutate(final int[] permutation) {
-		Puzzle result = new Puzzle();
-		result.puzzle = new int[9][9];
+		Puzzle result = new Puzzle(new int[9][9]);
+//		result.puzzle = new int[9][9];
 		for(int i = 0; i < 9; i++){
 			for(int j = 0; j <  9; j++){
 				int index = this.puzzle[i][j];
@@ -111,6 +111,7 @@ public class Puzzle {
 				}
 			}
 		}
+		System.out.println("permutate called, result is " + result.toString());
 		return result;
 	}
 	

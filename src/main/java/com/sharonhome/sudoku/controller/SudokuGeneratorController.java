@@ -54,13 +54,13 @@ public class SudokuGeneratorController {
 	public @ResponseBody
 	Progress getProgress() {
 
+		newProgress.setWarning(warning);
+
 		if (newProgress.progressEnd()) {
 			newProgress.setInProgress(false);
 		} else {
 			newProgress.setInProgress(true);
 		}
-		newProgress.setWarning(warning);
-
 		return newProgress;
 	}
 
@@ -75,17 +75,19 @@ public class SudokuGeneratorController {
 		for(int i = 0; i < total; i++){
 			Puzzle originPuzzle = helperGen.generateOriginalPuzzle(numberOfHoles);
 			if(originPuzzle == null) continue;
+
 			String rank = helperGen.rank(originPuzzle);
 			Puzzle permedPuzzle = helperGen.permutate(originPuzzle);
+
 			if(!helperGen.validatePermedPuzzle(permedPuzzle)) {
 				alert("invalid puzzle generated");
 				continue;
 			}
 			try{
-				System.out.println(permedPuzzle.toString());
+
 				puzzleDao.insertPuzzle(rank, permedPuzzle.toString());
 			}catch(Exception e){
-				System.out.println(e);
+
 				alert(e.toString());
 			}
 

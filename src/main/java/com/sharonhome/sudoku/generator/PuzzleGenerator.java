@@ -13,7 +13,7 @@ public class PuzzleGenerator {
 	Digger digger = new Digger();
 
 	SudokuSolver solver = new SudokuSolver(3);
-	SudokuTableTemplateGenerator tableGen = new SudokuTableTemplateGenerator();
+	TableGenerator tableGen = new TableGenerator();
 	
 	public PuzzleGenerator(){
 		solver.setSolutionCandidates(new int []{0, 1, 2, 3, 4, 5, 6, 7, 8});
@@ -23,7 +23,7 @@ public class PuzzleGenerator {
 		int [][] result = null;
 		
 		int[] cslcr = perGen.getNthPerCSLCR(cslcrNum);
-		int[][] table = tableGen.genTable(cslcr);
+		int[][] table = tableGen.genTable(cslcr, cslcr, cslcr);
 		RandomSpotSeq randomSpotSeq = new RandomSpotSeq(candidates,
 						rand);
 		Spot[] holes = digger.dig(table, solver, randomSpotSeq, holeCount);
