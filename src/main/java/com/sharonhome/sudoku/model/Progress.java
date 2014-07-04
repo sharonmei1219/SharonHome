@@ -104,6 +104,7 @@ public class Progress {
 	}
 	
 	private int percentage(int number){
+		if(total == 0) return 0;
 		return (number * 100) / total;
 	}
 	

@@ -6,7 +6,8 @@ function updateProgress(){
 		success : function(response){
 			if(response.inProgress == false) {
 				clearInterval(progressUpdatePeriod);
-			}else{
+			}
+
 				renderProgressBar('#total-progress', response.percentageTotal, response.total);
 				renderProgressBar('#easy-progress', response.percentageEasy, response.easy);
 				renderProgressBar('#normal-progress', response.percentageNormal, response.normal);
@@ -18,7 +19,6 @@ function updateProgress(){
 				renderPuzzleNumber('#info-hard', response.storedHard);
 				renderPuzzleNumber('#info-evil', response.storedEvil);
 				renderWarning(response.warning);
-			}
 		}
 	});
 }
@@ -46,7 +46,7 @@ function startGeneration(){
 		contentType: 'application/json',
 		async: true,
 		success : function(response){
-			alert('done');
+			// alert('done');
 		}
 	});
 	progressUpdatePeriod = setInterval(updateProgress, 50);

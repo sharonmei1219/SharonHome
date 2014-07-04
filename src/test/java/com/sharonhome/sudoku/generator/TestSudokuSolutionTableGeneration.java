@@ -33,6 +33,11 @@ public class TestSudokuSolutionTableGeneration {
 		Assert.assertArrayEquals(new int [] {4,3,2,1,9,8,7,6,5}, sudokuSolutionTable[7]); 
 		Assert.assertArrayEquals(new int [] {1,9,8,7,6,5,4,3,2}, sudokuSolutionTable[8]); 
 	}
+	
+	@Test
+	public void testPartialPerm(){
+		
+	}
 
 	private int[][] perSudokuTable(int[][] originTable,
 			int [] permutation) {

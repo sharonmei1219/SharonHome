@@ -141,5 +141,4 @@ public class Puzzle {
 		}
 		return gson.toJson(result);
 	}
-	
 }
