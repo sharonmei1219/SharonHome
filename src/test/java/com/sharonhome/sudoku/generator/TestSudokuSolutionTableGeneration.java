@@ -79,6 +79,7 @@ public class TestSudokuSolutionTableGeneration {
 		Assert.assertArrayEquals(new int [] {2,4,7,5,8,1,6,0,3}, table[1]); 
 		Assert.assertArrayEquals(new int [] {0,5,8,3,6,2,7,1,4}, table[2]);
 		
+		
 		SwitchableRowTriplet str = findFirstSwitchableRowTriplet(table);
 		assertEquals(new SwitchableRowTriplet(0, 3, 6), str);
 		table = str.switchTriplet(table);
