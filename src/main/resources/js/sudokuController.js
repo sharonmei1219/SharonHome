@@ -1,5 +1,11 @@
 var sudokulevel = 'normal';
 
+if (!Date.now) {
+  Date.now = function now() {
+    return new Date().getTime();
+  };
+}
+
 function createMatrix(m, n){
 	return _.flatten(
 				_.map(_.range(m), function(i){

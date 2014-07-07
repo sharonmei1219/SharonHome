@@ -8,8 +8,8 @@
 
 .cell {
 	border: 1px solid gray;
-	width: 52px;
-	height: 52px;
+	width: 48px;
+	height: 48px;
 	font-size: 20px;
 }
 
@@ -35,8 +35,8 @@ input.cellInput.fixedCell {
 
 .cellInput {
 	border: none;
-	width: 52px;
-	height: 52px;
+	width: 48px;
+	height: 48px;
 	text-align: center;
 }
 </style>
