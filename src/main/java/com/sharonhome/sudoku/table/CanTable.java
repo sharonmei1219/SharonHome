@@ -5,5 +5,6 @@ public interface CanTable {
 	int [] candidatesForNextEmptyCell();
 	CanTable fillEmptyCell(int i);
 	boolean validate();
+	int [][] getTable();
 
 }

@@ -204,4 +204,8 @@ public class RandomTable implements CanTable, SudokuTable{
 		
 	}
 
+	public int[][] getTable() {
+		return  cloneTable();
+	}
+
 }

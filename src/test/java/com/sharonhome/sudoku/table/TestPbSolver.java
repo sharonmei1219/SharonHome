@@ -7,6 +7,9 @@ import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Test;
 
+import com.sharonhome.sudoku.generator.Permutations;
+import com.sharonhome.sudoku.generator.RandomNumberGen;
+import com.sharonhome.sudoku.generator.RandomNumberGenbyRandom;
 import com.sharonhome.sudoku.table.CanTable;
 import com.sharonhome.sudoku.table.PbSolver;
 import com.sharonhome.sudoku.table.ResultCollector;
@@ -16,6 +19,7 @@ public class TestPbSolver {
 	final CanTable table = context.mock(CanTable.class);
 
 	final ResultCollector result = context.mock(ResultCollector.class);
+	PbSolver solver = new PbSolver();
 
 	@Test
 	public void testSolverFullTable() {
@@ -26,7 +30,6 @@ public class TestPbSolver {
 		}}
 		);
 		
-		PbSolver solver = new PbSolver();
 		solver.solve(table, result);
 		context.assertIsSatisfied();
 	}
@@ -91,6 +94,16 @@ public class TestPbSolver {
 		PbSolver solver = new PbSolver();
 		solver.solve(table, result);
 		context.assertIsSatisfied();
+	}
+	
+	@Test
+	public void testWithoutMock(){
+		Permutations pers = new Permutations(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
+		RandomNumberGen rand = new RandomNumberGenbyRandom();
+		RandomCandidates candidates = new RandomCandidatesInDifferentSequence(rand, pers);
+		TableValidator v = new SudokuValidator();
+		CanTable ct = new RandomTable(candidates, v);
+		
 	}
 
 }
