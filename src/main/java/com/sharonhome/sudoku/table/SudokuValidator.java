@@ -24,8 +24,9 @@ public class SudokuValidator implements TableValidator {
 	private boolean allNumberAreUniqInGroup(int[] group) {
 		boolean [] bitmap = {false, false, false, false, false, false, false, false, false};
 		for(int num : group){
-			if(bitmap[num]) return false;
-			bitmap[num] = true;
+			int index = num - 1;
+			if(bitmap[index]) return false;
+			bitmap[index] = true;
 		}
 		return true;
 	}

@@ -28,7 +28,7 @@ public class TestValidator {
 	@Test
 	public void testWithColumnVialation() {
 		final ArrayList <int[]> rows = new ArrayList<int[]>();
-		rows.add(new int[]{1, 0});
+		rows.add(new int[]{1, 2});
 		final ArrayList <int[]> columns = new ArrayList<int[]>();
 		columns.add(new int []{1, 1});
 		context.checking(new Expectations() {{
@@ -43,9 +43,9 @@ public class TestValidator {
 	@Test
 	public void testWithBlockVialation() {
 		final ArrayList <int[]> rows = new ArrayList<int[]>();
-		rows.add(new int[]{1, 0});
+		rows.add(new int[]{1, 2});
 		final ArrayList <int[]> columns = new ArrayList<int[]>();
-		columns.add(new int []{1, 0});
+		columns.add(new int []{1, 2});
 		final ArrayList <int[]> blocks = new ArrayList<int[]>();
 		blocks.add(new int[]{1, 1});
 		context.checking(new Expectations() {{
@@ -61,11 +61,11 @@ public class TestValidator {
 	@Test
 	public void testTableValidate() {
 		final ArrayList <int[]> rows = new ArrayList<int[]>();
-		rows.add(new int[]{1, 0});
+		rows.add(new int[]{1, 2});
 		final ArrayList <int[]> columns = new ArrayList<int[]>();
-		columns.add(new int []{1, 0});
+		columns.add(new int []{1, 2});
 		final ArrayList <int[]> blocks = new ArrayList<int[]>();
-		blocks.add(new int[]{1, 0});
+		blocks.add(new int[]{1, 2});
 		context.checking(new Expectations() {{
 		    oneOf(table).getAllRows(); will(returnValue(rows));
 		    oneOf(table).getAllColumns(); will(returnValue(columns));
