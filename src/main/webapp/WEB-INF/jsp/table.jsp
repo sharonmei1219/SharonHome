@@ -35,8 +35,8 @@ input.cellInput.fixedCell {
 
 .cellInput {
 	border: none;
-	width: 30px;
-	height: 30px;
+	width: 52px;
+	height: 52px;
 	text-align: center;
 }
 </style>
