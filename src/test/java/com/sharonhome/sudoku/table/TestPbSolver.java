@@ -98,12 +98,30 @@ public class TestPbSolver {
 	
 	@Test
 	public void testWithoutMock(){
-		Permutations pers = new Permutations(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
-		RandomNumberGen rand = new RandomNumberGenbyRandom();
-		RandomCandidates candidates = new RandomCandidatesInDifferentSequence(rand, pers);
-		TableValidator v = new SudokuValidator();
-		CanTable ct = new RandomTable(candidates, v);
-		
+//		Permutations pers = new Permutations(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
+//		RandomNumberGen rand = new RandomNumberGenbyRandom();
+//		RandomCandidates candidates = new RandomCandidatesInDifferentSequence(rand, pers);
+//		TableValidator v = new SudokuValidator();
+//		CanTable ct = new RandomTable(candidates, v);
+//		RandomTableCollector collector = new RandomTableCollector();
+//		solver.solve(ct, collector);
+//		printTable(collector.result());
+		RandomTableGenerator gen = new RandomTableGenerator();
+		int[][] table1 = gen.genTable();
+		int[][] table2 = gen.genTable();
+		gen.printTable(table1);
+		System.out.println();
+		gen.printTable(table2);
+
+	}
+	
+	private void printTable(int [][] table){
+		for(int i = 0; i < 9; i++){
+			System.out.println();
+			for(int j = 0; j < 9; j++){
+				System.out.print("" + table[i][j] + ", ");
+			}
+		}
 	}
 
 }
