@@ -47,7 +47,7 @@ transiso TRANSACTION_READ_COMMITTED
 urlid localhost-sa
 url jdbc:hsqldb:hsql://localhost/puzzles
 username SA
-password
+password Rff36xfnd95;
 
 
 

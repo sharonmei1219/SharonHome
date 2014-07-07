@@ -73,7 +73,8 @@ public class SudokuGeneratorController {
 		
 		int numberOfHoles = sp.getNumberOfHolesInPuzzle();
 		for(int i = 0; i < total; i++){
-			Puzzle originPuzzle = helperGen.generateOriginalPuzzle(numberOfHoles);
+//			Puzzle originPuzzle = helperGen.generateOriginalPuzzle(numberOfHoles);
+			Puzzle originPuzzle = helperGen.generatorPuzzle(numberOfHoles);
 			if(originPuzzle == null) continue;
 
 			String rank = helperGen.rank(originPuzzle);
@@ -84,7 +85,9 @@ public class SudokuGeneratorController {
 				continue;
 			}
 			try{
-
+//				System.out.println(rank);
+//				System.out.println(permedPuzzle.toString());
+//				System.out.println();
 				puzzleDao.insertPuzzle(rank, permedPuzzle.toString());
 			}catch(Exception e){
 

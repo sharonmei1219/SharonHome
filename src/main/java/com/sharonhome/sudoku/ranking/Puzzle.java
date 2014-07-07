@@ -111,7 +111,7 @@ public class Puzzle {
 				}
 			}
 		}
-		System.out.println("permutate called, result is " + result.toString());
+//		System.out.println("permutate called, result is " + result.toString());
 		return result;
 	}
 	

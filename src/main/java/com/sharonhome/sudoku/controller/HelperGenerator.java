@@ -8,6 +8,7 @@ import com.sharonhome.sudoku.generator.PuzzleGenerator;
 import com.sharonhome.sudoku.generator.SudokuSolver;
 import com.sharonhome.sudoku.ranking.Puzzle;
 import com.sharonhome.sudoku.ranking.PuzzleRanking;
+import com.sharonhome.sudoku.table.RandomTableGenerator;
 
 public class HelperGenerator implements HelperGeneratorInterface {
 	private static final int CSLCR_MAX = 46656;
@@ -20,6 +21,14 @@ public class HelperGenerator implements HelperGeneratorInterface {
 		if(puzzle == null) return null;
 		return  new Puzzle(puzzle);
 	}
+	
+	public Puzzle generatorPuzzle(int holeCount){
+		PuzzleGenerator gen = new PuzzleGenerator();
+		int [][] puzzle = gen.generatePuzzleNew(holeCount);
+		if(puzzle == null) return null;
+		return new Puzzle(puzzle);
+	}
+
 
 	public String rank(Puzzle puzzle) {
 		PuzzleRanking ranking = new PuzzleRanking();

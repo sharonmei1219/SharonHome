@@ -116,6 +116,7 @@ public class TestProgressUpdater {
 		context.checking(new Expectations() {{
 			oneOf(puzzleDao).insertPuzzle("easy", "[[]]");
 			oneOf(helperGen).generateOriginalPuzzle(1); will(returnValue(new Puzzle(new int[][]{})));
+			oneOf(helperGen).generatorPuzzle(1); will(returnValue(new Puzzle(new int[][]{})));
 			oneOf(helperGen).rank(with(any(Puzzle.class))); will(returnValue(level));
 			oneOf(helperGen).permutate(with(any(Puzzle.class))); will(returnValue(new Puzzle(new int[][] {{}})));
 			oneOf(helperGen).validatePermedPuzzle(with(any(Puzzle.class))); will(returnValue(true));

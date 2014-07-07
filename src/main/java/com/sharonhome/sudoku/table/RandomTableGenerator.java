@@ -5,7 +5,7 @@ import com.sharonhome.sudoku.generator.RandomNumberGen;
 import com.sharonhome.sudoku.generator.RandomNumberGenbyRandom;
 
 public class RandomTableGenerator {
-	private Permutations pers = new Permutations(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
+	private Permutations pers = new Permutations(new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8});
 	private RandomNumberGen rand = new RandomNumberGenbyRandom();
 	private TableValidator v = new SudokuValidator();
 	private PbSolver solver = new PbSolver();

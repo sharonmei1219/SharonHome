@@ -7,4 +7,5 @@ public interface HelperGeneratorInterface {
 	public String rank(Puzzle puzzle);
 	public Puzzle permutate(Puzzle inputPuzzle);
 	public boolean validatePermedPuzzle(Puzzle puzzle);
+	public Puzzle generatorPuzzle(int holeCount);
 }
