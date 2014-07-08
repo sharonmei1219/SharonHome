@@ -39,7 +39,8 @@ public class HelperGenerator implements HelperGeneratorInterface {
 			return "normal";
 		}else if(rank <= 20){
 			return "hard";
-		}else if(rank <= 500){
+		}else if(rank < 500){
+//			System.out.println("evil " + rank);
 			return "evil";
 		}
 		return "bruteForce";

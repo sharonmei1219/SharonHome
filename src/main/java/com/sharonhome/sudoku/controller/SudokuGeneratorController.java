@@ -78,6 +78,8 @@ public class SudokuGeneratorController {
 			if(originPuzzle == null) continue;
 
 			String rank = helperGen.rank(originPuzzle);
+			if(rank.equals("bruteForce")) continue;
+			
 			Puzzle permedPuzzle = helperGen.permutate(originPuzzle);
 
 			if(!helperGen.validatePermedPuzzle(permedPuzzle)) {
