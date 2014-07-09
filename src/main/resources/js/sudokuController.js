@@ -116,8 +116,6 @@ function StopWatch(){
 }
 
 function getNewPuzzle(){
-	// alert('get new puzzle ' + sudokuLevel);
-	// timer.stop();
 	$.ajax({
 		type : "POST",
 		url : "sudoku/new",
@@ -155,12 +153,7 @@ function onDocReady(){
 	puzzleController = new PuzzleController(puzzleView, puzzleModel);
 	timer = new StopWatch();
 	timer.setShowInView(puzzleView.showTime);
-	puzzleController.loadPuzzleNew();
-	puzzleController.lockPuzzle();
-	timer.start();
-	puzzle = undefined;
-	puzzleView.setResetbuttonDelegation(puzzleController.clearSolution);
-	puzzleView.setKeyUpDelegation(puzzleController.numberInput);
+	getNewPuzzle();
 	puzzleView.setLevelSelectionDelegation(levelChanged);
 	$('#button-new').click(getNewPuzzle);
 	$('#button-start').click(function(){
