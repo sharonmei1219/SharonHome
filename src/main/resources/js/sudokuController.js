@@ -102,6 +102,9 @@ function StopWatch(){
 	var cnt = 0;
 
 	this.start = function(){
+		if(tic!== "undefined"){
+			clearInterval(tic);
+		}
 		startTime = Date.now();
 		tic = setInterval(update, interval);
 		cnt = cnt + 1;
@@ -114,7 +117,7 @@ function StopWatch(){
 
 function getNewPuzzle(){
 	// alert('get new puzzle ' + sudokuLevel);
-	timer.stop();
+	// timer.stop();
 	$.ajax({
 		type : "POST",
 		url : "sudoku/new",
@@ -138,6 +141,9 @@ function getNewPuzzle(){
 }
 
 function levelChanged(inputLevel){
+	if(typeof(Storage) !== "undefined") {
+    	localStorage.sudokuLevel = inputLevel;
+	}
 	sudokulevel = inputLevel;
 	getNewPuzzle();
 }

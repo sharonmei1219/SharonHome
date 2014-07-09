@@ -33,14 +33,14 @@ public class HelperGenerator implements HelperGeneratorInterface {
 	public String rank(Puzzle puzzle) {
 		PuzzleRanking ranking = new PuzzleRanking();
 		int rank =  ranking.ranking(puzzle);
-		if(rank <= 7){
+		if(rank <= 10){
 			return "easy";
-		}else if(rank <= 13){
-			return "normal";
 		}else if(rank <= 20){
+			return "normal";
+		}else if(rank <= 30){
 			return "hard";
 		}else if(rank < 500){
-//			System.out.println("evil " + rank);
+			System.out.println("evil " + rank);
 			return "evil";
 		}
 		return "bruteForce";

@@ -29,7 +29,7 @@
 	<div class="container">
       	<div class="starter-template">
 			<h1>Sudoku</h1>	
-			<p class="lead"> So far I don't have anything to say<br> </p>
+			<p class="lead"> <br> </p>
 
 			<div class="row">
 				<div class="col-md-3">
