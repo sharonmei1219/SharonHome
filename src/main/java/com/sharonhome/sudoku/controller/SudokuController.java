@@ -19,8 +19,8 @@ public class SudokuController {
 	
 	@RequestMapping(value = "/sudoku", method = RequestMethod.GET)
 	public String sudokuPuzzle(ModelMap model) {
-		String puzzle = puzzleDao.getPuzzle("normal");
- 		model.addAttribute("puzzle", puzzle);
+//		String puzzle = puzzleDao.getPuzzle("normal");
+// 		model.addAttribute("puzzle", puzzle);
 		return "sudoku";
  	}
 	
@@ -31,7 +31,7 @@ public class SudokuController {
 	public String NewPuzzle(@RequestBody Level l){
 
 		String puzzle = puzzleDao.getPuzzle(l.getLevel());
-		System.out.print("\npuzzle is : " + puzzle + "\n");
+		System.out.print("\n " + l.getLevel() + "puzzle is : " + puzzle + "\n");
 		return puzzle;
 	}
 }

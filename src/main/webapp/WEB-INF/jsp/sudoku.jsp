@@ -13,7 +13,7 @@
     <link href="<c:url value="/resources/js/dist/css/animate.css" />" rel="stylesheet">
 
 	<script type="text/javascript">
-		var puzzle = ${puzzle};
+		// var puzzle = ${puzzle};
 	</script>
 </head>
 <body>

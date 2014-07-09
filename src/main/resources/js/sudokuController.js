@@ -122,9 +122,11 @@ function getNewPuzzle(){
 		data : JSON.stringify({level:sudokulevel}),
 		contentType: 'application/json',
 		success : function(response){
-			puzzleController.unlockPuzzle();
-			puzzleController.clearPuzzle();
-			puzzleController.clearSolution();
+			if(typeof puzzleController != 'undefined'){
+				puzzleController.unlockPuzzle();
+				puzzleController.clearPuzzle();
+				puzzleController.clearSolution();
+			}
 			puzzle = JSON.parse(response);
 			puzzleModel = new PuzzleModel(puzzle, 3);
 			puzzleController = new PuzzleController(puzzleView, puzzleModel);
@@ -149,8 +151,6 @@ function levelChanged(inputLevel){
 
 function onDocReady(){
 	puzzleView = new PuzzleView();
-	puzzleModel = new PuzzleModel(puzzle, 3);
-	puzzleController = new PuzzleController(puzzleView, puzzleModel);
 	timer = new StopWatch();
 	timer.setShowInView(puzzleView.showTime);
 	getNewPuzzle();
