@@ -1,4 +1,12 @@
-var sudokulevel = 'normal';
+var sudokulevel = 'hard';
+
+if(typeof(localStorage) !== "undefined") {
+	if(typeof(localStorage.sudokuLevel) !== 'undefined'){
+		sudokulevel = localStorage.sudokuLevel;
+	}
+   	
+}
+
 
 if (!Date.now) {
   Date.now = function now() {
@@ -141,7 +149,7 @@ function getNewPuzzle(){
 }
 
 function levelChanged(inputLevel){
-	if(typeof(Storage) !== "undefined") {
+	if(typeof(localStorage) !== "undefined") {
     	localStorage.sudokuLevel = inputLevel;
 	}
 	sudokulevel = inputLevel;
@@ -159,6 +167,7 @@ function onDocReady(){
 	$('#button-start').click(function(){
 		timer.start();
 	});
+	$('#sudoku-level').val(sudokulevel);
 	$('#button-stop').click(function(){
 		timer.stop();
 	});
