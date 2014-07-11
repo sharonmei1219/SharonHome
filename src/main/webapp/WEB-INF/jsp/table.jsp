@@ -52,15 +52,26 @@ input.cellInput.fixedCell {
 
 .button-boxed{
 	line-height: 14px;
-	font-size: 18px;
+	font-size: 16px;
 }
 .panel-heading{
-	font-size: 18px;
+	font-size: 16px;
+	font-weight: bold;
 }
 .panel .dl-horizontal dt {
     white-space: normal;
     width: 50px;
 }
+
+.panel .dl-horizontal dt {
+    white-space: normal;
+    width: 50px;
+}
+
+.dl-horizontal{
+	margin-bottom: 5px;
+}
+
 .panel .dl-horizontal dd {
     margin-left: 0px;
 }

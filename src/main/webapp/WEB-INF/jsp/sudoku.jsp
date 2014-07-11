@@ -102,11 +102,12 @@
 					<!-- </div> -->
 
 					<br>
+					<br>
 					<div class="panel panel-default">
 					  <div class="panel-heading">Best Time</div>
 					  <div class="panel-body">
 					  	<div>
-					     <dl class="dl-horizontal" align="center">
+					     <dl class="dl-horizontal">
 		                  <dt>Easy</dt>
 		                  <dd id="best-time-easy">--:--:--</dd>
 		                  <dt>Normal</dt>
