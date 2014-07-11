@@ -12,9 +12,6 @@
     <link href="<c:url value="/resources/js/dist/css/starter.css" />" rel="stylesheet">
     <link href="<c:url value="/resources/js/dist/css/animate.css" />" rel="stylesheet">
 
-	<script type="text/javascript">
-		// var puzzle = ${puzzle};
-	</script>
 </head>
 <body>
 
@@ -28,30 +25,99 @@
 
 	<div class="container">
       	<div class="starter-template">
-			<h1>Sudoku</h1>	
 			<p class="lead"> <br> </p>
-
+			<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		      <div class="container">
+		        <div class="navbar-header">
+		          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		            <span class="sr-only">Toggle navigation</span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		          </button>
+		          <a class="navbar-brand" href="#">Prim Sudoku</a>
+		        </div>
+		        <div class="collapse navbar-collapse">
+		          <ul class="nav navbar-nav">
+		            <li><a href="#">Home</a></li>
+		            <li class="active"><a href="#">Game</a></li>
+		            <li><a href="#">About</a></li>
+		          </ul>
+		        </div><!--/.nav-collapse -->
+		      </div>
+		    </div>
+		    <br>
+		    
+		<!--     <p>Make each column, each row, and each block contains all of the digits from 1 to 9.</p> -->
+		    <br>
+		    <br>
+		    <br>
+		    <br>
 			<div class="row">
-				<div class="col-md-3">
+				<div class="col-xs-3">
+					<br>
+					<br>
+					<img src="<c:url value="/resources/images/icon.png"/>" height="166" width="166">
+					<h1>Sudoku</h1>
+					<p>Fill grid with digits so that each column, each row, and each block contains all of the digits from 1 to 9.</p>
+
 				</div>
 
-				<div class="col-md-6">
-					<p id="timing">00:00:00</p>
+				<div class="col-xs-6">
 					<div class="row">
 						<div class = "col-md-4 col-md-offset-4">
-							<select class="form-control" id="sudoku-level">
-							    <option value="easy">Easy</option>
-							    <option value="normal">Normal</option>
-							    <option value="hard">Hard</option>
-							    <option value="evil">Evil</option>
-							</select>
 						</div>
 					</div>
-					<br>
 					<%@ include file="table.jsp"%>
+					<table class="timer-n-level-table" align="center">
+						<tr>
+							<td class="timer-n-level-cell" align="left">
+								<!-- <p>Evil</p> -->
+							<td>
+							<td class="timer-n-level-cell">
+							<td>
+							<td class="timer-n-level-cell" align="right">
+							<td>
+						</tr>
+					</table>
 					<br>
-					<button class="btn btn-default btn-lg" id="button-clear"><span class="glyphicon glyphicon-repeat"></span> Clear</button>
-					<button class="btn btn-default btn-lg" id="button-new"><span class="glyphicon glyphicon-download"></span> New </button>
+
+				</div>
+
+				<div class="col-xs-2">
+					<!-- <div class="panel panel-default"> -->
+						<br>
+						<p id="timing">00:00:00</p>
+						<select class="form-control button-boxed" id="sudoku-level">
+						    <option value="easy">Easy</option>
+						    <option value="normal">Normal</option>
+						    <option value="hard">Hard</option>
+						    <option value="evil">Evil</option>
+						</select>
+						<button class="btn btn-default btn-lg button-boxed" id="button-clear"><span class="glyphicon glyphicon-repeat"></span> Clear</button>
+						<br>
+						<button class="btn btn-default btn-lg button-boxed" id="button-new"><span class="glyphicon glyphicon-download"></span> New </button>
+						<br>
+					<!-- </div> -->
+
+					<br>
+					<div class="panel panel-default">
+					  <div class="panel-heading">Best Time</div>
+					  <div class="panel-body">
+					  	<div>
+					     <dl class="dl-horizontal" align="center">
+		                  <dt>Easy</dt>
+		                  <dd id="best-time-easy">--:--:--</dd>
+		                  <dt>Normal</dt>
+		                  <dd id="best-time-normal">--:--:--</dd>
+		                  <dt>Hard</dt>
+		                  <dd id="best-time-hard">--:--:--</dd>
+		                  <dt>Evil</dt>
+		                  <dd id="best-time-evil">--:--:--</dd>
+		                </dl>
+		            	</div>
+					  </div>
+					</div>
 
 				</div>
 			</div>

@@ -1,15 +1,15 @@
 <style>
 .sudokuTable {
 	border-collapse: collapse;
-	border-right: 3px solid #6A6890;
-	border-bottom: 3px solid #6A6890;
+	border-right: 3px solid black;
+	border-bottom: 3px solid black;
 
 }
 
 .cell {
 	border: 1px solid gray;
-	width: 48px;
-	height: 48px;
+	width: 45px;
+	height: 45px;
 	font-size: 20px;
 }
 
@@ -22,23 +22,45 @@ input.cellInput.fixedCell {
 }
 
 .topRow {
-	border-top: 3px solid #6A6890;
+	border-top: 3px solid black;
 }
 
 .sudokuRow {
-	border-top: 1px solid #6A6890;
+	border-top: 1px solid black;
 }
 
 .leftMostCell {
-	border-left: 3px solid #6A6890;
+	border-left: 3px solid black;
 }
 
 .cellInput {
 	border: none;
-	width: 48px;
-	height: 48px;
+	width: 45px;
+	height: 45px;
 	text-align: center;
 }
+
+.timer-n-level-cell{
+	width: 145px;
+}
+
+.button-boxed{
+	width: 100%;
+	margin-bottom: 10px;
+
+}
+
+.panel-heading{
+	font-size: 18px;
+}
+.panel .dl-horizontal dt {
+    white-space: normal;
+    width: 50px;
+}
+.panel .dl-horizontal dd {
+    margin-left: 0px;
+}
+
 </style>
 
 <!-- 9*9 table each cell contains an input whose id is from c00 to c88 -->
