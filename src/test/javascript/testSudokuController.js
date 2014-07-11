@@ -62,6 +62,68 @@ describe('SudokuController', function(){
   });
 });
 
+describe('Best Time Record', function(){
+  it('read from localStorage and put to view', function(){
+      var bestTime = {
+        easy:0,
+        normal:0,
+        hard:0,
+        evil:0
+      };
+      spyOn(userInfo, 'getBestTime').andReturn(bestTime);
+      spyOn(puzzleView, 'renderBestTime');
+
+      onDocReady();
+      expect(userInfo.getBestTime).toHaveBeenCalled();puzzleView
+      expect(puzzleView.renderBestTime).toHaveBeenCalledWith(bestTime);
+  });
+
+  it('Best Time Refresed Solved the First Puzzle', function(){
+      sudokulevel = 'easy';
+      spyOn(timer, 'stop').andReturn(1000);
+      spyOn(userInfo, 'getBestTime').andReturn({easy:0, normal:0, hard:0, evil:0});
+      spyOn(userInfo, 'setBestTime');
+      spyOn(puzzleView,'renderBestTime');
+
+      puzzleFinished();
+
+      expect(timer.stop).toHaveBeenCalled();
+      expect(userInfo.getBestTime).toHaveBeenCalled();
+      expect(userInfo.setBestTime).toHaveBeenCalledWith({easy:'1000', normal:0, hard:0, evil:0});
+      expect(puzzleView.renderBestTime).toHaveBeenCalledWith({easy:'1000', normal:0, hard:0, evil:0});
+  })
+
+
+  it('Best Time Refreshed When solving time is shorter than best time', function(){
+      sudokulevel = 'easy';
+      spyOn(timer, 'stop').andReturn(1000);
+      spyOn(userInfo, 'getBestTime').andReturn({easy:'2000', normal:0, hard:0, evil:0});
+      spyOn(userInfo, 'setBestTime');
+      spyOn(puzzleView,'renderBestTime');
+
+      puzzleFinished();
+
+      expect(timer.stop).toHaveBeenCalled();
+      expect(userInfo.getBestTime).toHaveBeenCalled();
+      expect(userInfo.setBestTime).toHaveBeenCalledWith({easy:'1000', normal:0, hard:0, evil:0});
+      expect(puzzleView.renderBestTime).toHaveBeenCalledWith({easy:'1000', normal:0, hard:0, evil:0});
+  })
+
+  it('Best Time Not Refreshed When solving time is greater than best time', function(){
+      sudokulevel = 'easy';
+      spyOn(timer, 'stop').andReturn(1000);
+      spyOn(userInfo, 'getBestTime').andReturn({easy:'900', normal:0, hard:0, evil:0});
+      spyOn(userInfo, 'setBestTime');
+      spyOn(puzzleView,'renderBestTime');
+
+      puzzleFinished();
+
+      expect(timer.stop).toHaveBeenCalled();
+      expect(userInfo.getBestTime).toHaveBeenCalled();
+   })
+
+})
+
 describe('JSON', function(){
   it('turns var to JSOn string', function(){
     var string = JSON.stringify({x:5});
