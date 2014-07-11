@@ -88,6 +88,7 @@
 					<!-- <div class="panel panel-default"> -->
 						<br>
 						<p id="timing">00:00:00</p>
+						<br>
 						<select class="form-control button-boxed" id="sudoku-level">
 						    <option value="easy">Easy</option>
 						    <option value="normal">Normal</option>

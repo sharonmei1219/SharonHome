@@ -50,6 +50,10 @@ input.cellInput.fixedCell {
 
 }
 
+.button-boxed{
+	line-height: 14px;
+	font-size: 18px;
+}
 .panel-heading{
 	font-size: 18px;
 }
@@ -60,6 +64,11 @@ input.cellInput.fixedCell {
 .panel .dl-horizontal dd {
     margin-left: 0px;
 }
+
+#timing{
+	font-size: 25px;
+}
+
 
 </style>
 
