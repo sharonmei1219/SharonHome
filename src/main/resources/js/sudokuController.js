@@ -1,7 +1,5 @@
 // localStorage.clear();
 
-
-
 var sudokulevel = 'hard';
 
 function UserInfo(){
@@ -109,12 +107,7 @@ function PuzzleController(puzzleView, puzzleModel){
 
 function puzzleFinished(){
 	var time = timer.stop();
-	var bestTime = userInfo.getBestTime();
-	if(time < Number(bestTime[sudokulevel]) || bestTime[sudokulevel] == 0){
-		bestTime[sudokulevel] = time.toString();
-		userInfo.setBestTime(bestTime);
-		bestTimeView.renderBestTime(bestTime);
-	}
+	bestTimeController.saveWhenTimeIsNewBest(time, sudokulevel);
 	puzzleView.seekAttentionToTimer();
 }
 
@@ -198,9 +191,21 @@ function levelChanged(inputLevel){
 }
 
 function BestTimeController(){
-
+	this.saveWhenTimeIsNewBest = function(time, sudokuLevel){
+		var bestTime = userInfo.getBestTime();
+		if(time < Number(bestTime[sudokulevel]) || bestTime[sudokulevel] == 0){
+			bestTime[sudokulevel] = time.toString();
+			userInfo.setBestTime(bestTime);
+			bestTimeView.renderBestTime(bestTime);
+		}
+	}
+	this.loadBestTime = function(){
+		var bestTime = userInfo.getBestTime();
+		bestTimeView.renderBestTime(bestTime);
+	}
 }
 
+var bestTimeController = new BestTimeController();
 var userInfo = new UserInfo();
 
 function onDocReady(){
@@ -210,8 +215,7 @@ function onDocReady(){
 	$('#button-new').click(getNewPuzzle);
 	$('#button-test-bestTime').click(function(){puzzleFinished();})
 	puzzleView.setLevelSelectionDelegation(levelChanged);
-	bestTime = userInfo.getBestTime();
-	bestTimeView.renderBestTime(bestTime);
+	bestTimeController.loadBestTime();
 	getNewPuzzle();
 }
 
