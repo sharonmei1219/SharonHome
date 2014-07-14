@@ -1,8 +1,2 @@
-<html>
-<body>
-	<h2>Sharon's Home</h2>
-	<br>
-		<a href="sudoku">Sudoku</a>
-	<br>
-</body>
-</html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:forward page='sudoku.htm'/>
