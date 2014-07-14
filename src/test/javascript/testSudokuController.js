@@ -95,7 +95,8 @@ describe('Best Time Record', function(){
 
 
   it('Best Time Refreshed When solving time is shorter than best time', function(){
-      sudokulevel = 'easy';
+      // sudokulevel = 'easy';
+      levelCtrl.levelChanged('easy');
       spyOn(timer, 'stop').andReturn(1000);
       spyOn(userInfo, 'getBestTime').andReturn({easy:'2000', normal:0, hard:0, evil:0});
       spyOn(userInfo, 'setBestTime');

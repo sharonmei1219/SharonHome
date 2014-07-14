@@ -1,6 +1,4 @@
-// localStorage.clear();
-
-var sudokulevel = 'hard';
+// var sudokulevel = 'hard';
 
 function UserInfo(){
 	this.getBestTime = function(){
@@ -32,11 +30,11 @@ function UserInfo(){
 	}
 }
 
-if(typeof(localStorage) !== "undefined") {
-	if(typeof(localStorage.sudokuLevel) !== 'undefined'){
-		sudokulevel = localStorage.sudokuLevel;
-	}
-}
+// if(typeof(localStorage) !== "undefined") {
+// 	if(typeof(localStorage.sudokuLevel) !== 'undefined'){
+// 		sudokulevel = localStorage.sudokuLevel;
+// 	}
+// }
 
 
 if (!Date.now) {
@@ -107,7 +105,7 @@ function PuzzleController(puzzleView, puzzleModel){
 
 function puzzleFinished(){
 	var time = timer.stop();
-	bestTimeController.saveWhenTimeIsNewBest(time, sudokulevel);
+	bestTimeController.saveWhenTimeIsNewBest(time, levelCtrl.currentLevel());
 	puzzleView.seekAttentionToTimer();
 }
 
@@ -158,10 +156,11 @@ function StopWatch(){
 }
 
 function getNewPuzzle(){
+	var clevel = levelCtrl.currentLevel();
 	$.ajax({
 		type : "POST",
 		url : "sudoku/new",
-		data : JSON.stringify({level:sudokulevel}),
+		data : JSON.stringify({level:levelCtrl.currentLevel()}),
 		contentType: 'application/json',
 		success : function(response){
 			if(typeof puzzleController != 'undefined'){
@@ -182,16 +181,8 @@ function getNewPuzzle(){
 	});
 }
 
-function levelChanged(inputLevel){
-	if(typeof(localStorage) !== "undefined") {
-    	localStorage.sudokuLevel = inputLevel;
-	}
-	sudokulevel = inputLevel;
-	getNewPuzzle();
-}
-
 function BestTimeController(){
-	this.saveWhenTimeIsNewBest = function(time, sudokuLevel){
+	this.saveWhenTimeIsNewBest = function(time, sudokulevel){
 		var bestTime = userInfo.getBestTime();
 		if(time < Number(bestTime[sudokulevel]) || bestTime[sudokulevel] == 0){
 			bestTime[sudokulevel] = time.toString();
@@ -205,16 +196,37 @@ function BestTimeController(){
 	}
 }
 
+function LevelSelectionController(){
+	this.levelChanged = function(inputLevel){
+		if(typeof(localStorage) !== "undefined") {
+    		localStorage.sudokuLevel = inputLevel;
+		}
+		sudokulevel = inputLevel;
+		getNewPuzzle();
+	}
+	var sudokulevel = 'hard';
+
+	this.currentLevel = function(){
+		if(typeof(localStorage) !== "undefined") {
+			if(typeof(localStorage.sudokuLevel) !== 'undefined'){
+				sudokulevel = localStorage.sudokuLevel;
+			}
+		}
+		return sudokulevel;
+	}
+}
+
 var bestTimeController = new BestTimeController();
 var userInfo = new UserInfo();
+var levelCtrl = new LevelSelectionController();
 
 function onDocReady(){
 	timer = new StopWatch();
 	timer.setShowInView(puzzleView.showTime);
-	$('#sudoku-level').val(sudokulevel);
+	$('#sudoku-level').val(levelCtrl.currentLevel());
 	$('#button-new').click(getNewPuzzle);
 	$('#button-test-bestTime').click(function(){puzzleFinished();})
-	puzzleView.setLevelSelectionDelegation(levelChanged);
+	puzzleView.setLevelSelectionDelegation(levelCtrl.levelChanged);
 	bestTimeController.loadBestTime();
 	getNewPuzzle();
 }
