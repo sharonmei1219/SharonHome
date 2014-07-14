@@ -230,25 +230,26 @@ var levelCtrl = new LevelSelectionController();
 function finishedTime(isNewBest, time){
 	var ann = new StayAnnimation(500);
 	if(isNewBest) ann = new NewBestAnnimation(ann);
-	ann = new FinishTimeAnnimation(ann);
-	ann.start(time);
+	ann = new FinishTimeAnnimation(ann, time);
+	ann.start();
 }
 
 function NewBestAnnimation(ann){
-	var decoratedAnn = ann;
 	var afterEnd = function(){};
-	this.start = function(time){
-		$('#puzzle-zone').append('<p id="new-best-sign" class="animated bounceIn">New Best</p>');
-		$('#new-best-sign').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
-			decoratedAnn.start();
+	var viewSelector = '#new-best-sign';
+	this.start = function(){
+		$('#puzzle-zone').append('<p id="new-best-sign" class="animated bounceIn"></p>');
+		$(viewSelector).text('New Best');
+		$(viewSelector).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
+			ann.start();
 		});
 	}
 
 	this.end = function(){
-		$('#new-best-sign').removeClass("animated bounceIn");
-		$('#new-best-sign').addClass("animated bounceOut");
-		$('#new-best-sign').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
-			$('#new-best-sign').remove();
+		$(viewSelector).removeClass("animated bounceIn");
+		$(viewSelector).addClass("animated bounceOut");
+		$(viewSelector).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
+			$(viewSelector).remove();
 			afterEnd();
 		});
 	}
@@ -260,21 +261,21 @@ function NewBestAnnimation(ann){
 	ann.endFinished(this.end);
 }
 
-function FinishTimeAnnimation(ann){
-	var decoratedAnn = ann;
-
-	this.start = function(time){
-		$('#puzzle-zone').append('<p id="time-puzzle-finished" class="animated bounceIn">' + time +'</p>');
-		$('#time-puzzle-finished').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
-			decoratedAnn.start();
+function FinishTimeAnnimation(ann, time){
+	var viewSelector = '#time-puzzle-finished';
+	this.start = function(){
+		$('#puzzle-zone').append('<p id="time-puzzle-finished" class="animated bounceIn"></p>');
+		$(viewSelector).text(time);
+		$(viewSelector).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
+			ann.start();
 		});
 	}
 	
 	this.end = function(){
-		$('#time-puzzle-finished').removeClass("animated bounceIn");
-		$('#time-puzzle-finished').addClass("animated bounceOut");
-		$('#time-puzzle-finished').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
-			$('#time-puzzle-finished').remove();
+		$(viewSelector).removeClass("animated bounceIn");
+		$(viewSelector).addClass("animated bounceOut");
+		$(viewSelector).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
+			$(viewSelector).remove();
 		});
 	}
 	ann.endFinished(this.end);
@@ -302,11 +303,6 @@ function onDocReady(){
 	$('#button-new').click(getNewPuzzle);
 	$('#button-test-bestTime').click(function(){
 		puzzleFinished();
-		// var stay = new StayAnnimation(500);
-		// var bestTime = new NewBestAnnimation(stay);
-		// var finishedTime = new FinishTimeAnnimation(bestTime);
-		// finishedTime.start("00:15:20");
-		// finishedTime();
 	})
 	puzzleView.setLevelSelectionDelegation(levelCtrl.levelChanged);
 	bestTimeController.loadBestTime();
