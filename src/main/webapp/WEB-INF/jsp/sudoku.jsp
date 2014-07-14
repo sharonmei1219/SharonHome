@@ -63,23 +63,10 @@
 
 				</div>
 
-				<div class="col-xs-6">
-					<div class="row">
-						<div class = "col-md-4 col-md-offset-4">
-						</div>
-					</div>
+				<div class="col-xs-6" id="puzzle-zone">
+
 					<%@ include file="table.jsp"%>
-					<table class="timer-n-level-table" align="center">
-						<tr>
-							<td class="timer-n-level-cell" align="left">
-								<!-- <p>Evil</p> -->
-							<td>
-							<td class="timer-n-level-cell">
-							<td>
-							<td class="timer-n-level-cell" align="right">
-							<td>
-						</tr>
-					</table>
+
 					<br>
 
 				</div>

@@ -86,3 +86,24 @@ input.cellInput.fixedCell {
 #timing{
 	font-size: 25px;
 }
+
+#time-puzzle-finished{
+	font-size: 75px;
+	position: absolute;
+	top: 100px;
+	left: 120px;
+	font-weight: bold;
+	color: #FFC000;
+	text-shadow: 4px 0 0 #383838, -4px 0 0 #383838, 0 4px 0 #383838, 0 -4px 0 #383838, 2px 2px #383838, -2px -2px 0 #383838, 2px -2px 0 #383838, -2px 2px 0 #383838;
+}
+
+#new-best-sign{
+	font-size: 75px;
+	position: absolute;
+	top: 170px;
+	left: 100px;
+	font-weight: bold;
+	color: #339933;
+	text-shadow: 4px 0 0 #383838, -4px 0 0 #383838, 0 4px 0 #383838, 0 -4px 0 #383838, 2px 2px #383838, -2px -2px 0 #383838, 2px -2px 0 #383838, -2px 2px 0 #383838;
+
+}

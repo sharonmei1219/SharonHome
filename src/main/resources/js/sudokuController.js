@@ -1,8 +1,5 @@
-// var sudokulevel = 'hard';
-
 function UserInfo(){
 	this.getBestTime = function(){
-
 		var bestTime = {easy:0, normal:0, hard:0, evil:0}
 		if(typeof(localStorage) !== "undefined"){
 			if(typeof(localStorage.bestEasyTime) !== 'undefined'){
@@ -20,6 +17,7 @@ function UserInfo(){
 		}
 		return bestTime;
 	}
+
 	this.setBestTime = function(bestTime){
 		if(typeof(localStorage) !== "undefined"){
 			localStorage.bestEasyTime = bestTime.easy;
@@ -28,13 +26,22 @@ function UserInfo(){
 			localStorage.bestEvilTime = bestTime.evil;
 		}
 	}
-}
 
-// if(typeof(localStorage) !== "undefined") {
-// 	if(typeof(localStorage.sudokuLevel) !== 'undefined'){
-// 		sudokulevel = localStorage.sudokuLevel;
-// 	}
-// }
+	this.saveLevel = function(inputLevel){
+		if(typeof(localStorage) !== "undefined") {
+    		localStorage.sudokuLevel = inputLevel;
+		}
+	}
+
+	this.getLevel = function(){
+		if(typeof(localStorage) !== "undefined") {
+			if(typeof(localStorage.sudokuLevel) !== 'undefined'){
+				return localStorage.sudokuLevel;
+			}
+		}
+		return undefined;
+	}
+}
 
 
 if (!Date.now) {
@@ -105,8 +112,8 @@ function PuzzleController(puzzleView, puzzleModel){
 
 function puzzleFinished(){
 	var time = timer.stop();
-	bestTimeController.saveWhenTimeIsNewBest(time, levelCtrl.currentLevel());
-	puzzleView.seekAttentionToTimer();
+	var isNewBest = bestTimeController.saveWhenTimeIsNewBest(time, levelCtrl.currentLevel());
+	finishedTime(isNewBest, formatedTime(time));
 }
 
 
@@ -188,7 +195,9 @@ function BestTimeController(){
 			bestTime[sudokulevel] = time.toString();
 			userInfo.setBestTime(bestTime);
 			bestTimeView.renderBestTime(bestTime);
+			return true;
 		}
+		return false;
 	}
 	this.loadBestTime = function(){
 		var bestTime = userInfo.getBestTime();
@@ -197,35 +206,106 @@ function BestTimeController(){
 }
 
 function LevelSelectionController(){
+	var sudokulevel = 'hard';
+
 	this.levelChanged = function(inputLevel){
-		if(typeof(localStorage) !== "undefined") {
-    		localStorage.sudokuLevel = inputLevel;
-		}
+		userInfo.saveLevel(inputLevel);
 		sudokulevel = inputLevel;
 		getNewPuzzle();
 	}
-	var sudokulevel = 'hard';
 
 	this.currentLevel = function(){
-		if(typeof(localStorage) !== "undefined") {
-			if(typeof(localStorage.sudokuLevel) !== 'undefined'){
-				sudokulevel = localStorage.sudokuLevel;
-			}
-		}
+		if(userInfo.getLevel() !== undefined) return userInfo.getLevel();
 		return sudokulevel;
 	}
 }
 
+
 var bestTimeController = new BestTimeController();
 var userInfo = new UserInfo();
 var levelCtrl = new LevelSelectionController();
+
+function finishedTime(isNewBest, time){
+	var ann = new StayAnnimation(500);
+	if(isNewBest) ann = new NewBestAnnimation(ann);
+	ann = new FinishTimeAnnimation(ann);
+	ann.start(time);
+}
+
+function NewBestAnnimation(ann){
+	var decoratedAnn = ann;
+	var afterEnd = function(){};
+	this.start = function(time){
+		$('#puzzle-zone').append('<p id="new-best-sign" class="animated bounceIn">New Best</p>');
+		$('#new-best-sign').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
+			decoratedAnn.start();
+		});
+	}
+
+	this.end = function(){
+		$('#new-best-sign').removeClass("animated bounceIn");
+		$('#new-best-sign').addClass("animated bounceOut");
+		$('#new-best-sign').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
+			$('#new-best-sign').remove();
+			afterEnd();
+		});
+	}
+
+	this.endFinished = function(action){
+		afterEnd = action;
+	}
+
+	ann.endFinished(this.end);
+}
+
+function FinishTimeAnnimation(ann){
+	var decoratedAnn = ann;
+
+	this.start = function(time){
+		$('#puzzle-zone').append('<p id="time-puzzle-finished" class="animated bounceIn">' + time +'</p>');
+		$('#time-puzzle-finished').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
+			decoratedAnn.start();
+		});
+	}
+	
+	this.end = function(){
+		$('#time-puzzle-finished').removeClass("animated bounceIn");
+		$('#time-puzzle-finished').addClass("animated bounceOut");
+		$('#time-puzzle-finished').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
+			$('#time-puzzle-finished').remove();
+		});
+	}
+	ann.endFinished(this.end);
+}
+
+function StayAnnimation(duration){
+	var actionAfterTO;
+	var tic;
+	this.start = function(){
+		tic = setInterval(this.end, duration);
+	}
+	this.end = function(){
+		actionAfterTO();
+		clearInterval(tic);
+	}
+	this.endFinished = function(action){
+		actionAfterTO = action;
+	}
+}
 
 function onDocReady(){
 	timer = new StopWatch();
 	timer.setShowInView(puzzleView.showTime);
 	$('#sudoku-level').val(levelCtrl.currentLevel());
 	$('#button-new').click(getNewPuzzle);
-	$('#button-test-bestTime').click(function(){puzzleFinished();})
+	$('#button-test-bestTime').click(function(){
+		puzzleFinished();
+		// var stay = new StayAnnimation(500);
+		// var bestTime = new NewBestAnnimation(stay);
+		// var finishedTime = new FinishTimeAnnimation(bestTime);
+		// finishedTime.start("00:15:20");
+		// finishedTime();
+	})
 	puzzleView.setLevelSelectionDelegation(levelCtrl.levelChanged);
 	bestTimeController.loadBestTime();
 	getNewPuzzle();
