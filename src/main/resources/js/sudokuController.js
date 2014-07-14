@@ -1,3 +1,5 @@
+// localStorage.clear();
+
 function UserInfo(){
 	this.getBestTime = function(){
 		var bestTime = {easy:0, normal:0, hard:0, evil:0}
