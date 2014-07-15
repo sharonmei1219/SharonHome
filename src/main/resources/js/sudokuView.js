@@ -10,7 +10,7 @@ function PuzzleView(){
 
 	this.allCell = function(){
 		return $('.cellInput');
-	};
+	}; 
 
 	this.resetButton = function(){
 		return $('#button-clear');

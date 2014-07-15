@@ -1,4 +1,4 @@
-// localStorage.clear();
+localStorage.clear(); 
 
 function UserInfo(){
 	this.getBestTime = function(){
@@ -115,7 +115,7 @@ function PuzzleController(puzzleView, puzzleModel){
 function puzzleFinished(){
 	var time = timer.stop();
 	var isNewBest = bestTimeController.saveWhenTimeIsNewBest(time, levelCtrl.currentLevel());
-	finishedTime(isNewBest, formatedTime(time));
+	bouceOutFinishedTime(isNewBest, formatedTime(time));
 }
 
 
@@ -227,59 +227,59 @@ var bestTimeController = new BestTimeController();
 var userInfo = new UserInfo();
 var levelCtrl = new LevelSelectionController();
 
-function finishedTime(isNewBest, time){
+function bouceOutFinishedTime(isNewBest, time){
 	var ann = new StayAnnimation(500);
 	if(isNewBest) ann = new NewBestAnnimation(ann);
 	ann = new FinishTimeAnnimation(ann, time);
 	ann.start();
 }
 
-function NewBestAnnimation(ann){
-	var afterEnd = function(){};
-	var viewSelector = '#new-best-sign';
+function BouncedInAndOutAnnimation(){
 	this.start = function(){
-		$('#puzzle-zone').append('<p id="new-best-sign" class="animated bounceIn"></p>');
-		$(viewSelector).text('New Best');
-		$(viewSelector).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
-			ann.start();
+		var self = this;
+		$('#puzzle-zone').append('<p id="'+ this.annObjId +'" class="animated bounceIn"></p>');
+		$(this.viewSelector).text(this.popUpText);
+		$(this.viewSelector).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
+			self.ann.start();
 		});
 	}
+	var afterEnd = {end: function(){}};
 
 	this.end = function(){
-		$(viewSelector).removeClass("animated bounceIn");
-		$(viewSelector).addClass("animated bounceOut");
-		$(viewSelector).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
-			$(viewSelector).remove();
-			afterEnd();
+		var self = this;
+		$(this.viewSelector).removeClass("animated bounceIn");
+		$(this.viewSelector).addClass("animated bounceOut");
+		$(this.viewSelector).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
+			$(self.viewSelector).remove();
+			afterEnd.end();
 		});
 	}
 
 	this.endFinished = function(action){
 		afterEnd = action;
 	}
-
-	ann.endFinished(this.end);
 }
+
+
+function NewBestAnnimation(ann){
+	this.annObjId = 'new-best-sign';
+	this.viewSelector = '#' + this.annObjId;
+	this.popUpText = 'New Best';
+	this.ann = ann;
+	ann.endFinished(this);
+}
+
+NewBestAnnimation.prototype = new BouncedInAndOutAnnimation();
 
 function FinishTimeAnnimation(ann, time){
-	var viewSelector = '#time-puzzle-finished';
-	this.start = function(){
-		$('#puzzle-zone').append('<p id="time-puzzle-finished" class="animated bounceIn"></p>');
-		$(viewSelector).text(time);
-		$(viewSelector).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
-			ann.start();
-		});
-	}
-	
-	this.end = function(){
-		$(viewSelector).removeClass("animated bounceIn");
-		$(viewSelector).addClass("animated bounceOut");
-		$(viewSelector).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
-			$(viewSelector).remove();
-		});
-	}
-	ann.endFinished(this.end);
+	this.annObjId = 'time-puzzle-finished';
+	this.viewSelector = '#' + this.annObjId;
+	this.popUpText = time;
+	this.ann = ann;
+	ann.endFinished(this);
 }
+
+FinishTimeAnnimation.prototype = new BouncedInAndOutAnnimation();
 
 function StayAnnimation(duration){
 	var actionAfterTO;
@@ -288,7 +288,7 @@ function StayAnnimation(duration){
 		tic = setInterval(this.end, duration);
 	}
 	this.end = function(){
-		actionAfterTO();
+		actionAfterTO.end();
 		clearInterval(tic);
 	}
 	this.endFinished = function(action){
