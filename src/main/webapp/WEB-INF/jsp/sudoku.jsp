@@ -120,5 +120,9 @@
 	<script src="<c:url value="/resources/js/sudokuController.js"/>"></script>
 	<script src="<c:url value="/resources/js/sudokuView.js"/>"></script>
 	<script src="<c:url value="/resources/js/sudokuModel.js"/>"></script>
+	<script type="text/javascript">
+		var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+		document.write(unescape("%3Cspan id='cnzz_stat_icon_1000540895'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1000540895' type='text/javascript'%3E%3C/script%3E"));
+	</script>
 </body>
 </html>

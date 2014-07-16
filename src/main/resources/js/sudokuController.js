@@ -1,4 +1,8 @@
-localStorage.clear(); 
+localStorage.clear();
+
+function itsIE() {
+    return window.navigator.userAgent.indexOf("MSIE ") > 0;
+}
 
 function UserInfo(){
 	this.getBestTime = function(){
@@ -234,29 +238,57 @@ function bouceOutFinishedTime(isNewBest, time){
 	ann.start();
 }
 
-function BouncedInAndOutAnnimation(){
-	this.start = function(){
-		var self = this;
-		$('#puzzle-zone').append('<p id="'+ this.annObjId +'" class="animated bounceIn"></p>');
-		$(this.viewSelector).text(this.popUpText);
-		$(this.viewSelector).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
-			self.ann.start();
-		});
-	}
-	var afterEnd = {end: function(){}};
 
-	this.end = function(){
-		var self = this;
-		$(this.viewSelector).removeClass("animated bounceIn");
-		$(this.viewSelector).addClass("animated bounceOut");
-		$(this.viewSelector).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
-			$(self.viewSelector).remove();
+if(!itsIE()){
+	BouncedInAndOutAnnimation = function(){
+		this.start = function(){
+			var self = this;
+			$('#puzzle-zone').append('<p id="'+ this.annObjId +'" class="animated bounceIn"></p>');
+			$(this.viewSelector).text(this.popUpText);
+			$(this.viewSelector).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
+				self.ann.start();
+			});
+		}
+		var afterEnd = {end: function(){}};
+
+		this.end = function(){
+			var self = this;
+			$(this.viewSelector).removeClass("animated bounceIn");
+			$(this.viewSelector).addClass("animated bounceOut");
+			$(this.viewSelector).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
+				$(self.viewSelector).remove();
+				afterEnd.end();
+			});
+		}
+
+		this.endFinished = function(action){
+			afterEnd = action;
+		}
+	}
+}else{
+	BouncedInAndOutAnnimation = function(){
+		var ticBegin;
+		this.start = function(){
+			var self = this;
+			$('#puzzle-zone').append('<p id="'+ this.annObjId +'" class="animated bounceIn"></p>');
+			$(this.viewSelector).text(this.popUpText);
+			ticBegin = setInterval(function(){self.actionAfterBegin();}, 500);
+		}
+
+		this.actionAfterBegin = function(){
+			clearInterval(ticBegin);
+			this.ann.start();
+		}
+
+		this.end = function(){
+			$(this.viewSelector).remove();
 			afterEnd.end();
-		});
-	}
+		}
 
-	this.endFinished = function(action){
-		afterEnd = action;
+		var afterEnd = {end: function(){}};
+		this.endFinished = function(action){
+			afterEnd = action;
+		}
 	}
 }
 
