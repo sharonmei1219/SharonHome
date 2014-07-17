@@ -6,31 +6,15 @@ function itsIE() {
 
 function UserInfo(){
 	this.getBestTime = function(){
-		var bestTime = {easy:0, normal:0, hard:0, evil:0}
-		if(typeof(localStorage) !== "undefined"){
-			if(typeof(localStorage.bestEasyTime) !== 'undefined'){
-				bestTime.easy = localStorage.bestEasyTime;
-			}
-			if(typeof(localStorage.bestNormalTime) !== 'undefined'){
-				bestTime.normal = localStorage.bestNormalTime;
-			}
-			if(typeof(localStorage.bestHardTime) !== 'undefined'){
-				bestTime.hard = localStorage.bestHardTime;
-			}
-			if(typeof(localStorage.bestEvilTime) !== 'undefined'){
-				bestTime.evil = localStorage.bestEvilTime;
-			}
-		}
-		return bestTime;
+		if(typeof(localStorage) !== "undefined")
+			if(typeof(localStorage.bestTime) !== 'undefined')
+				return JSON.parse(localStorage.bestTime);
+		return {easy:0, normal:0, hard:0, evil:0};
 	}
 
 	this.setBestTime = function(bestTime){
-		if(typeof(localStorage) !== "undefined"){
-			localStorage.bestEasyTime = bestTime.easy;
-			localStorage.bestNormalTime = bestTime.normal;
-			localStorage.bestHardTime = bestTime.hard;
-			localStorage.bestEvilTime = bestTime.evil;
-		}
+		if(typeof(localStorage) !== "undefined")
+			localStorage.bestTime = JSON.stringify(bestTime);
 	}
 
 	this.saveLevel = function(inputLevel){
@@ -40,11 +24,9 @@ function UserInfo(){
 	}
 
 	this.getLevel = function(){
-		if(typeof(localStorage) !== "undefined") {
-			if(typeof(localStorage.sudokuLevel) !== 'undefined'){
+		if(typeof(localStorage) !== "undefined")
+			if(typeof(localStorage.sudokuLevel) !== 'undefined')
 				return localStorage.sudokuLevel;
-			}
-		}
 		return undefined;
 	}
 }
@@ -238,80 +220,47 @@ function bouceOutFinishedTime(isNewBest, time){
 	ann.start();
 }
 
-
-if(!itsIE()){
-	BouncedInAndOutAnnimation = function(){
-		this.start = function(){
-			var self = this;
-			$('#puzzle-zone').append('<p id="'+ this.annObjId +'" class="animated bounceIn"></p>');
-			$(this.viewSelector).text(this.popUpText);
-			$(this.viewSelector).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
-				self.ann.start();
-			});
-		}
-		var afterEnd = {end: function(){}};
-
-		this.end = function(){
-			var self = this;
-			$(this.viewSelector).removeClass("animated bounceIn");
-			$(this.viewSelector).addClass("animated bounceOut");
-			$(this.viewSelector).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
-				$(self.viewSelector).remove();
-				afterEnd.end();
-			});
-		}
-
-		this.endFinished = function(action){
-			afterEnd = action;
-		}
+BouncedInAndOutAnnimation = function(wrapedAnn, annObjId, popUpText){
+	var viewSelector = '#' + annObjId;
+	this.start = function(){
+		$('#puzzle-zone').append('<p id="'+ annObjId +'" class="animated bounceIn"></p>');
+		$(viewSelector).text(popUpText);
+		$(viewSelector).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
+			$(viewSelector).removeClass("animated bounceIn");
+			wrapedAnn.afterItsEnd(endAnimation);
+			wrapedAnn.start();
+		});
 	}
-}else{
-	BouncedInAndOutAnnimation = function(){
-		var ticBegin;
-		this.start = function(){
-			var self = this;
-			$('#puzzle-zone').append('<p id="'+ this.annObjId +'" class="animated bounceIn"></p>');
-			$(this.viewSelector).text(this.popUpText);
-			ticBegin = setInterval(function(){self.actionAfterBegin();}, 500);
-		}
+	var afterEnd = function(){};
 
-		this.actionAfterBegin = function(){
-			clearInterval(ticBegin);
-			this.ann.start();
-		}
+	var endAnimation = function(){
+		$(viewSelector).addClass("animated bounceOut");
+		$(viewSelector).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
+			$(viewSelector).remove();
+			afterEnd();
+		});
+	}
 
-		this.end = function(){
-			$(this.viewSelector).remove();
-			afterEnd.end();
-		}
-
-		var afterEnd = {end: function(){}};
-		this.endFinished = function(action){
-			afterEnd = action;
-		}
+	this.afterItsEnd = function(action){
+		afterEnd = action;
 	}
 }
-
 
 function NewBestAnnimation(ann){
-	this.annObjId = 'new-best-sign';
-	this.viewSelector = '#' + this.annObjId;
-	this.popUpText = 'New Best';
-	this.ann = ann;
-	ann.endFinished(this);
+	this.__proto__ = new BouncedInAndOutAnnimation(ann, 'new-best-sign', 'New Best');
+	if(itsIE()){
+		this.start = function(){}
+		this.afterItsEnd = function(action){}
+	}
 }
-
-NewBestAnnimation.prototype = new BouncedInAndOutAnnimation();
 
 function FinishTimeAnnimation(ann, time){
-	this.annObjId = 'time-puzzle-finished';
-	this.viewSelector = '#' + this.annObjId;
-	this.popUpText = time;
-	this.ann = ann;
-	ann.endFinished(this);
+	this.__proto__ = new BouncedInAndOutAnnimation(ann, 'time-puzzle-finished', time);
+	if(itsIE()){
+		this.start = function(){}
+		this.afterItsEnd = function(action){}
+	}
 }
-
-FinishTimeAnnimation.prototype = new BouncedInAndOutAnnimation();
 
 function StayAnnimation(duration){
 	var actionAfterTO;
@@ -320,10 +269,10 @@ function StayAnnimation(duration){
 		tic = setInterval(this.end, duration);
 	}
 	this.end = function(){
-		actionAfterTO.end();
+		actionAfterTO();
 		clearInterval(tic);
 	}
-	this.endFinished = function(action){
+	this.afterItsEnd = function(action){
 		actionAfterTO = action;
 	}
 }

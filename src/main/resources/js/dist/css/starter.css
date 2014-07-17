@@ -105,5 +105,12 @@ input.cellInput.fixedCell {
 	font-weight: bold;
 	color: #339933;
 	text-shadow: 4px 0 0 #383838, -4px 0 0 #383838, 0 4px 0 #383838, 0 -4px 0 #383838, 2px 2px #383838, -2px -2px 0 #383838, 2px -2px 0 #383838, -2px 2px 0 #383838;
+}
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }

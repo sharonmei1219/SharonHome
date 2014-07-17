@@ -78,12 +78,32 @@ function PuzzleView(){
 		var cellid = $(this).attr('id');
 		var i = parseInt(cellid[1]);
 		var j = parseInt(cellid[2]);
+
 		var value = $(this).val();
 		keyUpDelegation.call(value, i, j);
 	}
 
+	function CellHOver(){
+		var cellValue;
+		this.hIn = function(e){
+			return function(){ cellValue = $(this).val();
+			}
+		}
+		this.hOut = function(e){
+			return function(){
+				if($(this).val() == cellValue) return;
+				keyUp.call(this, e);
+			}
+		}
+	}
+
+
 	this.allCell().keyup(keyUp);
 	this.allCell().keydown(this.varifyKeyInIsNumber);
+	_.each(this.allCell(), function(cell){
+		var cellHOver = new CellHOver();
+		$(cell).hover(cellHOver.hIn(), cellHOver.hOut());
+	})
 	this.resetButton().click(resetTable);
 	this.levelSelect().change(levelChanged);
 
