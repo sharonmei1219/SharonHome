@@ -85,15 +85,10 @@ function PuzzleView(){
 
 	function CellHOver(){
 		var cellValue;
-		this.hIn = function(e){
-			return function(){ cellValue = $(this).val();
-			}
-		}
+		this.hIn = function(e){ cellValue = $(this).val();}
 		this.hOut = function(e){
-			return function(){
-				if($(this).val() == cellValue) return;
-				keyUp.call(this, e);
-			}
+			if($(this).val() == cellValue) return;
+			keyUp.call(this, e);
 		}
 	}
 
@@ -102,7 +97,7 @@ function PuzzleView(){
 	this.allCell().keydown(this.varifyKeyInIsNumber);
 	_.each(this.allCell(), function(cell){
 		var cellHOver = new CellHOver();
-		$(cell).hover(cellHOver.hIn(), cellHOver.hOut());
+		$(cell).hover(cellHOver.hIn, cellHOver.hOut);
 	})
 	this.resetButton().click(resetTable);
 	this.levelSelect().change(levelChanged);
@@ -116,8 +111,6 @@ function PuzzleView(){
 			$('#timing').removeClass('animated pulse');
 		});
 	}
-
-
 }
 
 

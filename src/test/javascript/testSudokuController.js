@@ -79,7 +79,7 @@ describe('Best Time Record', function(){
   });
 
   it('Best Time Refresed Solved the First Puzzle', function(){
-      sudokulevel = 'easy';
+      userInfo.saveLevel('easy');
       spyOn(timer, 'stop').andReturn(1000);
       spyOn(userInfo, 'getBestTime').andReturn({easy:0, normal:0, hard:0, evil:0});
       spyOn(userInfo, 'setBestTime');

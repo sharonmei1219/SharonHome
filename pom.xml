@@ -161,6 +161,12 @@
 				</executions>
 				<configuration>
 					<jsSrcDir>src/main/resources/js</jsSrcDir>
+					<sourceIncludes>
+						<include>**/jquery-1.11.1.min.js</include>
+						<include>**/underscore-min.js</include>
+						<include>**/*.js</include>
+
+					</sourceIncludes>
 					<jsTestSrcDir>src/test/javascript</jsTestSrcDir>
 					<skipTests>true</skipTests>
 				</configuration>
