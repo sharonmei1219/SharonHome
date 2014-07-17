@@ -95,7 +95,6 @@ describe('Best Time Record', function(){
 
 
   it('Best Time Refreshed When solving time is shorter than best time', function(){
-      // sudokulevel = 'easy';
       levelCtrl.levelChanged('easy');
       spyOn(timer, 'stop').andReturn(1000);
       spyOn(userInfo, 'getBestTime').andReturn({easy:'2000', normal:0, hard:0, evil:0});
@@ -131,3 +130,24 @@ describe('JSON', function(){
     expect(string).toEqual('{\"x\":5}');
   })
 })
+
+// describe('WarningMatrix', function(){
+//   it('add class bgWarning1 to a cell',  function(){
+//     warningMatrix = new WarningMatrix(2, 2);
+//     var error = {
+//       zone: function(){},
+//       spots: function(){}
+//     };
+//     spyOn(error, 'zone').andReturn([{i:0, j:0}, {i:0, j:1}]);
+//     spyOn(error, 'spots').andReturn([{i:0, j:0}]);
+//     spyOn(puzzleView, 'lightBg');
+//     var errors = [error];
+//     warningMatrix = warningMatrix.update(errors);
+//     warningMatrix.renderWarnings();
+//     expect(error.zone).toHaveBeenCalled();
+//     expect(error.spots).toHaveBeenCalled();
+//     expect(puzzleView.lightBg).toHaveBeenCalledWith(0, 0);
+//     expect(puzzleView.lightBg).toHaveBeenCalledWith(0, 1);
+
+//   })
+// })

@@ -111,6 +111,8 @@ function PuzzleView(){
 			$('#timing').removeClass('animated pulse');
 		});
 	}
+
+	this.lightBg = function(i, j){}
 }
 
 
@@ -157,6 +159,32 @@ function BestTimeView() {
 			this.bestEvilTime().text(formatedTime(Number(bestTime.evil)));
 		}
 	};
+}
+
+BouncedInAndOutAnnimation = function(wrapedAnn, annObjId, popUpText){
+	var viewSelector = '#' + annObjId;
+	this.start = function(){
+		$('#puzzle-zone').append('<p id="'+ annObjId +'" class="animated bounceIn"></p>');
+		$(viewSelector).text(popUpText);
+		$(viewSelector).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
+			$(viewSelector).removeClass("animated bounceIn");
+			wrapedAnn.afterItsEnd(endAnimation);
+			wrapedAnn.start();
+		});
+	}
+	var afterEnd = function(){};
+
+	var endAnimation = function(){
+		$(viewSelector).addClass("animated bounceOut");
+		$(viewSelector).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
+			$(viewSelector).remove();
+			afterEnd();
+		});
+	}
+
+	this.afterItsEnd = function(action){
+		afterEnd = action;
+	}
 }
 
 var puzzleView = new PuzzleView();

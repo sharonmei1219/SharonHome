@@ -1,36 +1,6 @@
-localStorage.clear();
-
 function itsIE() {
     return window.navigator.userAgent.indexOf("MSIE ") > 0;
 }
-
-function UserInfo(){
-	this.getBestTime = function(){
-		if(typeof(localStorage) !== "undefined")
-			if(typeof(localStorage.bestTime) !== 'undefined')
-				return JSON.parse(localStorage.bestTime);
-		return {easy:0, normal:0, hard:0, evil:0};
-	}
-
-	this.setBestTime = function(bestTime){
-		if(typeof(localStorage) !== "undefined")
-			localStorage.bestTime = JSON.stringify(bestTime);
-	}
-
-	this.saveLevel = function(inputLevel){
-		if(typeof(localStorage) !== "undefined") {
-    		localStorage.sudokuLevel = inputLevel;
-		}
-	}
-
-	this.getLevel = function(){
-		if(typeof(localStorage) !== "undefined")
-			if(typeof(localStorage.sudokuLevel) !== 'undefined')
-				return localStorage.sudokuLevel;
-		return undefined;
-	}
-}
-
 
 if (!Date.now) {
   Date.now = function now() {
@@ -46,6 +16,7 @@ function createMatrix(m, n){
 					});
 				}));
 }
+
 
 function PuzzleController(puzzleView, puzzleModel){
 
@@ -104,13 +75,12 @@ function puzzleFinished(){
 	bouceOutFinishedTime(isNewBest, formatedTime(time));
 }
 
-
-function addLeading0(num){
-	if (num < 10) return '0' + num;
-	return '' + num;
-}
-
 function formatedTime(timePassed){
+	function addLeading0(num){
+		if (num < 10) return '0' + num;
+		return '' + num;
+	}
+
 	var c = Math.floor(timePassed/1000);
 	return _.map([3600, 60, 1], function(unit){
 				var result = addLeading0(Math.floor(c/unit))
@@ -194,7 +164,7 @@ function BestTimeController(){
 }
 
 function LevelSelectionController(){
-	var sudokulevel = 'hard';
+	var sudokulevel = 'normal';
 
 	this.levelChanged = function(inputLevel){
 		userInfo.saveLevel(inputLevel);
@@ -208,9 +178,7 @@ function LevelSelectionController(){
 	}
 }
 
-
 var bestTimeController = new BestTimeController();
-var userInfo = new UserInfo();
 var levelCtrl = new LevelSelectionController();
 
 function bouceOutFinishedTime(isNewBest, time){
@@ -218,32 +186,6 @@ function bouceOutFinishedTime(isNewBest, time){
 	if(isNewBest) ann = new NewBestAnnimation(ann);
 	ann = new FinishTimeAnnimation(ann, time);
 	ann.start();
-}
-
-BouncedInAndOutAnnimation = function(wrapedAnn, annObjId, popUpText){
-	var viewSelector = '#' + annObjId;
-	this.start = function(){
-		$('#puzzle-zone').append('<p id="'+ annObjId +'" class="animated bounceIn"></p>');
-		$(viewSelector).text(popUpText);
-		$(viewSelector).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
-			$(viewSelector).removeClass("animated bounceIn");
-			wrapedAnn.afterItsEnd(endAnimation);
-			wrapedAnn.start();
-		});
-	}
-	var afterEnd = function(){};
-
-	var endAnimation = function(){
-		$(viewSelector).addClass("animated bounceOut");
-		$(viewSelector).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',function(){
-			$(viewSelector).remove();
-			afterEnd();
-		});
-	}
-
-	this.afterItsEnd = function(action){
-		afterEnd = action;
-	}
 }
 
 function NewBestAnnimation(ann){
@@ -276,6 +218,19 @@ function StayAnnimation(duration){
 		actionAfterTO = action;
 	}
 }
+// function NoWarning(){};
+
+// function WarningMatrix(x, y){
+
+// 	var matrix = _.times(x, function(){var row = [];
+// 										_.times(y, function(){row.push(new NoWarning())});});
+// 	this.update = function(errors){
+// 		var result = new WarningMatrix(x, y);
+		
+// 		return this;
+// 	};
+// 	this.renderWarnings = function(){};
+// }
 
 function onDocReady(){
 	timer = new StopWatch();

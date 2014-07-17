@@ -51,8 +51,6 @@
 		      </div>
 		    </div>
 		    <br>
-		    
-		<!--     <p>Make each column, each row, and each block contains all of the digits from 1 to 9.</p> -->
 		    <br>
 		    <br>
 		    <br>
@@ -124,6 +122,7 @@
 	<script src="<c:url value="/resources/js/sudokuController.js"/>"></script>
 	<script src="<c:url value="/resources/js/sudokuView.js"/>"></script>
 	<script src="<c:url value="/resources/js/sudokuModel.js"/>"></script>
+	<script src="<c:url value="/resources/js/userInfo.js"/>"></script>
 
 	<script type="text/javascript">
 		var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
