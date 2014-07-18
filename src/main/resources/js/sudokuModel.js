@@ -35,6 +35,10 @@ function PuzzleModel(puzzle, blocksize){
 		puzzle[i][j] = value;
 	};
 
+	this.clear = function(i, j){
+		puzzle[i][j] = '';
+	};
+
 	this.get = function(i, j){
 		return puzzle[i][j];
 	};
@@ -78,7 +82,6 @@ function PuzzleModel(puzzle, blocksize){
 		}
 		return _.flatten(_.map(range(br), function(i){
 			return _.map(range(bc), function(j){
-				console.log('Block pos', i, j);
 				return {i:i, j:j};
 			})
 		}))}
@@ -119,7 +122,7 @@ function PuzzleModel(puzzle, blocksize){
 			result.push(error);
 		})
 
-		var nrOfBlock = puzzle.length * puzzle.length / (blocksize * blocksize);
+		var nrOfBlock = (puzzle.length * puzzle.length) / (blocksize * blocksize);
 		_.each(_.range(0, nrOfBlock), function(i){
 			var bc = i%blocksize;
 			var br = (i-bc)/blocksize;

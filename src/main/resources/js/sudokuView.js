@@ -112,10 +112,18 @@ function PuzzleView(){
 		});
 	}
 
-	this.lightBg = function(i, j){}
-	this.mediumBg = function(i, j){}
-	this.darkBg = function(i, j){}
-	this.clearBg = function(i, j){}
+	this.lightBg = function(i, j){
+		this.cellAt(i, j).addClass('warning-bg-light');
+	}
+	this.mediumBg = function(i, j){
+		this.cellAt(i, j).addClass('warning-bg-medium');
+	}
+	this.darkBg = function(i, j){
+		this.cellAt(i, j).addClass('warning-bg-dark');
+	}
+	this.clearBg = function(i, j){
+		this.cellAt(i, j).removeClass('warning-bg-light warning-bg-medium warning-bg-dark');
+	}
 }
 
 

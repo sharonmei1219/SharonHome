@@ -85,8 +85,8 @@
 						    <option value="evil">Evil</option>
 						</select>
 						<button class="btn btn-default btn-lg button-boxed" id="button-clear"><span class="glyphicon glyphicon-repeat"></span> Clear</button>
-						<br>
-						<button class="btn btn-default btn-lg button-boxed" id="button-test-bestTime"> Test </button>
+<!-- 						<br>
+						<button class="btn btn-default btn-lg button-boxed" id="button-test-bestTime"> Test </button> -->
 						<br>
 						<button class="btn btn-default btn-lg button-boxed" id="button-new"><span class="glyphicon glyphicon-download"></span> New </button>
 						<br>

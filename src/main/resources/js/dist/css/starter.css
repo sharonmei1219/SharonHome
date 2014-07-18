@@ -114,3 +114,15 @@ input::-webkit-inner-spin-button {
     -moz-appearance: none;
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
+
+.warning-bg-light{
+	background: #FFECB2;
+}
+
+.warning-bg-medium{
+	background: #FFD966;
+}
+
+.warning-bg-dark{
+	background: #FFC000;
+}

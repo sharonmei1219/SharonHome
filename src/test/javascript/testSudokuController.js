@@ -16,7 +16,7 @@ describe('createMatrix', function(){
 
 describe('SudokuController', function(){
   var sv = new PuzzleView();
-  var sm = new PuzzleModel([['1',''],['','2']]);
+  var sm = new PuzzleModel([['1',''],['','2']], 2);
   var sc = new PuzzleController(sv, sm);
   it('put 1, 2 to pos (0,0) and (1,1) in view when loadPuzzle', function(){
     spyOn(sv, 'put');

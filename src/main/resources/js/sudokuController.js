@@ -19,6 +19,7 @@ function createMatrix(m, n){
 
 
 function PuzzleController(puzzleView, puzzleModel){
+	var warnings = new WarningMatrix(puzzleModel.size.i, puzzleModel.size.j);
 
 	var matrix = createMatrix(puzzleModel.size.i, puzzleModel.size.j);
 	var tellSpotsContainsNumberVsBlankSpots = function(){
@@ -51,17 +52,24 @@ function PuzzleController(puzzleView, puzzleModel){
 		_.each(numberedPos, function(p){
 			puzzleView.clear(p.i, p.j);
 		});
+		warnings = warnings.clearAll();
 	};
 
 	this.clearSolution = function(){
 		_.each(blankPos, function(p){
 			puzzleView.clear(p.i, p.j);
+			puzzleModel.clear(p.i, p.j);
 		});
 		puzzleView.seekAttentionToTimer();
+		warnings = warnings.clearAll();
 	};
 
 	this.numberInput = function(value, i, j){
 		puzzleModel.change(value, i, j);
+		errors = puzzleModel.validate();
+		warnings.clearWarnings();
+		warnings = warnings.update(errors);
+		warnings.renderWarnings();
 		if(puzzleModel.finished()) {
 			puzzleFinished()
 		};
@@ -278,6 +286,11 @@ function WarningMatrix(x, y){
 	};
 	this.clearWarnings = function(){
 		forAll(function(i,j){matrix[i][j].clearBg(i, j);})
+	}
+
+	this.clearAll = function(){
+		this.clearWarnings();
+		return new WarningMatrix(x, y);
 	}
 }
 
