@@ -67,9 +67,7 @@ function PuzzleController(puzzleView, puzzleModel){
 	this.numberInput = function(value, i, j){
 		puzzleModel.change(value, i, j);
 		errors = puzzleModel.validate();
-		warnings.clearWarnings();
 		warnings = warnings.update(errors);
-		warnings.renderWarnings();
 		if(puzzleModel.finished()) {
 			puzzleFinished()
 		};
@@ -181,7 +179,9 @@ function LevelSelectionController(){
 	}
 
 	this.currentLevel = function(){
-		if(userInfo.getLevel() !== undefined) return userInfo.getLevel();
+		if(userInfo.getLevel() !== undefined) {
+			return userInfo.getLevel();
+		}
 		return sudokulevel;
 	}
 }
@@ -227,31 +227,32 @@ function StayAnnimation(duration){
 	}
 }
 
-function NormalCell(){
-	this.addError = function(){return new LightCell();}
-	this.render = function(i, j){};
-	this.clearBg = function(i, j){};
-};
-
-function LightCell(){
-	this.addError = function(){return new MediumCell();}
-	this.render = function(i, j){puzzleView.lightBg(i, j)};
-	this.clearBg = function(i, j){puzzleView.clearBg(i, j)};
-};
-
-function MediumCell(){
-	this.render = function(i, j){puzzleView.mediumBg(i, j)};
-	this.addError = function(){ return new DarkCell();}
-	this.clearBg = function(i, j){puzzleView.clearBg(i, j)};
-}
-
-function DarkCell(){
-	this.render = function(i, j){puzzleView.darkBg(i, j)};
-	this.addError = function(){ return this;}
-	this.clearBg = function(i, j){puzzleView.clearBg(i, j)};
-}
 
 function WarningMatrix(x, y){
+
+	function NormalCell(){
+		this.addError = function(){return new LightCell();}
+		this.render = function(i, j){};
+		this.clearBg = function(i, j){};
+	};
+
+	function LightCell(){
+		this.addError = function(){return new MediumCell();}
+		this.render = function(i, j){puzzleView.lightBg(i, j)};
+		this.clearBg = function(i, j){puzzleView.clearBg(i, j)};
+	};
+
+	function MediumCell(){
+		this.render = function(i, j){puzzleView.mediumBg(i, j)};
+		this.addError = function(){ return new DarkCell();}
+		this.clearBg = function(i, j){puzzleView.clearBg(i, j)};
+	}
+
+	function DarkCell(){
+		this.render = function(i, j){puzzleView.darkBg(i, j)};
+		this.addError = function(){ return this;}
+		this.clearBg = function(i, j){puzzleView.clearBg(i, j)};
+	}
 	var matrix = [];
 	_.times(x, function(){var row = [];
 						  _.times(y, function(){row.push(new NormalCell())});
@@ -268,8 +269,10 @@ function WarningMatrix(x, y){
 	}
 
 	this.update = function(errors){
+		this.clearWarnings();
 		var result = new WarningMatrix(x, y);
 		_.each(errors, function(error){result.addError(error)});
+		result.renderWarnings();
 		return result;
 	};
 

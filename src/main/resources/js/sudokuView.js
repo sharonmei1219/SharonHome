@@ -36,9 +36,10 @@ function PuzzleView(){
 		this.cellAt(i, j).val('');
 	};
 
-	this.varifyKeyInIsNumber = function(e){
+	varifyKeyInIsNumber = function(e){
 		var key = e.keyCode ? e.keyCode : e.which;
 		if((key == 46) || (key == 8)) return true; //backspace, delete
+		if($(this).val() != '') return false;
 		if((key > 96) && (key < 106)) return true;
 		if((key > 48) && (key < 58)) return true;
 		return false;
@@ -94,7 +95,7 @@ function PuzzleView(){
 
 
 	this.allCell().keyup(keyUp);
-	this.allCell().keydown(this.varifyKeyInIsNumber);
+	this.allCell().keydown(varifyKeyInIsNumber);
 	_.each(this.allCell(), function(cell){
 		var cellHOver = new CellHOver();
 		$(cell).hover(cellHOver.hIn, cellHOver.hOut);
