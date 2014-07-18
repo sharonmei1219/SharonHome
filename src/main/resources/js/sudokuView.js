@@ -113,6 +113,9 @@ function PuzzleView(){
 	}
 
 	this.lightBg = function(i, j){}
+	this.mediumBg = function(i, j){}
+	this.darkBg = function(i, j){}
+	this.clearBg = function(i, j){}
 }
 
 

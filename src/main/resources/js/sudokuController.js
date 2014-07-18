@@ -218,19 +218,68 @@ function StayAnnimation(duration){
 		actionAfterTO = action;
 	}
 }
-// function NoWarning(){};
 
-// function WarningMatrix(x, y){
+function NormalCell(){
+	this.addError = function(){return new LightCell();}
+	this.render = function(i, j){};
+	this.clearBg = function(i, j){};
+};
 
-// 	var matrix = _.times(x, function(){var row = [];
-// 										_.times(y, function(){row.push(new NoWarning())});});
-// 	this.update = function(errors){
-// 		var result = new WarningMatrix(x, y);
-		
-// 		return this;
-// 	};
-// 	this.renderWarnings = function(){};
-// }
+function LightCell(){
+	this.addError = function(){return new MediumCell();}
+	this.render = function(i, j){puzzleView.lightBg(i, j)};
+	this.clearBg = function(i, j){puzzleView.clearBg(i, j)};
+};
+
+function MediumCell(){
+	this.render = function(i, j){puzzleView.mediumBg(i, j)};
+	this.addError = function(){ return new DarkCell();}
+	this.clearBg = function(i, j){puzzleView.clearBg(i, j)};
+}
+
+function DarkCell(){
+	this.render = function(i, j){puzzleView.darkBg(i, j)};
+	this.addError = function(){ return this;}
+	this.clearBg = function(i, j){puzzleView.clearBg(i, j)};
+}
+
+function WarningMatrix(x, y){
+	var matrix = [];
+	_.times(x, function(){var row = [];
+						  _.times(y, function(){row.push(new NormalCell())});
+						  matrix.push(row);
+						 });
+
+	this.addError = function(error){
+		var zoneSpot = error.zone();
+		_.each(zoneSpot, function(spot){
+			matrix[spot.i][spot.j] = matrix[spot.i][spot.j].addError();
+		})
+
+		var errorSpot = error.spots();
+	}
+
+	this.update = function(errors){
+		var result = new WarningMatrix(x, y);
+		_.each(errors, function(error){result.addError(error)});
+		return result;
+	};
+
+	function forAll(action){
+		_.each(_.range(0, x), function(i){
+			   _.each(_.range(0, y), function(j){
+			   		  action(i, j);
+			   })
+		})
+	}
+
+	this.renderWarnings = function(){
+		forAll(function(i,j){matrix[i][j].render(i, j);})
+	};
+	this.clearWarnings = function(){
+		forAll(function(i,j){matrix[i][j].clearBg(i, j);})
+	}
+}
 
 function onDocReady(){
 	timer = new StopWatch();

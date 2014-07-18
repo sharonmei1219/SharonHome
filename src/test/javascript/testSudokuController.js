@@ -131,23 +131,68 @@ describe('JSON', function(){
   })
 })
 
-// describe('WarningMatrix', function(){
-//   it('add class bgWarning1 to a cell',  function(){
-//     warningMatrix = new WarningMatrix(2, 2);
-//     var error = {
-//       zone: function(){},
-//       spots: function(){}
-//     };
-//     spyOn(error, 'zone').andReturn([{i:0, j:0}, {i:0, j:1}]);
-//     spyOn(error, 'spots').andReturn([{i:0, j:0}]);
-//     spyOn(puzzleView, 'lightBg');
-//     var errors = [error];
-//     warningMatrix = warningMatrix.update(errors);
-//     warningMatrix.renderWarnings();
-//     expect(error.zone).toHaveBeenCalled();
-//     expect(error.spots).toHaveBeenCalled();
-//     expect(puzzleView.lightBg).toHaveBeenCalledWith(0, 0);
-//     expect(puzzleView.lightBg).toHaveBeenCalledWith(0, 1);
+describe('WarningMatrix', function(){
 
-//   })
-// })
+  var error = {
+    zone: function(){},
+    spots: function(){}
+  };
+
+  it('add class lightBg to a cell',  function(){
+    warningMatrix = new WarningMatrix(2, 2);
+    spyOn(error, 'zone').andReturn([{i:0, j:0}, {i:0, j:1}]);
+    spyOn(error, 'spots').andReturn([{i:0, j:0}]);
+    spyOn(puzzleView, 'lightBg');
+    var errors = [error];
+    warningMatrix = warningMatrix.update(errors);
+    warningMatrix.renderWarnings();
+    expect(error.zone).toHaveBeenCalled();
+    expect(error.spots).toHaveBeenCalled();
+    expect(puzzleView.lightBg).toHaveBeenCalledWith(0, 0);
+    expect(puzzleView.lightBg).toHaveBeenCalledWith(0, 1);
+  })
+
+  it('add class mediumBg to a cell',  function(){
+    warningMatrix = new WarningMatrix(2, 2);
+    spyOn(error, 'zone').andReturn([{i:0, j:0}, {i:0, j:1}]);
+    spyOn(error, 'spots').andReturn([{i:0, j:0}]);
+    spyOn(puzzleView, 'mediumBg');
+    var errors = [error, error];
+    warningMatrix = warningMatrix.update(errors);
+    warningMatrix.renderWarnings();
+    expect(error.zone).toHaveBeenCalled();
+    expect(error.spots).toHaveBeenCalled();
+    expect(puzzleView.mediumBg).toHaveBeenCalledWith(0, 0);
+    expect(puzzleView.mediumBg).toHaveBeenCalledWith(0, 1);
+  })
+
+  it('add class darkBg to a cell',  function(){
+    warningMatrix = new WarningMatrix(2, 2);
+    spyOn(error, 'zone').andReturn([{i:0, j:0}, {i:0, j:1}]);
+    spyOn(error, 'spots').andReturn([{i:0, j:0}]);
+    spyOn(puzzleView, 'darkBg');
+    var errors = [error, error, error];
+    warningMatrix = warningMatrix.update(errors);
+    warningMatrix.renderWarnings();
+    expect(error.zone).toHaveBeenCalled();
+    expect(error.spots).toHaveBeenCalled();
+    expect(puzzleView.darkBg).toHaveBeenCalledWith(0, 0);
+    expect(puzzleView.darkBg).toHaveBeenCalledWith(0, 1);
+  })
+
+  it('clear background to a cell',  function(){
+    warningMatrix = new WarningMatrix(2, 2);
+    spyOn(error, 'zone').andReturn([{i:0, j:0}, {i:0, j:1}]);
+    spyOn(error, 'spots').andReturn([{i:0, j:0}]);
+    spyOn(puzzleView, 'darkBg');
+    var errors = [error, error, error];
+    warningMatrix = warningMatrix.update(errors);
+    warningMatrix.renderWarnings();
+    warningMatrix.clearWarnings();
+    expect(error.zone).toHaveBeenCalled();
+    expect(error.spots).toHaveBeenCalled();
+    expect(puzzleView.darkBg).toHaveBeenCalledWith(0, 0);
+    expect(puzzleView.darkBg).toHaveBeenCalledWith(0, 1);
+  })
+
+})
