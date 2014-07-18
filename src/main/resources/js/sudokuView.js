@@ -84,22 +84,8 @@ function PuzzleView(){
 		keyUpDelegation.call(value, i, j);
 	}
 
-	function CellHOver(){
-		var cellValue;
-		this.hIn = function(e){ cellValue = $(this).val();}
-		this.hOut = function(e){
-			if($(this).val() == cellValue) return;
-			keyUp.call(this, e);
-		}
-	}
-
-
 	this.allCell().keyup(keyUp);
 	this.allCell().keydown(varifyKeyInIsNumber);
-	_.each(this.allCell(), function(cell){
-		var cellHOver = new CellHOver();
-		$(cell).hover(cellHOver.hIn, cellHOver.hOut);
-	})
 	this.resetButton().click(resetTable);
 	this.levelSelect().change(levelChanged);
 

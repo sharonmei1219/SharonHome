@@ -11,7 +11,7 @@
 				if(i%3 == 0) 
 					cellClass = "\"leftMostCell cell\"";%>
 		<td class=<%=cellClass%>><input class="cellInput" id=<%= cellId%>
-			type="number" pattern="[0-9]" min="1" max="9" maxLength="1" /></td>
+			type="text" pattern="[0-9]*" min="1" max="9" maxLength="1" /></td>
 		<%}%>
 	</tr>
 	<%}%>
