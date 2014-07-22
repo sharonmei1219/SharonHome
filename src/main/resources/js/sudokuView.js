@@ -8,6 +8,11 @@ function PuzzleView(){
 		return $(cid);
 	};
 
+	this.cellCellAt = function(i, j){
+		var cid = '#cell-c' + i + j;
+		return $(cid);
+	}
+
 	this.allCell = function(){
 		return $('.cellInput');
 	}; 
@@ -34,6 +39,30 @@ function PuzzleView(){
 
 	this.clear = function(i, j){
 		this.cellAt(i, j).val('');
+	};
+
+	this.promptForNote = function(i, j){
+		var noteID = 'note' + i +'' +j;
+		$('#'+noteID).remove();
+		this.cellCellAt(i, j).append('<input type="text" class="note-input" id="note-input-only-one">');
+		$('#note-input-only-one').focus();
+		$('#note-input-only-one').keyup(function(e) {
+  			if (e.keyCode == 27) { 
+  				puzzleView.cellAt(i, j).focus();
+  				this.remove();
+  			}   // esc
+		});
+		$('#note-input-only-one').blur(function() {
+  				this.remove();
+		});
+		$('#note-input-only-one').change(function(){
+			var inputText = $(this).val();
+			puzzleView.cellCellAt(i, j).append('<div class="row notetext" id = "'+ noteID +'"><p>'+inputText+' <a class="glyphicon glyphicon-remove" id="close-icon"></a></p></div>');
+			$('#close-icon', $('#' + noteID)).click(function(){$('#' + noteID).remove(); });
+			puzzleView.cellAt(i, j).focus();
+			this.remove();
+		})
+
 	};
 
 	varifyKeyInIsNumber = function(e){
@@ -85,6 +114,21 @@ function PuzzleView(){
 	}
 
 	this.allCell().keyup(keyUp);
+	this.allCell().contextMenu({
+    	menuSelector: "#contextMenu",
+    	menuSelected: function (invokedOn, selectedMenu) {
+        	var msg = "You selected the menu item '" + selectedMenu.text() +
+            "' on the value '" + invokedOn.attr('id') + "'";
+        	if(selectedMenu.text() == 'Add Note'){
+        		// alert(msg);
+        		var cellid = invokedOn.attr('id');
+        		// alert('cellid ' + cellid);
+				var i = parseInt(cellid[1]);
+				var j = parseInt(cellid[2]);
+        		puzzleView.promptForNote(i, j);
+        	}
+   	 	}
+	});
 	this.allCell().keydown(varifyKeyInIsNumber);
 	this.resetButton().click(resetTable);
 	this.levelSelect().change(levelChanged);

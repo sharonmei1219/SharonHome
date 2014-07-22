@@ -6,11 +6,12 @@
 		if(r%3 == 0) rowClass = "topRow";%>
 	<tr class=<%=rowClass%>>
 		<%for(int i = 0; i < 9; i++){
-				String cellId = rowId + i;
+				String cellId = "cell-"+ rowId + i;
+				String inputId = rowId + i;
 				String cellClass = "cell";
 				if(i%3 == 0) 
 					cellClass = "\"leftMostCell cell\"";%>
-		<td class=<%=cellClass%>><input class="cellInput" id=<%= cellId%>
+		<td class=<%=cellClass%> id=<%=cellId%>><input class="cellInput" id=<%= inputId%>
 			type="text" pattern="[0-9]*" min="1" max="9" maxLength="1" /></td>
 		<%}%>
 	</tr>

@@ -54,7 +54,6 @@
 		    <br>
 		    <br>
 		    <br>
-		    <br>
 			<div class="row">
 				<div class="col-md-3">
 					<br>
@@ -74,7 +73,6 @@
 				</div>
 
 				<div class="col-md-2">
-					<!-- <div class="panel panel-default"> -->
 						<br>
 						<p id="timing">00:00:00</p>
 						<br>
@@ -85,12 +83,11 @@
 						    <option value="evil">Evil</option>
 						</select>
 						<button class="btn btn-default btn-lg button-boxed" id="button-clear"><span class="glyphicon glyphicon-repeat"></span> Clear</button>
-<!-- 						<br>
-						<button class="btn btn-default btn-lg button-boxed" id="button-test-bestTime"> Test </button> -->
 						<br>
+<!-- 						<button class="btn btn-default btn-lg button-boxed" id="button-test-bestTime"> Test </button>
+						<br> -->
 						<button class="btn btn-default btn-lg button-boxed" id="button-new"><span class="glyphicon glyphicon-download"></span> New </button>
 						<br>
-					<!-- </div> -->
 
 					<br>
 					<br>
@@ -113,12 +110,20 @@
 					</div>
 
 				</div>
+
+				<ul id="contextMenu" class="dropdown-menu" role="menu" style="display:none" >
+				    <li><a tabindex="-1" href="#">Add Note</a></li>
+				    <li><a tabindex="-1" href="#">Clear Note</a></li>
+				</ul>
+
+
+
 			</div>
       	</div>
 	</div>
-
 	<script src="<c:url value="/resources/js/underscore-min.js"/>"></script>
 	<script src="<c:url value="/resources/js/jquery-1.11.1.min.js"/>"></script>
+	<script src="<c:url value="/resources/js/contextMenu.js"/>"></script>
 	<script src="<c:url value="/resources/js/sudokuController.js"/>"></script>
 	<script src="<c:url value="/resources/js/sudokuView.js"/>"></script>
 	<script src="<c:url value="/resources/js/sudokuModel.js"/>"></script>

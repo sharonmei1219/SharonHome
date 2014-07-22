@@ -303,7 +303,7 @@ function onDocReady(){
 	$('#sudoku-level').val(levelCtrl.currentLevel());
 	$('#button-new').click(getNewPuzzle);
 	$('#button-test-bestTime').click(function(){
-		puzzleFinished();
+		puzzleView.promptForNote(4, 4);
 	})
 	puzzleView.setLevelSelectionDelegation(levelCtrl.levelChanged);
 	bestTimeController.loadBestTime();
