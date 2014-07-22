@@ -60,7 +60,7 @@ function PuzzleView(){
 			puzzleView.cellCellAt(i, j).append('<div class="row notetext" id = "'+ noteID +'"><p>'+inputText+' <a class="glyphicon glyphicon-remove" id="close-icon"></a></p></div>');
 			$('#close-icon', $('#' + noteID)).click(function(){$('#' + noteID).remove(); });
 			puzzleView.cellAt(i, j).focus();
-			this.remove();
+			$(this).remove();
 		})
 
 	};
@@ -117,12 +117,8 @@ function PuzzleView(){
 	this.allCell().contextMenu({
     	menuSelector: "#contextMenu",
     	menuSelected: function (invokedOn, selectedMenu) {
-        	var msg = "You selected the menu item '" + selectedMenu.text() +
-            "' on the value '" + invokedOn.attr('id') + "'";
         	if(selectedMenu.text() == 'Add Note'){
-        		// alert(msg);
         		var cellid = invokedOn.attr('id');
-        		// alert('cellid ' + cellid);
 				var i = parseInt(cellid[1]);
 				var j = parseInt(cellid[2]);
         		puzzleView.promptForNote(i, j);
