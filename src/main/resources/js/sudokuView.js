@@ -42,23 +42,28 @@ function PuzzleView(){
 	};
 
 	this.promptForNote = function(i, j){
-		var noteID = 'note' + i +'' +j;
-		$('#'+noteID).remove();
-		this.cellCellAt(i, j).append('<input type="text" class="note-input" id="note-input-only-one">');
-		$('#note-input-only-one').focus();
-		$('#note-input-only-one').keyup(function(e) {
+		var cellArea = this.cellCellAt(i, j);
+		$('.notetext', cellArea).remove();
+		this.cellCellAt(i, j).append('<input type="text" class="note-input">');
+		var inputBox = $('.note-input', cellArea);
+
+		inputBox.focus();
+
+		inputBox.keyup(function(e) {
   			if (e.keyCode == 27) { 
   				puzzleView.cellAt(i, j).focus();
   				this.remove();
   			}   // esc
 		});
-		$('#note-input-only-one').blur(function() {
+
+		inputBox.blur(function() {
   				this.remove();
 		});
-		$('#note-input-only-one').change(function(){
+		
+		inputBox.change(function(){
 			var inputText = $(this).val();
-			puzzleView.cellCellAt(i, j).append('<div class="row notetext" id = "'+ noteID +'"><p>'+inputText+' <a class="glyphicon glyphicon-remove" id="close-icon"></a></p></div>');
-			$('#close-icon', $('#' + noteID)).click(function(){$('#' + noteID).remove(); });
+			cellArea.append('<div class="row notetext"><p>'+inputText+' <a class="glyphicon glyphicon-remove close-note"></a></p></div>');
+			$('.close-note', cellArea).click(function(){$('.notetext', cellArea).remove();});
 			puzzleView.cellAt(i, j).focus();
 			$(this).remove();
 		})
