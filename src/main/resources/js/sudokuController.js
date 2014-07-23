@@ -73,7 +73,48 @@ function PuzzleController(puzzleView, puzzleModel){
 		};
 	};
 
+	function MoveAroundCtroller(){
+		function dec(x){
+			x = x - 1;
+			if(x == -1) x = 8;
+			return x;
+		}
+		this.stepLeft = function(i, j){
+			j = dec(j);
+			while(_.findWhere(numberedPos, {i:i, j:j})){
+				j = dec(j);
+			}
+			puzzleView.focus(i, j);
+		}
+
+		this.stepUp = function(i, j){
+			i = dec(i);
+			while(_.findWhere(numberedPos, {i:i, j:j})){
+				i = dec(i);
+			}
+			puzzleView.focus(i, j);
+		}
+
+		this.stepRight = function(i, j){
+			j = (j + 1)%9;
+			while(_.findWhere(numberedPos, {i:i, j:j})){
+				j = (j + 1)%9;
+			}
+			puzzleView.focus(i, j);
+		}
+
+		this.stepDown = function(i, j){
+			i = (i + 1)%9;
+			while(_.findWhere(numberedPos, {i:i, j:j})){
+				i = (i + 1)%9;
+			}
+			puzzleView.focus(i, j);			
+		}
+	}
+
+	this.moveAroundCtrl = new MoveAroundCtroller();
 }
+
 
 function puzzleFinished(){
 	var time = timer.stop();
@@ -146,6 +187,7 @@ function getNewPuzzle(){
 			puzzleController.lockPuzzle();
 			puzzleView.setResetbuttonDelegation(puzzleController.clearSolution);
 			puzzleView.setKeyUpDelegation(puzzleController.numberInput);
+			puzzleView.setMoveAroundCtrl(puzzleController.moveAroundCtrl);
 			puzzle = undefined;
 			timer.start();
 		}

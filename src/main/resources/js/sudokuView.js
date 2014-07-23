@@ -41,10 +41,10 @@ function PuzzleView(){
 		this.cellAt(i, j).val('');
 	};
 
-	this.promptForNote = function(i, j){
+	this.inputNote = function(i, j){
 		var cellArea = this.cellCellAt(i, j);
 		$('.notetext', cellArea).remove();
-		this.cellCellAt(i, j).append('<input type="text" class="note-input">');
+		cellArea.append('<input type="text" class="note-input">');
 		var inputBox = $('.note-input', cellArea);
 
 		inputBox.focus();
@@ -59,7 +59,7 @@ function PuzzleView(){
 		inputBox.blur(function() {
   				this.remove();
 		});
-		
+
 		inputBox.change(function(){
 			var inputText = $(this).val();
 			cellArea.append('<div class="row notetext"><p>'+inputText+' <a class="glyphicon glyphicon-remove close-note"></a></p></div>');
@@ -68,15 +68,6 @@ function PuzzleView(){
 			$(this).remove();
 		})
 
-	};
-
-	varifyKeyInIsNumber = function(e){
-		var key = e.keyCode ? e.keyCode : e.which;
-		if((key == 46) || (key == 8)) return true; //backspace, delete
-		if($(this).val() != '') return false;
-		if((key > 96) && (key < 106)) return true;
-		if((key > 48) && (key < 58)) return true;
-		return false;
 	};
 
 	function Delegation(){
@@ -109,28 +100,69 @@ function PuzzleView(){
 		levelSelectionChangedDelegation = action;
 	}
 
-	function keyUp(e){
-		var cellid = $(this).attr('id');
-		var i = parseInt(cellid[1]);
-		var j = parseInt(cellid[2]);
+	function parseCellid(cellid){
+		return {i: parseInt(cellid[1]), j:parseInt(cellid[2])};
+	}
 
+	function keyUp(e){
+		var pos = parseCellid($(this).attr('id'));
 		var value = $(this).val();
-		keyUpDelegation.call(value, i, j);
+		keyUpDelegation.call(value, pos.i, pos.j);
+	}
+
+	function keydown(e){
+		var pos = parseCellid($(this).attr('id'));
+		var key = e.keyCode ? e.keyCode : e.which;
+		if((key == 46) || (key == 8)) return true; //backspace, delete
+		if((key > 96) && (key < 106) || (key > 48) && (key < 58)) return true; //number key
+		if((key >= 37) && (key <= 40) || (key == 9)) {
+			// alert('arrow key pressed');
+			moveAround(pos.i, pos.j, key);
+			return true;
+		}
+		return false;
+	};
+
+	var moveAroundCtrl = {};
+	this.setMoveAroundCtrl = function(ctrl){
+		moveAroundCtrl = ctrl;
+	}
+
+	function moveAround(i, j, key){
+		pos = '{i: ' + i + ', j: ' + j + '}';
+		if(key == 37){
+			moveAroundCtrl.stepLeft(i, j);
+		}
+		if(key == 38){
+			moveAroundCtrl.stepUp(i, j);
+		}
+		if(key == 39){
+			moveAroundCtrl.stepRight(i, j);
+		}
+		if(key == 40){
+			moveAroundCtrl.stepDown(i, j);
+		}
+		// if(key == 9){
+		// 	if()
+		// }
+	}
+
+	this.focus = function(i, j){
+		this.cellAt(i,j).focus();
 	}
 
 	this.allCell().keyup(keyUp);
+	this.allCell().keydown(keydown);
 	this.allCell().contextMenu({
     	menuSelector: "#contextMenu",
     	menuSelected: function (invokedOn, selectedMenu) {
         	if(selectedMenu.text() == 'Add Note'){
-        		var cellid = invokedOn.attr('id');
-				var i = parseInt(cellid[1]);
-				var j = parseInt(cellid[2]);
-        		puzzleView.promptForNote(i, j);
+				var pos = parseCellid(invokedOn.attr('id'));
+        		puzzleView.inputNote(pos.i, pos.j);
         	}
    	 	}
 	});
-	this.allCell().keydown(varifyKeyInIsNumber);
+
 	this.resetButton().click(resetTable);
 	this.levelSelect().change(levelChanged);
 
@@ -157,7 +189,6 @@ function PuzzleView(){
 		this.cellAt(i, j).removeClass('warning-bg-light warning-bg-medium warning-bg-dark');
 	}
 }
-
 
 function BestTimeView() {
 	this.bestEasyTime = function(){
