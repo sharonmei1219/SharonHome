@@ -102,7 +102,7 @@
         <br>
         </ul>
 
-        <a href="sudoku.htm" class="btn btn-default btn-lg" role="button">挑战 »</a>
+        <a href="sudoku.htm" class="btn btn-default btn-lg" role="button">开始玩数独 »</a>
         <br>
         <br>
         <div class="page-header">
@@ -120,6 +120,43 @@
                 <a href="#">Locked Candidates</a>
             </li>
         </ul>
+        <br>
+ 
+        <div id="carousel-naked-single" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators" >
+                <li data-target="#carousel-naked-single" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-naked-single" data-slide-to="1"></li>
+                <!-- <li data-target="#carousel-example-generic" data-slide-to="2"></li> -->
+            </ol>
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img src="<c:url value="/resources/images/nakedSingle_1.jpg"/>" style="height: 500px; margin: 0 auto">
+                    <div class="carousel-caption">
+                        <h3>Naked Single</h2>
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="<c:url value="/resources/images/nakedSingle_2.jpg"/>" style="height: 500px; margin: 0 auto">
+                    <div class="carousel-caption">
+                        <h3>Naked Single</h2>                        
+                    </div>
+                </div>
+            </div> 
+            <!-- Controls -->
+             <a class="left carousel-control" href="#carousel-naked-single" role="button" data-slide="prev" style="background:none">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="right carousel-control" href="#carousel-naked-single" role="button" data-slide="next" style="background:none">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+
+        </div>
+        <br>
+        <a href="sudoku.htm" class="btn btn-default btn-lg" role="button">开始玩数独 »</a>
+        <br>
+
 
         <div class="page-header">
             <h1><a id="Cstatistic"></a>统计 <small>Statistic</small></h1>
@@ -127,6 +164,8 @@
 
         
     </div>
+    <script src="<c:url value="/resources/js/jquery-1.11.1.min.js"/>"></script>
+    <script src="<c:url value="/resources/js/dist/js/bootstrap.min.js"/>"></script>
 
 </body>
 </html>

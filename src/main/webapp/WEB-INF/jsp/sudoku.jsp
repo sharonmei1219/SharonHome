@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
@@ -49,10 +49,12 @@
 			<div class="row">
 				<div class="col-md-3">
 					<br>
-					<br>
 					<img src="<c:url value="/resources/images/icon.png"/>" height="166" width="166">
-					<h1>Sudoku</h1>
-					<p>Fill grid with digits so that each column, each row, and each block contains all of the digits from 1 to 9.</p>
+					<h1>数独 <small>Sudoku</small></h1>
+					<br>
+					<p>在每个小方格中填1-9中的一个数字，使得每一行，每一列，每一个九宫格中都有1-9全部9个数字</p>
+					<br>
+					<a href="aboutSudoku.htm" class="btn btn-default btn-lg" role="button">了解数独 »</a>
 
 				</div>
 
