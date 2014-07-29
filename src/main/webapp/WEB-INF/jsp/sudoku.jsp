@@ -47,7 +47,6 @@
 					<h1>数独 <small>Sudoku</small></h1>
 					<br>
 					<p>在每个小方格中填1-9中的一个数字，使得每一行，每一列，每一个九宫格中都有1-9全部9个数字</p>
-					<br>
 					<a href="aboutSudoku.htm" class="btn btn-default btn-lg" role="button">了解数独 »</a>
 
 				</div>

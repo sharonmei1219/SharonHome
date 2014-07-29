@@ -204,13 +204,13 @@
                         <div class="item active">
                             <img src="<c:url value="/resources/images/lockedCandidates_1.jpg"/>" style="height: 500px; margin: 0 auto">
                             <div class="carousel-caption">
-                                <h3>Locked Candidates</h2>
+                                <!-- <h3>Locked Candidates</h2> -->
                             </div>
                         </div>
                         <div class="item">
                             <img src="<c:url value="/resources/images/lockedCandidates_2.jpg"/>" style="height: 500px; margin: 0 auto">
                             <div class="carousel-caption">
-                                <h3>Locked Candidates</h2>                        
+                                <!-- <h3>Locked Candidates</h2>                         -->
                             </div>
                         </div>
                     </div> 
