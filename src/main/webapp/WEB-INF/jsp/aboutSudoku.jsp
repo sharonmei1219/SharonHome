@@ -109,123 +109,91 @@
             <h1><a id="Csolve"></a>数独求解 <small>How to solve sudoku</small></h1>
         </div>
 
-        <ul class="nav nav-tabs" role="tablist">
-            <li class="active">
-                <a href="#tab-naked-single">Naked Single</a>
-            </li>
-            <li>
-                <a href="#tab-hidden-single">Hidden Single</a>
-            </li>
-            <li>
-                <a href="#tab-locked-candidates">Locked Candidates</a>
-            </li>
-        </ul>
-        <br>
 
-        <div class="tab-content">
-            <div class="tab-pane active" id="tab-naked-single">
-                <div id="carousel-naked-single" class="carousel slide" data-ride="carousel">
-                    <!-- Indicators -->
-                    <ol class="carousel-indicators" >
-                        <li data-target="#carousel-naked-single" data-slide-to="0" class="active"></li>
-                        <li data-target="#carousel-naked-single" data-slide-to="1"></li>
-                        <!-- <li data-target="#carousel-example-generic" data-slide-to="2"></li> -->
-                    </ol>
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner">
-                        <div class="item active">
-                            <img src="<c:url value="/resources/images/nakedSingle_1.jpg"/>" style="height: 500px; margin: 0 auto">
-                            <div class="carousel-caption">
-                                <h3>Naked Single</h2>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <img src="<c:url value="/resources/images/nakedSingle_2.jpg"/>" style="height: 500px; margin: 0 auto">
-                            <div class="carousel-caption">
-                                <h3>Naked Single</h2>                        
-                            </div>
-                        </div>
-                    </div> 
-                    <!-- Controls -->
-                     <a class="left carousel-control" href="#carousel-naked-single" role="button" data-slide="prev" style="background:none">
-                        <span class="glyphicon glyphicon-chevron-left"></span>
-                    </a>
-                    <a class="right carousel-control" href="#carousel-naked-single" role="button" data-slide="next" style="background:none">
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-
+        <div class="panel-group" id="how-to-solve-sudoku">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#how-to-solve-sudoku" href="#nakedSingle">
+                            Naked Single
+                        </a>
+                    </h4>
+                </div>
+                <div id="nakedSingle" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <img src="<c:url value="/resources/images/nakedSingle_2.jpg"/>" style="height: 400px; margin: 0 auto">
+                        <img src="<c:url value="/resources/images/nakedSingle_1.jpg"/>" style="height: 400px; margin: 0 auto">
+                    </div>
                 </div>
             </div>
-
-            <div class="tab-pane" id="tab-hidden-single">
-                <div id="carousel-hidden-single" class="carousel slide" data-ride="carousel">
-                    <!-- Indicators -->
-                    <ol class="carousel-indicators" >
-                        <li data-target="#carousel-hidden-single" data-slide-to="0" class="active"></li>
-                        <li data-target="#carousel-hidden-single" data-slide-to="1"></li>
-                        <!-- <li data-target="#carousel-example-generic" data-slide-to="2"></li> -->
-                    </ol>
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner">
-                        <div class="item active">
-                            <img src="<c:url value="/resources/images/hiddenSingle_1.jpg"/>" style="height: 500px; margin: 0 auto">
-                            <div class="carousel-caption">
-                                <h3>Hidden Single</h2>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <img src="<c:url value="/resources/images/hiddenSingle_2.jpg"/>" style="height: 500px; margin: 0 auto">
-                            <div class="carousel-caption">
-                                <h3>Hidden Single</h2>                        
-                            </div>
-                        </div>
-                    </div> 
-                    <!-- Controls -->
-                     <a class="left carousel-control" href="#carousel-hidden-single" role="button" data-slide="prev" style="background:none">
-                        <span class="glyphicon glyphicon-chevron-left"></span>
-                    </a>
-                    <a class="right carousel-control" href="#carousel-hidden-single" role="button" data-slide="next" style="background:none">
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#how-to-solve-sudoku" href="#hiddenSingle">
+                            Hidden Single
+                        </a>
+                    </h4>
+                </div>
+                <div id="hiddenSingle" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <img src="<c:url value="/resources/images/hiddenSingle_1.jpg"/>" style="height: 400px; margin: 0 auto">
+                        <img src="<c:url value="/resources/images/hiddenSingle_2.jpg"/>" style="height: 400px; margin: 0 auto">
+                    </div>
                 </div>
             </div>
-
-            <div class="tab-pane" id="tab-locked-candidates">
-                <div id="carousel-locked-candidates" class="carousel slide" data-ride="carousel">
-                    <!-- Indicators -->
-                    <ol class="carousel-indicators" >
-                        <li data-target="#carousel-locked-candidates" data-slide-to="0" class="active"></li>
-                        <li data-target="#carousel-locked-candidates" data-slide-to="1"></li>
-                        <!-- <li data-target="#carousel-example-generic" data-slide-to="2"></li> -->
-                    </ol>
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner">
-                        <div class="item active">
-                            <img src="<c:url value="/resources/images/lockedCandidates_1.jpg"/>" style="height: 500px; margin: 0 auto">
-                            <div class="carousel-caption">
-                                <!-- <h3>Locked Candidates</h2> -->
-                            </div>
-                        </div>
-                        <div class="item">
-                            <img src="<c:url value="/resources/images/lockedCandidates_2.jpg"/>" style="height: 500px; margin: 0 auto">
-                            <div class="carousel-caption">
-                                <!-- <h3>Locked Candidates</h2>                         -->
-                            </div>
-                        </div>
-                    </div> 
-                    <!-- Controls -->
-                     <a class="left carousel-control" href="#carousel-locked-candidates" role="button" data-slide="prev" style="background:none">
-                        <span class="glyphicon glyphicon-chevron-left"></span>
-                    </a>
-                    <a class="right carousel-control" href="#carousel-locked-candidates" role="button" data-slide="next" style="background:none">
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#how-to-solve-sudoku" href="#lockedCandidates">
+                            Locked Candidates
+                        </a>
+                    </h4>
+                </div>
+                <div id="lockedCandidates" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <img src="<c:url value="/resources/images/lockedCandidates_1.jpg"/>" style="height: 400px; margin: 0 auto">
+                        <p>Locked Candidates 就是在一个九宫格中，数字n只会出现在其中某一行或某一列</p>
+                        <p>如果n的Locked Candidates 出现在 R 行，则 R 行中其它的单元格中的数字都不可能是n</p>
+                        <br>
+                        <img src="<c:url value="/resources/images/lockedCandidates_2.jpg"/>" style="height: 400px; margin: 0 auto">
+                        <p>如果n的Locked Candidates 出现在 C 列，则 C 列中其它的单元格中的数字都不可能是n</p>
+                    </div>
                 </div>
             </div>
-
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#how-to-solve-sudoku" href="#nakedPair">
+                            Naked Pair
+                        </a>
+                    </h4>
+                </div>
+                <div id="nakedPair" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <img src="<c:url value="/resources/images/nakedPair_2.jpg"/>" style="height: 400px; margin: 0 auto">
+                        <p>Naked Pair, 在 r 行中的两个位置, (r, i)和(r, j), 都有且仅有两种可能 m 和 n </p>
+                        <p>那么在 r 行中的其它位置都不可能是m，也不可能是n</p>
+                        <p>对于一列或是一个九宫格，道理也是一样的</p>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#how-to-solve-sudoku" href="#hiddenPair">
+                            Hidden Pair
+                        </a>
+                    </h4>
+                </div>
+                <div id="hiddenPair" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p style="font-size:30px">稍后更新...</p>
+                    </div>
+                </div>
+            </div>                               
         </div>
+
+        <br>
         <br>
         <a href="sudoku.htm" class="btn btn-default btn-lg" role="button">开始玩数独 »</a>
         <br>
