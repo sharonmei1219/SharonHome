@@ -36,7 +36,7 @@ function PuzzleModel(puzzle, blocksize){
 	};
 
 	this.clear = function(i, j){
-		puzzle[i][j] = '';
+		puzzle[i][j] = '/';
 	};
 
 	this.get = function(i, j){
@@ -47,7 +47,7 @@ function PuzzleModel(puzzle, blocksize){
 
 	this.finished = function(){
 		if (!_.every(puzzle, function(row){
-			return !_.contains(row, '');
+			return !_.contains(row, '/');
 		}))	return false;
 
 		return _.every(_.range(size.i), function(i){
@@ -156,7 +156,7 @@ duplicationDetector = {
 	findDuplicatesInMap: function(valueMap){
 		var result = [];
 		for(var value in valueMap){
-			if(valueMap[value].length > 1 && value != ''){
+			if(valueMap[value].length > 1 && value != '/'){
 				_.each(valueMap[value], function(j){result.push(j)})
 			}
 		}

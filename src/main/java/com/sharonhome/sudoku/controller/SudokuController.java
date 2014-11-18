@@ -29,7 +29,7 @@ public class SudokuController {
 			        headers = {"Content-type=application/json"})
 	@ResponseBody
 	public String NewPuzzle(@RequestBody Level l){
-
+		System.out.print("\n " + "getting puzzle \n");
 		String puzzle = puzzleDao.getPuzzle(l.getLevel());
 		System.out.print("\n " + l.getLevel() + "puzzle is : " + puzzle + "\n");
 		return puzzle;

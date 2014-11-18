@@ -23,7 +23,7 @@ function PuzzleController(puzzleView, puzzleModel){
 
 	var matrix = createMatrix(puzzleModel.size.i, puzzleModel.size.j);
 	var tellSpotsContainsNumberVsBlankSpots = function(){
-		return _.partition(matrix, function(p){return puzzleModel.get(p.i,p.j) != '';});
+		return _.partition(matrix, function(p){return puzzleModel.get(p.i,p.j) != '/';});
 	};	
 
 	var spotsSubsets = tellSpotsContainsNumberVsBlankSpots();

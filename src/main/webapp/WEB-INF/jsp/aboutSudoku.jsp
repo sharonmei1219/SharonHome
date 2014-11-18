@@ -152,11 +152,9 @@
                 <div id="lockedCandidates" class="panel-collapse collapse">
                     <div class="panel-body">
                         <img src="<c:url value="/resources/images/lockedCandidates_1.jpg"/>" style="height: 400px; margin: 0 auto">
-                        <p>Locked Candidates 就是在一个九宫格中，数字n只会出现在其中某一行或某一列</p>
-                        <p>如果n的Locked Candidates 出现在 R 行，则 R 行中其它的单元格中的数字都不可能是n</p>
-                        <br>
-                        <img src="<c:url value="/resources/images/lockedCandidates_2.jpg"/>" style="height: 400px; margin: 0 auto">
-                        <p>如果n的Locked Candidates 出现在 C 列，则 C 列中其它的单元格中的数字都不可能是n</p>
+                        <p>Locked Candidates 就是在一个九宫格中，数字n只会出现在其中的 r 行</p>
+                        <p>那么 r 行中其它的单元格中的数字都不可能是n</p>
+                        <p>在九宫格中，数字n只出现在一列，道理也是一样的</p>
                     </div>
                 </div>
             </div>
@@ -187,10 +185,30 @@
                 </div>
                 <div id="hiddenPair" class="panel-collapse collapse">
                     <div class="panel-body">
-                        <p style="font-size:30px">稍后更新...</p>
+                        <img src="<c:url value="/resources/images/hiddenPair_1.jpg"/>" style="height: 400px; margin: 0 auto">
+                        <p>Hidden Pair, 在 r 行中，m 只可能出现在位置 (r, i)(r, j), 同样，n 也只可能出现在位置 (r, i), (r, j)</p>
+                        <p>那么，在位置 (r, i), (r, j) 中只可能是 m 或者 n, 而不是其它数字</p>
+                        <p>对于一列或是一个九宫格，道理也是一样的</p>
                     </div>
                 </div>
-            </div>                               
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#how-to-solve-sudoku" href="#XWing">
+                            X-Wing
+                        </a>
+                    </h4>
+                </div>
+                <div id="XWing" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <img src="<c:url value="/resources/images/XWing.jpg"/>" style="height: 400px; margin: 0 auto">
+                        <p>X-Wing, 有 c1, c2 两列，数字 m 在 c1 列上只可能出现两个位置 (r1, c1), (r2, c1) ，同样在 c2 列上也只可能出现在相对应的两个位置， (r1, c2), (r2, c2) </p>
+                        <p>那么在 r1, r2 两行，m 都不可能出现在 (r1, c1) (r1, c2), (r2, c1) (r2, c2) 之外的其它位置</p>
+                        <p></p>
+                    </div>
+                </div>
+            </div>                                 
         </div>
 
         <br>
