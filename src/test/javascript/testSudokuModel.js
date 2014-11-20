@@ -91,7 +91,7 @@ describe('Model size of 2', function(){
 	});
 
 	it('returns false when not all cell is filled', function(){
-		var model = new PuzzleModel([['1','2'],['3','']],2);
+		var model = new PuzzleModel([['1','2'],['3','/']],2);
 		expect(model.finished()).toBe(false);
 	});
 
@@ -118,14 +118,14 @@ describe('Model size of 2', function(){
 
 describe('duplicationDetector', function(){
 	it('builds value Map in which, value is key, and pos are the values', function(){
-		var map = duplicationDetector.buildValueMap(['', '1', '1', '2'])
-		expect(map['']).toEqual([0]);
+		var map = duplicationDetector.buildValueMap(['/', '1', '1', '2'])
+		expect(map['/']).toEqual([0]);
 		expect(map['1']).toEqual([1, 2]);
 		expect(map['2']).toEqual([3]);
 	})
 
 	it('extracts those poses have duplicated value from map', function(){
-		map={'': [0, 1],
+		map={'/': [0, 1],
 			 '1': [2, 3],
 			 '2': [4]};
 		var dup = duplicationDetector.findDuplicatesInMap(map);
@@ -135,10 +135,10 @@ describe('duplicationDetector', function(){
 
 describe('Error Detection', function(){
 	it('returns row and duplicated cells in the row', function(){
-		var model = new PuzzleModel([[ '', '1', '1',  ''],
-									 [ '',  '',  '',  ''],
-									 [ '2', '', '2',  ''],
-									 [ '',  '',  '',  '']], 2);
+		var model = new PuzzleModel([[ '/', '1', '1', '/'],
+									 [ '/', '/', '/', '/'],
+									 [ '2', '/', '2', '/'],
+									 [ '/', '/', '/', '/']], 2);
 		var errors = model.validate();
 		expect(errors.length).toBe(2);
 		expect(errors[0].zone()).toEqual([{i:0, j:0},
@@ -161,10 +161,10 @@ describe('Error Detection', function(){
 	})
 
 	it('returns column and duplicated cells in the column', function(){
-		var model = new PuzzleModel([[ '', '1',  '',  ''],
-									 [ '',  '',  '',  ''],
-									 [ '', '1',  '',  ''],
-									 [ '',  '',  '',  '']], 2);
+		var model = new PuzzleModel([[ '/', '1', '/', '/'],
+									 [ '/', '/', '/', '/'],
+									 [ '/', '1', '/', '/'],
+									 [ '/', '/', '/', '/']], 2);
 		var errors = model.validate();
 		expect(errors.length).toBe(1);
 		expect(errors[0].zone()).toEqual([{i:0, j:1},
@@ -178,10 +178,10 @@ describe('Error Detection', function(){
 	})
 
 	it('returns block and duplicated cells in the block', function(){
-		var model = new PuzzleModel([[ '', '1',  '',  ''],
-									 ['1',  '',  '',  ''],
-									 [ '',  '',  '',  ''],
-									 [ '',  '',  '',  '']], 2);
+		var model = new PuzzleModel([['/', '1', '/', '/'],
+									 ['1', '/', '/', '/'],
+									 ['/', '/', '/', '/'],
+									 ['/', '/', '/', '/']], 2);
 		var errors = model.validate();
 		expect(errors.length).toBe(1);
 		expect(errors[0].zone()).toEqual([{i:0, j:0},
@@ -193,4 +193,4 @@ describe('Error Detection', function(){
 										 {i:1, j:0}
 										]);
 	})
-})
+});
