@@ -108,7 +108,6 @@ function PuzzleView(){
 		var key = e.keyCode ? e.keyCode : e.which;
 		var value = $(this).val();
 		var pos = parseCellid($(this).attr('id'));
-		if((key == 46) || (key == 8)) return true; 
 		if((key >= 37) && (key <= 40) || (key == 9)) return true;
 		keyUpDelegation.call(value, pos.i, pos.j);
 	}
@@ -119,7 +118,6 @@ function PuzzleView(){
 		if((key == 46) || (key == 8)) return true; //backspace, delete
 		if((key > 96) && (key < 106) || (key > 48) && (key < 58)) return true; //number key
 		if((key >= 37) && (key <= 40) || (key == 9)) {
-			// alert('arrow key pressed');
 			moveAround(pos.i, pos.j, key);
 			return true;
 		}

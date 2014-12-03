@@ -64,6 +64,7 @@ function PuzzleController(puzzleView, puzzleModel){
 	};
 
 	this.numberInput = function(value, i, j){
+		if(value == '') value = '/';
 		puzzleModel.change(value, i, j);
 		errors = puzzleModel.validate();
 		warnings = warnings.update(errors);
@@ -339,6 +340,16 @@ function WarningMatrix(x, y){
 }
 
 function help(){
+	var clevel = levelCtrl.currentLevel();
+	$.ajax({
+		type : "POST",
+		url : "sudoku/help",
+		data : JSON.stringify({level:levelCtrl.currentLevel()}),
+		contentType: 'application/json',
+		success : function(response){
+			alert('get response for help')
+		}
+	});
 	alert('help function called')
 }
 
