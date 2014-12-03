@@ -137,7 +137,6 @@ function PuzzleModel(puzzle, blocksize){
 			result.push(error);
 		})
 
-
 		return result;
 	}
 }

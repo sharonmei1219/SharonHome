@@ -17,7 +17,6 @@ function createMatrix(m, n){
 				}));
 }
 
-
 function PuzzleController(puzzleView, puzzleModel){
 	var warnings = new WarningMatrix(puzzleModel.size.i, puzzleModel.size.j);
 
@@ -339,6 +338,10 @@ function WarningMatrix(x, y){
 	}
 }
 
+function help(){
+	alert('help function called')
+}
+
 function onDocReady(){
 	timer = new StopWatch();
 	timer.setShowInView(puzzleView.showTime);
@@ -347,6 +350,7 @@ function onDocReady(){
 	$('#button-test-bestTime').click(function(){
 		puzzleView.promptForNote(4, 4);
 	})
+	$('#button-help').click(help)
 	puzzleView.setLevelSelectionDelegation(levelCtrl.levelChanged);
 	bestTimeController.loadBestTime();
 	getNewPuzzle();

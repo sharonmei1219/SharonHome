@@ -6,7 +6,7 @@
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Prim Sudoku</title>
+    <title>Sudoku</title>
     <LINK href="<c:url value="/resources/images/icon.png"/>" type=image/x-icon rel="shortcut icon" />
     <link href="<c:url value="/resources/js/dist/css/bootstrap.css"/>" rel="stylesheet">
     <!--[if IE]>
@@ -71,9 +71,9 @@
 						</select>
 						<button class="btn btn-default btn-lg button-boxed" id="button-clear"><span class="glyphicon glyphicon-repeat"></span> Clear</button>
 						<br>
-<!-- 						<button class="btn btn-default btn-lg button-boxed" id="button-test-bestTime"> Test </button>
-						<br> -->
 						<button class="btn btn-default btn-lg button-boxed" id="button-new"><span class="glyphicon glyphicon-download"></span> New </button>
+						<br>
+						<button class="btn btn-default btn-lg button-boxed" id="button-help"><span class="glyphicon glyphicon-earphone"></span> Help </button>
 						<br>
 
 					<br>
@@ -102,9 +102,6 @@
 				    <li><a tabindex="-1" href="#">Add Note</a></li>
 				    <li><a tabindex="-1" href="#">Clear Note</a></li>
 				</ul>
-
-
-
 			</div>
       	</div>
 	</div>
@@ -117,10 +114,5 @@
 	<script src="<c:url value="/resources/js/sudokuView.js"/>"></script>
 	<script src="<c:url value="/resources/js/sudokuModel.js"/>"></script>
 	<script src="<c:url value="/resources/js/userInfo.js"/>"></script>
-
-	<div style="display:none">
-	<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000540895'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1000540895' type='text/javascript'%3E%3C/script%3E"));</script>
-	</div>
-
 </body>
 </html>

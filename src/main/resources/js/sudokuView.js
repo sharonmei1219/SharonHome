@@ -105,8 +105,9 @@ function PuzzleView(){
 	}
 
 	function keyUp(e){
-		var pos = parseCellid($(this).attr('id'));
+		var key = e.keyCode ? e.keyCode : e.which;
 		var value = $(this).val();
+		var pos = parseCellid($(this).attr('id'));
 		if((key == 46) || (key == 8)) return true; 
 		if((key >= 37) && (key <= 40) || (key == 9)) return true;
 		keyUpDelegation.call(value, pos.i, pos.j);
