@@ -32,6 +32,7 @@ public class SudokuController {
 		System.out.print("\n " + l.getLevel() + "puzzle is : " + puzzle + "\n");
 		return puzzle;
 	}
+	
 	@RequestMapping(value = "/sudoku/help", 
 	        method = RequestMethod.POST,
 	        headers = {"Content-type=application/json"})
@@ -39,5 +40,5 @@ public class SudokuController {
 	public String help(@RequestBody Level l){
 	System.out.print("\n " + "help request received \n");
 	return "help response";
-}
+	}
 }
