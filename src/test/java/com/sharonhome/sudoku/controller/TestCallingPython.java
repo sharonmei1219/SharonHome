@@ -2,8 +2,11 @@ package com.sharonhome.sudoku.controller;
 
 import static org.junit.Assert.*;
 
+import java.util.Iterator;
+
 import org.junit.Test;
 import org.python.util.PythonInterpreter;
+import org.w3c.dom.NodeList;
 
 import javax.xml.soap.*;
 import javax.xml.transform.*;
@@ -16,12 +19,14 @@ public class TestCallingPython {
 		SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
 		SOAPConnection soapConnection = soapConnectionFactory.createConnection();
 		
-		String url = "http://135.251.31.180:8008/";
+		String url = "http://127.0.0.1:8008/";
 		try {
-			for(int i = 0; i < 100; i ++){
 			SOAPMessage soapResponse = soapConnection.call(createSOAPRequest(), url);
-			System.out.println("response:");
-			soapResponse.writeTo(System.out);}
+			SOAPBody body = soapResponse.getSOAPBody();
+			NodeList returnList = body.getElementsByTagName("hint");
+
+			System.out.println(returnList.item(0).getTextContent());
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -32,25 +37,17 @@ public class TestCallingPython {
 		MessageFactory messageFactory = MessageFactory.newInstance();
 		SOAPMessage soapMessage = messageFactory.createMessage();
 		SOAPPart soapPart = soapMessage.getSOAPPart();
-		String serverURI = "http://135.251.31.180:8008/";
+		String serverURI = "http://127.0.0.1:8008/";
 		
 		SOAPEnvelope envelope = soapPart.getEnvelope();
 		envelope.addNamespaceDeclaration("example", serverURI);
 		
 		SOAPBody soapBody = envelope.getBody();
-		SOAPElement adder = soapBody.addChildElement("Adder");
-		SOAPElement a = adder.addChildElement("a");
-		a.addTextNode("2");
-		SOAPElement b = adder.addChildElement("b");
-		b.addTextNode("3");
-		
-		MimeHeaders headers = soapMessage.getMimeHeaders();
-		headers.addHeader("SOAPAction", serverURI  + "Adder");
+		SOAPElement adder = soapBody.addChildElement("SudokuHelp");
+		SOAPElement a = adder.addChildElement("puzzle");
+		a.addTextNode("please help me");
 		
 		soapMessage.saveChanges();
-		System.out.print("Request SOAP Message = ");
-		soapMessage.writeTo(System.out);
-		System.out.println();
 		return soapMessage;
 	}
 }

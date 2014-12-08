@@ -42,6 +42,12 @@ describe('Model [[\'1\', \'2\'],[\'3\',\'4\']] with block size of 1', function()
 		expect(result[0]).toBe('4');
 	});
 
+	it('gives result of toString()', function(){
+		result = model.toString();
+		// expect("[['1', '2'],['3','4']]", result)
+		expect(result).toBe('[["1","2"],["3","4"]]')
+	})
+
 });
 
 describe('Model size of 2', function(){

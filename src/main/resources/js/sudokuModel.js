@@ -99,6 +99,10 @@ function PuzzleModel(puzzle, blocksize){
 		return duplicationDetector.detect(zone, puzzle);
 	}
 
+	this.toString = function(){
+		return JSON.stringify(puzzle)
+	}
+
 	this.validate = function(){
 		var result = [];
 

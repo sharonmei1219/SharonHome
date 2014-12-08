@@ -113,6 +113,19 @@ function PuzzleController(puzzleView, puzzleModel){
 	}
 
 	this.moveAroundCtrl = new MoveAroundCtroller();
+	this.help = function(){
+		var clevel = levelCtrl.currentLevel();
+		$.ajax({
+			type : "POST",
+			url : "sudoku/help",
+			data : puzzleModel.toString(),
+			contentType: 'application/json',
+			success : function(response){
+				alert('get response for help')
+			}
+		});
+		alert('help function called')
+	}
 }
 
 
@@ -190,6 +203,7 @@ function getNewPuzzle(){
 			puzzleView.setMoveAroundCtrl(puzzleController.moveAroundCtrl);
 			puzzle = undefined;
 			timer.start();
+			$('#button-help').click(puzzleController.help);
 		}
 	});
 }
@@ -339,20 +353,6 @@ function WarningMatrix(x, y){
 	}
 }
 
-function help(){
-	var clevel = levelCtrl.currentLevel();
-	$.ajax({
-		type : "POST",
-		url : "sudoku/help",
-		data : JSON.stringify({level:levelCtrl.currentLevel()}),
-		contentType: 'application/json',
-		success : function(response){
-			alert('get response for help')
-		}
-	});
-	alert('help function called')
-}
-
 function onDocReady(){
 	timer = new StopWatch();
 	timer.setShowInView(puzzleView.showTime);
@@ -361,7 +361,6 @@ function onDocReady(){
 	$('#button-test-bestTime').click(function(){
 		puzzleView.promptForNote(4, 4);
 	})
-	$('#button-help').click(help)
 	puzzleView.setLevelSelectionDelegation(levelCtrl.levelChanged);
 	bestTimeController.loadBestTime();
 	getNewPuzzle();
