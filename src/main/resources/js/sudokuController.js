@@ -121,7 +121,7 @@ function PuzzleController(puzzleView, puzzleModel){
 			data : puzzleModel.toString(),
 			contentType: 'application/json',
 			success : function(response){
-				alert('get response for help')
+				alert(response)
 			}
 		});
 		alert('help function called')

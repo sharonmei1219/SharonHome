@@ -143,9 +143,6 @@ function PuzzleView(){
 		if(key == 40){
 			moveAroundCtrl.stepDown(i, j);
 		}
-		// if(key == 9){
-		// 	if()
-		// }
 	}
 
 	this.focus = function(i, j){
