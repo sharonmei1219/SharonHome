@@ -121,7 +121,11 @@ function PuzzleController(puzzleView, puzzleModel){
 			data : puzzleModel.toString(),
 			contentType: 'application/json',
 			success : function(response){
-				alert(response)
+				var hint = JSON.parse(response)
+				p = hint[0].updator.finding.poses[0]
+				v = hint[0].updator.finding.possibilities[0]
+				puzzleView.putHint(p[0], p[1], v);
+				alert(p)
 			}
 		});
 		alert('help function called')
