@@ -46,6 +46,11 @@ function PuzzleView(){
 		cell.append('<div class="speechRape"><p class="speech">' + value + '</p></div>')
 	}
 
+	this.clearHint = function(i, j){
+		var cell = this.cellCellAt(i, j)
+		$('.speechRape', cell).remove()
+	}
+
 	this.inputNote = function(i, j){
 		var cellArea = this.cellCellAt(i, j);
 		$('.notetext', cellArea).remove();

@@ -148,8 +148,8 @@ input::-webkit-inner-spin-button {
 
 .speechRape{
 	position: absolute;
-	left: 15px;
-	top: -50px;
+	left: 13px;
+	top: -45px;
 }
 
 p.speech{
@@ -158,10 +158,11 @@ p.speech{
 	height: 50px;
 	text-align: center;
 	line-height: 50px;
-	background-color: #fff;
-	border: 2px solid #666;
+	background-color:rgba(255,255,255,0.8);
+	border: 2px solid #FF0000;;
 	-webkit-border-radius:30px;
 	font-size: 20px;
+	color: #FF0000;
 }
 
 p.speech:before{
@@ -172,7 +173,7 @@ p.speech:before{
 	left: 10px;
 	top: 43px;
 	border: 12px solid;
-	border-color: #777 transparent transparent #777;
+	border-color: #FF0000 transparent transparent #FF0000;
 }
 
 p.speech:after
