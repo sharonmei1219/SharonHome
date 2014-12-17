@@ -65,7 +65,7 @@ function PuzzleController(puzzleView, puzzleModel){
 
 	this.numberInput = function(value, i, j){
 		if(value == '') value = '/';
-		puzzleModel.change(value, i, j);
+		puzzleModel.change(parseInt(value), i, j);
 		errors = puzzleModel.validate();
 		warnings = warnings.update(errors);
 		if(puzzleModel.finished()) {
@@ -122,13 +122,12 @@ function PuzzleController(puzzleView, puzzleModel){
 			contentType: 'application/json',
 			success : function(response){
 				var hint = JSON.parse(response)
-				p = hint[0].updator.finding.poses[0]
-				v = hint[0].updator.finding.possibilities[0]
+				single = hint.length - 1
+				p = hint[single].updator.finding.poses[0]
+				v = hint[single].updator.finding.possibilities[0]
 				puzzleView.putHint(p[0], p[1], v);
-				alert(p)
 			}
 		});
-		alert('help function called')
 	}
 }
 
