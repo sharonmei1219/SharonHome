@@ -64,8 +64,14 @@ function PuzzleController(puzzleView, puzzleModel){
 	};
 
 	this.numberInput = function(value, i, j){
-		if(value == '') value = '/';
-		puzzleModel.change(parseInt(value), i, j);
+
+		if(value == '') {
+			value = '/';
+			puzzleModel.change(value, i, j)
+		}else{
+			puzzleModel.change(parseInt(value), i, j);
+		}
+		
 		if (i == displayedHint.i && j == displayedHint.j){
 			puzzleView.clearHint(i, j);
 		}
