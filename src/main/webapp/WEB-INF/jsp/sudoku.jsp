@@ -56,6 +56,8 @@
 					<%@ include file="table.jsp"%>
 
 					<br>
+					<div id="hint-zone">
+					</div>
 
 				</div>
 

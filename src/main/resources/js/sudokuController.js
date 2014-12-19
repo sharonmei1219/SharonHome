@@ -71,7 +71,7 @@ function PuzzleController(puzzleView, puzzleModel){
 		}else{
 			puzzleModel.change(parseInt(value), i, j);
 		}
-		
+
 		if (i == displayedHint.i && j == displayedHint.j){
 			puzzleView.clearHint(i, j);
 		}
@@ -131,17 +131,34 @@ function PuzzleController(puzzleView, puzzleModel){
 			data : puzzleModel.toString(),
 			contentType: 'application/json',
 			success : function(response){
-				var hint = JSON.parse(response)
-				single = hint.length - 1
-				p = hint[single].updator.finding.poses[0]
-				v = hint[single].updator.finding.possibilities[0]
+				var hints = JSON.parse(response)
+				single = hints.length - 1
+				p = hints[single].updator.finding.poses[0]
+				v = hints[single].updator.finding.possibilities[0]
 				puzzleView.putHint(p[0], p[1], v);
 				displayedHint = {'i':p[0], 'j':p[1], 'v': v}
+
+				for(var i = 0; i < hints.length; i++){
+					var hintName = hints[i].finder
+					var poses = hints[i].updator.finding.poses
+					var possibilities = hints[i].updator.finding.possibilities
+					puzzleView.putHintName(hintName, function(poses, possibilities){
+						return function(){
+							puzzleView.highLight(poses, possibilities)
+							}
+					}(poses, possibilities),
+					function(poses){
+						return function(){
+							puzzleView.removeHighLight(poses)
+						}
+
+					}(poses))
+				}
+
 			}
 		});
 	}
 }
-
 
 function puzzleFinished(){
 	var time = timer.stop();

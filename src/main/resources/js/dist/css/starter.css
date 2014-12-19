@@ -159,10 +159,11 @@ p.speech{
 	text-align: center;
 	line-height: 50px;
 	background-color:rgba(255,255,255,0.8);
-	border: 2px solid #FF0000;;
+	border: 2px solid #FF0000;
 	-webkit-border-radius:30px;
 	font-size: 20px;
 	color: #FF0000;
+	z-index: 3;
 }
 
 p.speech:before{
@@ -186,4 +187,17 @@ p.speech:after
 	top: 43px;
 	border: 9px solid;
 	border-color: #fff transparent transparent #fff;
+}
+
+p.hint{
+	position: absolute;
+	width: 45px;
+	height: 45px;
+	top: 0;
+	left: 0;
+	border: 3px solid #FF0000;
+	z-index: 3;
+	background-color:rgba(255,255,255,0.8);
+	font-size: 16px;
+	color: #FF0000;
 }

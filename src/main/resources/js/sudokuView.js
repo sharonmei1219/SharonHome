@@ -49,6 +49,30 @@ function PuzzleView(){
 	this.clearHint = function(i, j){
 		var cell = this.cellCellAt(i, j)
 		$('.speechRape', cell).remove()
+		$('#hint-zone').empty()
+	}
+
+	this.putHintName = function(name, mouseEnterFun, mouseLeaveFun){
+		hint = $('<p>' + name + '</p>')
+		hint.appendTo('#hint-zone')
+		hint.mouseenter(mouseEnterFun)
+		hint.mouseleave(mouseLeaveFun)
+	}
+
+	this.removeHighLight = function(poses){
+		for(i in poses){
+			pos = poses[i]
+			cell = this.cellCellAt(pos[0], pos[1])
+			$('.hint', cell).remove()
+		}
+	}
+
+	this.highLight = function(poses, contents){
+		for(i in poses){
+			pos = poses[i]
+			cell = this.cellCellAt(pos[0], pos[1])
+			cell.append('<p class="hint">' + contents + '</p>')
+		}
 	}
 
 	this.inputNote = function(i, j){
