@@ -145,7 +145,8 @@ function PuzzleController(puzzleView, puzzleModel){
 			var hints = JSON.parse(response)
 			displayDeterminedHelp(hints)
 			for(var i = 0; i < hints.length; i++){
-				hintDisplay(hints[i])
+				hint = new Hint(hints[i])
+				hint.display()
 			}
 		}
 
@@ -157,24 +158,27 @@ function PuzzleController(puzzleView, puzzleModel){
 			displayedHint = {'i':p[0], 'j':p[1], 'v': v}
 		}
 
-		function hintDisplay(hint){
-			var hintName = hint.finder
-			if (hintName == "XWing"){
-				updators = hint.updator
-				var poses = []
-				possibilities = updators[0].finding.possibilities
-				for (i in updators){
-					poses = poses.concat(updators[i].finding.poses)
+		function Hint(hint){
+			this.display = function(){
+				var hintName = hint.finder
+				alert('display called ' + hintName)
+				if (hintName == "XWing"){
+					updators = hint.updator
+					var poses = []
+					possibilities = updators[0].finding.possibilities
+					for (i in updators){
+						poses = poses.concat(updators[i].finding.poses)
+					}
+					puzzleView.putHintName(hintName, 
+						                   hintMouseIn(poses, possibilities), 
+						                   hintMouseOut(poses))
+				}else{
+					var poses = hint.updator.finding.poses
+					var possibilities = hint.updator.finding.possibilities
+					puzzleView.putHintName(hintName, 
+						                   hintMouseIn(poses, possibilities), 
+						                   hintMouseOut(poses))
 				}
-				puzzleView.putHintName(hintName, 
-					                   hintMouseIn(poses, possibilities), 
-					                   hintMouseOut(poses))
-			}else{
-				var poses = hint.updator.finding.poses
-				var possibilities = hint.updator.finding.possibilities
-				puzzleView.putHintName(hintName, 
-					                   hintMouseIn(poses, possibilities), 
-					                   hintMouseOut(poses))
 			}
 		}
 

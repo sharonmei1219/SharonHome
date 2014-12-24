@@ -204,7 +204,7 @@ describe("helpDecoder", function(){
     poses = []
     poses = poses.concat(hint[0].updator[0].finding.poses)
     poses = poses.concat(hint[0].updator[1].finding.poses)
-    // expect(poses).toBe([[5, 2], [0, 2], [0, 5], [5, 5]])
+    expect(poses).toEqual([[5, 2], [0, 2], [0, 5], [5, 5]])
 
   })
 })
