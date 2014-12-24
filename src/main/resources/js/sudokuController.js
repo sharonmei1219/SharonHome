@@ -72,8 +72,10 @@ function PuzzleController(puzzleView, puzzleModel){
 			puzzleModel.change(parseInt(value), i, j);
 		}
 
-		if (i == displayedHint.i && j == displayedHint.j){
-			puzzleView.clearHint(i, j);
+		if(displayedHint != undefined){
+			if (i == displayedHint.i && j == displayedHint.j){
+				puzzleView.clearHint(i, j);
+			}
 		}
 		errors = puzzleModel.validate();
 		warnings = warnings.update(errors);
@@ -122,42 +124,69 @@ function PuzzleController(puzzleView, puzzleModel){
 	}
 
 	this.moveAroundCtrl = new MoveAroundCtroller();
+
 	var displayedHint = undefined
+
 	this.help = function(){
 		var clevel = levelCtrl.currentLevel();
-		$.ajax({
+		$.ajax(AjaxHelpMsg());
+	}
+
+	function AjaxHelpMsg(){
+		return {
 			type : "POST",
 			url : "sudoku/help",
 			data : puzzleModel.toString(),
 			contentType: 'application/json',
-			success : function(response){
-				var hints = JSON.parse(response)
-				single = hints.length - 1
-				p = hints[single].updator.finding.poses[0]
-				v = hints[single].updator.finding.possibilities[0]
-				puzzleView.putHint(p[0], p[1], v);
-				displayedHint = {'i':p[0], 'j':p[1], 'v': v}
+			success: responseHandling
+		}
 
-				for(var i = 0; i < hints.length; i++){
-					var hintName = hints[i].finder
-					var poses = hints[i].updator.finding.poses
-					var possibilities = hints[i].updator.finding.possibilities
-					puzzleView.putHintName(hintName, function(poses, possibilities){
-						return function(){
-							puzzleView.highLight(poses, possibilities)
-							}
-					}(poses, possibilities),
-					function(poses){
-						return function(){
-							puzzleView.removeHighLight(poses)
-						}
-
-					}(poses))
-				}
-
+		function responseHandling(response){
+			var hints = JSON.parse(response)
+			displayDeterminedHelp(hints)
+			for(var i = 0; i < hints.length; i++){
+				hintDisplay(hints[i])
 			}
-		});
+		}
+
+		function displayDeterminedHelp(hints){
+			var single = hints[hints.length - 1]
+			var p = single.updator.finding.poses[0]
+			var v = single.updator.finding.possibilities[0]
+			puzzleView.putHint(p[0], p[1], v);
+			displayedHint = {'i':p[0], 'j':p[1], 'v': v}
+		}
+
+		function hintDisplay(hint){
+			var hintName = hint.finder
+			if (hintName == "XWing"){
+				updators = hint.updator
+				var poses = []
+				possibilities = updators[0].finding.possibilities
+				for (i in updators){
+					poses = poses.concat(updators[i].finding.poses)
+				}
+				puzzleView.putHintName(hintName, 
+					                   hintMouseIn(poses, possibilities), 
+					                   hintMouseOut(poses))
+			}else{
+				var poses = hint.updator.finding.poses
+				var possibilities = hint.updator.finding.possibilities
+				puzzleView.putHintName(hintName, 
+					                   hintMouseIn(poses, possibilities), 
+					                   hintMouseOut(poses))
+			}
+		}
+
+		function hintMouseIn(poses, possibilities){
+			return function(){puzzleView.highLight(poses, possibilities)}
+		}
+
+		function hintMouseOut(poses){
+			return function(){puzzleView.removeHighLight(poses)}	
+		}
 	}
+
 }
 
 function puzzleFinished(){

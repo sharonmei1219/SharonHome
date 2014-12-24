@@ -57,7 +57,7 @@ describe('SudokuController', function(){
     spyOn(sm, 'change');
     spyOn(sm, 'finished').andReturn(false);
     sc.numberInput('9', 1, 2);
-    expect(sm.change).toHaveBeenCalledWith('9', 1, 2);
+    expect(sm.change).toHaveBeenCalledWith(9, 1, 2);
     expect(sm.finished).toHaveBeenCalled();
   });
 });
@@ -196,3 +196,15 @@ describe('WarningMatrix', function(){
   })
 
 });
+
+describe("helpDecoder", function(){
+  it('decodes XWing successfully', function(){
+    msg = '[{"updator": [{"finding": {"possibilities": [2], "poses": [[5, 2], [0, 2]]}, "zone": []}, {"finding": {"possibilities": [2], "poses": [[0, 5], [5, 5]]}, "zone": []}], "finder": "XWing"}]'
+    hint = JSON.parse(msg)
+    poses = []
+    poses = poses.concat(hint[0].updator[0].finding.poses)
+    poses = poses.concat(hint[0].updator[1].finding.poses)
+    // expect(poses).toBe([[5, 2], [0, 2], [0, 5], [5, 5]])
+
+  })
+})

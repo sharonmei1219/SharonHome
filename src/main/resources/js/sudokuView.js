@@ -44,6 +44,7 @@ function PuzzleView(){
 	this.putHint = function(i, j, value){
 		var cell = this.cellCellAt(i, j)
 		cell.append('<div class="speechRape"><p class="speech">' + value + '</p></div>')
+		$('.cellInput', cell)[0].focus()
 	}
 
 	this.clearHint = function(i, j){

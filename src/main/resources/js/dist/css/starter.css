@@ -1,6 +1,3 @@
-/*body {
-  padding-top: 50px;
-}*/
 .starter-template {
   padding: 40px 50px;
   text-align: center;
@@ -191,8 +188,8 @@ p.speech:after
 
 p.hint{
 	position: absolute;
-	width: 45px;
-	height: 45px;
+	width: 47px;
+	height: 47px;
 	top: 0;
 	left: 0;
 	border: 3px solid #FF0000;
