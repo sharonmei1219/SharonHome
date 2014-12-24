@@ -128,7 +128,6 @@ function PuzzleController(puzzleView, puzzleModel){
 	var displayedHint = undefined
 
 	this.help = function(){
-		var clevel = levelCtrl.currentLevel();
 		$.ajax(AjaxHelpMsg());
 	}
 
@@ -145,7 +144,7 @@ function PuzzleController(puzzleView, puzzleModel){
 			var hints = JSON.parse(response)
 			displayDeterminedHelp(hints)
 			for(var i = 0; i < hints.length; i++){
-				hint = new Hint(hints[i])
+				hint = createHint(hints[i])
 				hint.display()
 			}
 		}
@@ -158,27 +157,37 @@ function PuzzleController(puzzleView, puzzleModel){
 			displayedHint = {'i':p[0], 'j':p[1], 'v': v}
 		}
 
-		function Hint(hint){
-			this.display = function(){
-				var hintName = hint.finder
-				alert('display called ' + hintName)
-				if (hintName == "XWing"){
-					updators = hint.updator
-					var poses = []
-					possibilities = updators[0].finding.possibilities
-					for (i in updators){
-						poses = poses.concat(updators[i].finding.poses)
-					}
-					puzzleView.putHintName(hintName, 
-						                   hintMouseIn(poses, possibilities), 
-						                   hintMouseOut(poses))
-				}else{
-					var poses = hint.updator.finding.poses
-					var possibilities = hint.updator.finding.possibilities
-					puzzleView.putHintName(hintName, 
-						                   hintMouseIn(poses, possibilities), 
-						                   hintMouseOut(poses))
+		function createHint(hint){
+			var hintName = hint.finder
+
+			if (hintName == "XWing"){
+				return createComposedHint(hint)
+			} else {
+				return createHint(hint)
+			}
+
+			function createComposedHint(hint){
+				var possibilities = hint.updator[0].finding.possibilities
+				var poses = []
+				for (i in hint.updator){
+					poses = poses.concat(hint.updator[i].finding.poses)
 				}
+				return new Hint(hintName, possibilities, poses)
+			}
+
+			function createHint(hint){
+				var poses = hint.updator.finding.poses
+				var possibilities = hint.updator.finding.possibilities
+				return new Hint(hintName, possibilities, poses)
+			}
+			
+		}
+
+		function Hint(hintName, possibilities, poses){
+			this.display = function(){
+				puzzleView.putHintName(hintName, 
+					                   hintMouseIn(poses, possibilities), 
+					                   hintMouseOut(poses))
 			}
 		}
 
@@ -244,6 +253,7 @@ function StopWatch(){
 	}
 }
 
+
 function getNewPuzzle(){
 	var clevel = levelCtrl.currentLevel();
 	$.ajax({
@@ -267,7 +277,9 @@ function getNewPuzzle(){
 			puzzleView.setMoveAroundCtrl(puzzleController.moveAroundCtrl);
 			puzzle = undefined;
 			timer.start();
+			$('#button-help').unbind('click')
 			$('#button-help').click(puzzleController.help);
+
 		}
 	});
 }
