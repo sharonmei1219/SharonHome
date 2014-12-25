@@ -70,12 +70,14 @@
 							<p id="timing" class="leftMargin3">00:00:00</p>
 							<!-- <p class="align-left" id="sudoku-level">Evil Level</p> -->
 							<select class="form-control align-left" id="sudoku-level">
-							    <option value="easy" class="align-left">Easy Level</option>
-							    <option value="normal" class="align-left">Normal Level</option>
-							    <option value="hard" class="align-left">Hard Level</option>
-							    <option value="evil" class="align-left">Evil Level</option>
+							    <option value="easy" class="align-left">Easy</option>
+							    <option value="normal" class="align-left">Normal</option>
+							    <option value="hard" class="align-left">Hard</option>
+							    <option value="evil" class="align-left">Evil</option>
 							</select>
-							<p class="leftMargin5" id="best-time">Best Time: 00:15:24</p>
+							<p class="leftMargin5" id="best-time">Best: 00:15:24</p>
+							<div class="leftMargin5" id="hint-zone">
+							</div>
 
 						</div>
 
@@ -89,8 +91,7 @@
 							
 						</div>
 					</div>
-					<div id="hint-zone">
-					</div>
+
 				</div>
 
 				<div class="col-md-2">

@@ -163,13 +163,18 @@ select.form-control {
 }
 
 #sudoku-level{
-	position: absolute;
-	top:35px;
+	position: relative;
+	top:-3px;
 }
 
 #best-time{
-	position: absolute;
-	top: 64px;
+	position: relative;
+	top: -7px;
+}
+
+#hint-zone{
+	position: relative;
+	top: -5px;
 }
 
 .row{

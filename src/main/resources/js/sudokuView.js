@@ -232,6 +232,9 @@ function PuzzleView(){
 }
 
 function BestTimeView() {
+	this.bestTime = function(){
+		return $('#best-time');
+	}
 	this.bestEasyTime = function(){
 		return $('#best-time-easy');
 	}
@@ -248,6 +251,9 @@ function BestTimeView() {
 		return $('#best-time-evil');
 	}
 
+	this.renderBestTimeForLevel = function(bestTime){
+		this.bestTime().text("Best: " + bestTime)
+	}
 
 	this.renderBestTime = function(bestTime){
 		if(bestTime.easy == 0){

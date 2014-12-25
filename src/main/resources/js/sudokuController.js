@@ -223,6 +223,7 @@ function puzzleFinished(){
 }
 
 function formatedTime(timePassed){
+	if (timePassed == 0) return '--:--:--'
 	function addLeading0(num){
 		if (num < 10) return '0' + num;
 		return '' + num;
@@ -307,14 +308,14 @@ function BestTimeController(){
 		if(time < Number(bestTime[sudokulevel]) || bestTime[sudokulevel] == 0){
 			bestTime[sudokulevel] = time.toString();
 			userInfo.setBestTime(bestTime);
-			bestTimeView.renderBestTime(bestTime);
+			bestTimeView.renderBestTimeForLevel(formatedTime(bestTime[sudokulevel]));
 			return true;
 		}
 		return false;
 	}
-	this.loadBestTime = function(){
+	this.loadBestTime = function(sudokulevel){
 		var bestTime = userInfo.getBestTime();
-		bestTimeView.renderBestTime(bestTime);
+		bestTimeView.renderBestTimeForLevel(formatedTime(bestTime[sudokulevel]));
 	}
 }
 
@@ -325,6 +326,7 @@ function LevelSelectionController(){
 		userInfo.saveLevel(inputLevel);
 		sudokulevel = inputLevel;
 		getNewPuzzle();
+		bestTimeController.loadBestTime(levelCtrl.currentLevel());
 	}
 
 	this.currentLevel = function(){
@@ -455,7 +457,7 @@ function onDocReady(){
 		puzzleView.promptForNote(4, 4);
 	})
 	puzzleView.setLevelSelectionDelegation(levelCtrl.levelChanged);
-	bestTimeController.loadBestTime();
+	bestTimeController.loadBestTime(levelCtrl.currentLevel());
 	getNewPuzzle();
 }
 
