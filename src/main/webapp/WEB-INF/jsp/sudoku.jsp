@@ -38,49 +38,70 @@
 		    </div>
 		    <br>
 		    <br>
-		    <br>
-		    <br>
+
 			<div class="row">
-				<div class="col-md-3">
-					<br>
-					<img src="<c:url value="/resources/images/icon.png"/>" height="166" width="166">
+				<div class="col-md-2">
+					<!-- <br>
 					<h1>数独 <small>Sudoku</small></h1>
 					<br>
 					<p>在每个小方格中填1-9中的一个数字，使得每一行，每一列，每一个九宫格中都有1-9全部9个数字</p>
-					<a href="aboutSudoku.htm" class="btn btn-default btn-lg" role="button">了解数独 »</a>
+					<a href="aboutSudoku.htm" class="btn btn-default btn-lg" role="button">了解数独 »</a> -->
 
 				</div>
 
-				<div class="col-md-6" id="puzzle-zone">
-
-					<%@ include file="table.jsp"%>
-
+				<div class="col-md-8">
+					<div id="logo-zone" class="row">
+						<div class="col-md-2">
+							<img src="<c:url value="/resources/images/icon.png"/>" height="80" width="80">
+						</div>
+						<div class="col-md-10 align-bottom">
+							<h2 class="align-left bottomMargin0 topMargin0">Sudoku</h2>
+							<h3 class="align-left bottomMargin0 topMargin0">www.alruo.com</h3>
+						</div>
+					</div>
 					<br>
+
+					<div class="row">
+						<div class="col-md-8" id="puzzle-zone">
+							<%@ include file="table.jsp"%>
+						</div>
+
+						<div class="col-md-3" id="control-zone">
+							<p id="timing" class="leftMargin3">00:00:00</p>
+							<!-- <p class="align-left" id="sudoku-level">Evil Level</p> -->
+							<select class="form-control align-left" id="sudoku-level">
+							    <option value="easy" class="align-left">Easy Level</option>
+							    <option value="normal" class="align-left">Normal Level</option>
+							    <option value="hard" class="align-left">Hard Level</option>
+							    <option value="evil" class="align-left">Evil Level</option>
+							</select>
+							<p class="leftMargin5" id="best-time">Best Time: 00:15:24</p>
+
+						</div>
+
+						<div id="button-zone" class="align-bottom col-md-4">
+							<!-- <button class="btn btn-default btn-lg button-boxed align-left" id="button-clear"><span class="glyphicon glyphicon-repeat"></span> Clear</button> -->
+							<br>
+							<button class="btn btn-default align-left btn-lg sudoku-button" id="button-new"><span class="glyphicon glyphicon-th button-icon"></span></button>
+							<br>
+							<button class="btn btn-default align-left btn-lg sudoku-button" id="button-help"><span class="glyphicon glyphicon-earphone button-icon"></span></button>
+
+							
+						</div>
+					</div>
 					<div id="hint-zone">
 					</div>
-
 				</div>
 
 				<div class="col-md-2">
 						<br>
-						<p id="timing">00:00:00</p>
 						<br>
-						<select class="form-control button-boxed" id="sudoku-level">
-						    <option value="easy">Easy</option>
-						    <option value="normal">Normal</option>
-						    <option value="hard">Hard</option>
-						    <option value="evil">Evil</option>
-						</select>
-						<button class="btn btn-default btn-lg button-boxed" id="button-clear"><span class="glyphicon glyphicon-repeat"></span> Clear</button>
-						<br>
-						<button class="btn btn-default btn-lg button-boxed" id="button-new"><span class="glyphicon glyphicon-download"></span> New </button>
-						<br>
-						<button class="btn btn-default btn-lg button-boxed" id="button-help"><span class="glyphicon glyphicon-earphone"></span> Help </button>
+
 						<br>
 
 					<br>
 					<br>
-					<div class="panel panel-default">
+<!-- 					<div class="panel panel-default">
 					  <div class="panel-heading">Best Time</div>
 					  <div class="panel-body">
 					  	<div>
@@ -96,7 +117,7 @@
 		                </dl>
 		            	</div>
 					  </div>
-					</div>
+					</div> -->
 
 				</div>
 

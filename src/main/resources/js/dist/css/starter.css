@@ -49,9 +49,12 @@ input.cellInput.fixedCell {
 	width: 145px;
 }
 
-.button-boxed{
-	width: 100%;
-	margin-bottom: 10px;
+.sudoku-button{
+	/*width: 100%;*/
+	position: relative;
+	left:-15px;
+	border: none;
+	/*margin-bottom: 2px;*/
 }
 
 .button-boxed{
@@ -81,7 +84,9 @@ input.cellInput.fixedCell {
 }
 
 #timing{
-	font-size: 25px;
+	font-size: 30px;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
 }
 
 #time-puzzle-finished{
@@ -92,6 +97,83 @@ input.cellInput.fixedCell {
 	font-weight: bold;
 	color: #FFC000;
 	text-shadow: 4px 0 0 #383838, -4px 0 0 #383838, 0 4px 0 #383838, 0 -4px 0 #383838, 2px 2px #383838, -2px -2px 0 #383838, 2px -2px 0 #383838, -2px 2px 0 #383838;
+}
+
+#puzzle-zone{
+	padding: 0px;
+}
+
+#logo-zone{
+	padding-left: 10px;
+	text-align: left;
+}
+
+#button-zone{
+	text-align: left;
+}
+
+#control-zone{
+	padding-left: 5px;
+}
+
+.button-icon{
+	/*margin-right: 10px;*/
+}
+
+.align-bottom{
+	position: absolute;
+	bottom: 0px;
+	right:0px;
+}
+
+.align-left{
+	margin-left: 0px;
+	text-align: left;
+}
+
+.leftMargin5{
+	margin-left: 4px;
+	text-align: left;
+}
+
+.leftMargin3{
+	margin-left: 3px;
+	text-align: left;
+}
+
+.bottomMargin0{
+	margin-bottom: 0px;
+}
+.topMargin0{
+	margin-top: 0px;
+}
+/*h3.align-left{
+	margin: 0px;
+}*/
+
+select.form-control {
+  -moz-appearance: none;
+   -webkit-appearance: none;
+   appearance: none;
+   border:none;
+   font-size: 20px;
+   padding-left: 0px;
+   padding-top: 0px;
+   padding-bottom: 1px;
+}
+
+#sudoku-level{
+	position: absolute;
+	top:35px;
+}
+
+#best-time{
+	position: absolute;
+	top: 64px;
+}
+
+.row{
+	position: relative;
 }
 
 #new-best-sign{
