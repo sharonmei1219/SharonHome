@@ -1,3 +1,5 @@
+puzzleController = undefined
+
 function itsIE() {
     return window.navigator.userAgent.indexOf("MSIE ") > 0;
 }
@@ -192,11 +194,23 @@ function PuzzleController(puzzleView, puzzleModel){
 		}
 
 		function hintMouseIn(poses, possibilities){
-			return function(){puzzleView.highLight(poses, possibilities)}
+			return function(){
+				puzzleView.highLightHintsAtCell(poses, possibilities)
+				puzzleView.hightLightHintName(this)
+			}
 		}
 
 		function hintMouseOut(poses){
-			return function(){puzzleView.removeHighLight(poses)}	
+			return function(){
+				puzzleView.removeHighLightHintsAtCell(poses)
+				puzzleView.removeHighLightHintName(this)
+			}	
+		}
+	}
+
+	this.clearHint = function(){
+		if(displayedHint != undefined){
+			puzzleView.clearHint(displayedHint.i, displayedHint.j)
 		}
 	}
 
@@ -255,6 +269,9 @@ function StopWatch(){
 
 
 function getNewPuzzle(){
+
+	if(puzzleController != undefined){puzzleController.clearHint();}
+
 	var clevel = levelCtrl.currentLevel();
 	$.ajax({
 		type : "POST",

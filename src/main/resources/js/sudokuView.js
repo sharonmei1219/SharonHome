@@ -43,13 +43,13 @@ function PuzzleView(){
 
 	this.putHint = function(i, j, value){
 		var cell = this.cellCellAt(i, j)
-		cell.append('<div class="speechRape"><p class="speech">' + value + '</p></div>')
+		cell.append('<div class="speechWraper"><p class="speech">' + value + '</p></div>')
 		$('.cellInput', cell)[0].focus()
 	}
 
 	this.clearHint = function(i, j){
 		var cell = this.cellCellAt(i, j)
-		$('.speechRape', cell).remove()
+		$('.speechWraper', cell).remove()
 		$('#hint-zone').empty()
 	}
 
@@ -60,7 +60,15 @@ function PuzzleView(){
 		hint.mouseleave(mouseLeaveFun)
 	}
 
-	this.removeHighLight = function(poses){
+	this.hightLightHintName = function(hintName){
+		$(hintName).addClass('highLightedHintName')
+	}
+
+	this.removeHighLightHintName = function(hintName){
+		$(hintName).removeClass('highLightedHintName')
+	}
+
+	this.removeHighLightHintsAtCell = function(poses){
 		for(i in poses){
 			pos = poses[i]
 			cell = this.cellCellAt(pos[0], pos[1])
@@ -68,7 +76,7 @@ function PuzzleView(){
 		}
 	}
 
-	this.highLight = function(poses, contents){
+	this.highLightHintsAtCell = function(poses, contents){
 		for(i in poses){
 			pos = poses[i]
 			cell = this.cellCellAt(pos[0], pos[1])
