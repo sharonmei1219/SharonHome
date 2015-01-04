@@ -251,7 +251,6 @@ function StopWatch(){
 	}
 
 	var tic;
-	var cnt = 0;
 
 	this.start = function(){
 		if(tic!== "undefined"){
@@ -259,7 +258,6 @@ function StopWatch(){
 		}
 		startTime = Date.now();
 		tic = setInterval(update, interval);
-		cnt = cnt + 1;
 	};
 
 	this.stop = function(){
@@ -308,7 +306,7 @@ function BestTimeController(){
 		if(time < Number(bestTime[sudokulevel]) || bestTime[sudokulevel] == 0){
 			bestTime[sudokulevel] = time.toString();
 			userInfo.setBestTime(bestTime);
-			bestTimeView.renderBestTimeForLevel(formatedTime(bestTime[sudokulevel]));
+			bestTimeView.renderBestTimeForLevel(formatedTime(time));
 			return true;
 		}
 		return false;

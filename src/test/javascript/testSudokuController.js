@@ -71,11 +71,11 @@ describe('Best Time Record', function(){
         evil:0
       };
       spyOn(userInfo, 'getBestTime').andReturn(bestTime);
-      spyOn(bestTimeView, 'renderBestTime');
+      spyOn(bestTimeView, 'renderBestTimeForLevel');
 
       onDocReady();
       expect(userInfo.getBestTime).toHaveBeenCalled();
-      expect(bestTimeView.renderBestTime).toHaveBeenCalledWith(bestTime);
+      expect(bestTimeView.renderBestTimeForLevel).toHaveBeenCalledWith('--:--:--');
   });
 
   it('Best Time Refresed Solved the First Puzzle', function(){
@@ -83,14 +83,14 @@ describe('Best Time Record', function(){
       spyOn(timer, 'stop').andReturn(1000);
       spyOn(userInfo, 'getBestTime').andReturn({easy:0, normal:0, hard:0, evil:0});
       spyOn(userInfo, 'setBestTime');
-      spyOn(bestTimeView,'renderBestTime');
+      spyOn(bestTimeView,'renderBestTimeForLevel');
 
       puzzleFinished();
 
       expect(timer.stop).toHaveBeenCalled();
       expect(userInfo.getBestTime).toHaveBeenCalled();
       expect(userInfo.setBestTime).toHaveBeenCalledWith({easy:'1000', normal:0, hard:0, evil:0});
-      expect(bestTimeView.renderBestTime).toHaveBeenCalledWith({easy:'1000', normal:0, hard:0, evil:0});
+      expect(bestTimeView.renderBestTimeForLevel).toHaveBeenCalledWith('00:00:01');
   })
 
 
@@ -99,14 +99,14 @@ describe('Best Time Record', function(){
       spyOn(timer, 'stop').andReturn(1000);
       spyOn(userInfo, 'getBestTime').andReturn({easy:'2000', normal:0, hard:0, evil:0});
       spyOn(userInfo, 'setBestTime');
-      spyOn(bestTimeView,'renderBestTime');
+      spyOn(bestTimeView,'renderBestTimeForLevel');
 
       puzzleFinished();
 
       expect(timer.stop).toHaveBeenCalled();
       expect(userInfo.getBestTime).toHaveBeenCalled();
       expect(userInfo.setBestTime).toHaveBeenCalledWith({easy:'1000', normal:0, hard:0, evil:0});
-      expect(bestTimeView.renderBestTime).toHaveBeenCalledWith({easy:'1000', normal:0, hard:0, evil:0});
+      expect(bestTimeView.renderBestTimeForLevel).toHaveBeenCalledWith('00:00:01');
   })
 
   it('Best Time Not Refreshed When solving time is greater than best time', function(){
