@@ -207,4 +207,26 @@ describe("helpDecoder", function(){
     expect(poses).toEqual([[5, 2], [0, 2], [0, 5], [5, 5]])
 
   })
-})
+});
+
+describe("duration", function(){
+  it('is constructed with ms, and gives out string as hh:mm:ss', function(){
+    duration = new Duration(1000)
+    expect(duration.toString()).toBe('00:00:01')
+  })
+
+  it('compares with another duration, returns positive if it is greater than the other duration', function(){
+    duration = new Duration(2000)
+    expect(duration.compare(new Duration(1000)) > 0).toBe(true)
+  })
+
+  it('compares with another duration, returns negative if it is less than the other duration', function(){
+    duration = new Duration(2000)
+    expect(duration.compare(new Duration(3000)) > 0).toBe(false)
+  })
+
+  it('compares with another duration, returns zero if it is equal to the other duration', function(){
+    duration = new Duration(2000)
+    expect(duration.compare(new Duration(2000)) == 0).toBe(true)
+  })
+});
