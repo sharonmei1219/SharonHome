@@ -254,32 +254,6 @@ function BestTimeView() {
 	this.renderBestTimeForLevel = function(bestTime){
 		this.bestTime().text("Best: " + bestTime)
 	}
-
-	this.renderBestTime = function(bestTime){
-		if(bestTime.easy == 0){
-			this.bestEasyTime().text("--:--:--");
-		}else{
-			this.bestEasyTime().text(formatedTime(Number(bestTime.easy)));
-		}
-
-		if(bestTime.normal == 0){
-			this.bestNormalTime().text("--:--:--");
-		}else{
-			this.bestNormalTime().text(formatedTime(Number(bestTime.normal)));
-		}
-
-		if(bestTime.hard == 0){
-			this.bestHardTime().text("--:--:--");
-		}else{
-			this.bestHardTime().text(formatedTime(Number(bestTime.hard)));
-		}
-
-		if(bestTime.evil == 0){
-			this.bestEvilTime().text("--:--:--");
-		}else{
-			this.bestEvilTime().text(formatedTime(Number(bestTime.evil)));
-		}
-	};
 }
 
 BouncedInAndOutAnnimation = function(wrapedAnn, annObjId, popUpText){

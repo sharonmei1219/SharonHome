@@ -72,11 +72,11 @@ describe('Best Time Record', function(){
         hard:0,
         evil:0
       };
-      spyOn(userInfo, 'getBestTime').andReturn(bestTime);
+      spyOn(userInfo, 'getBestTimeInLevel').andReturn(new Duration(0));
       spyOn(bestTimeView, 'renderBestTimeForLevel');
 
       onDocReady();
-      expect(userInfo.getBestTime).toHaveBeenCalled();
+      expect(userInfo.getBestTimeInLevel).toHaveBeenCalled();
       expect(bestTimeView.renderBestTimeForLevel).toHaveBeenCalledWith('--:--:--');
   });
 
@@ -118,7 +118,6 @@ describe('Best Time Record', function(){
       spyOn(timer, 'stop').andReturn(new Duration(1000));
       spyOn(userInfo, 'getBestTimeInLevel').andReturn(new Duration(900));
       spyOn(userInfo, 'setBestTimeInLevel');
-      spyOn(bestTimeView,'renderBestTime');
 
       puzzleFinished();
 

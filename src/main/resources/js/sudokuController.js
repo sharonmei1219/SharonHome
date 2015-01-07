@@ -222,20 +222,20 @@ function puzzleFinished(){
 	bouceOutFinishedTime(isNewBest, time.toString());
 }
 
-function formatedTime(timePassed){
-	if (timePassed == 0) return '--:--:--'
-	function addLeading0(num){
-		if (num < 10) return '0' + num;
-		return '' + num;
-	}
+// function formatedTime(timePassed){
+// 	if (timePassed == 0) return '--:--:--'
+// 	function addLeading0(num){
+// 		if (num < 10) return '0' + num;
+// 		return '' + num;
+// 	}
 
-	var c = Math.floor(timePassed/1000);
-	return _.map([3600, 60, 1], function(unit){
-				var result = addLeading0(Math.floor(c/unit))
-				c = c%unit;
-				return result;
-				}).join(':');
-}
+// 	var c = Math.floor(timePassed/1000);
+// 	return _.map([3600, 60, 1], function(unit){
+// 				var result = addLeading0(Math.floor(c/unit))
+// 				c = c%unit;
+// 				return result;
+// 				}).join(':');
+// }
 
 function Duration(durationInMs){
 	this.toString = function(){
@@ -343,8 +343,8 @@ function BestTimeController(){
 		return false;
 	}
 	this.loadBestTime = function(sudokulevel){
-		var bestTime = userInfo.getBestTime();
-		bestTimeView.renderBestTimeForLevel(formatedTime(bestTime[sudokulevel]));
+		var bestTime = userInfo.getBestTimeInLevel(sudokulevel);
+		bestTimeView.renderBestTimeForLevel(bestTime.toString());
 	}
 }
 
