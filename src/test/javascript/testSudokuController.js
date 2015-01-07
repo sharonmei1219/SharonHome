@@ -1,3 +1,5 @@
+userInfo = new UserInfo(localStorage)
+
 describe('createMatrix', function(){
   it('gives an array of 6 elements to create a mextrix of 2*3', function(){
     var matrix = createMatrix(2, 3);
@@ -80,46 +82,48 @@ describe('Best Time Record', function(){
 
   it('Best Time Refresed Solved the First Puzzle', function(){
       userInfo.saveLevel('easy');
-      spyOn(timer, 'stop').andReturn(1000);
-      spyOn(userInfo, 'getBestTime').andReturn({easy:0, normal:0, hard:0, evil:0});
-      spyOn(userInfo, 'setBestTime');
+      duration = new Duration(1000)
+      spyOn(timer, 'stop').andReturn(duration);
+      spyOn(userInfo, 'getBestTimeInLevel').andReturn(new Duration(0));
+      spyOn(userInfo, 'setBestTimeInLevel');
       spyOn(bestTimeView,'renderBestTimeForLevel');
 
       puzzleFinished();
 
       expect(timer.stop).toHaveBeenCalled();
-      expect(userInfo.getBestTime).toHaveBeenCalled();
-      expect(userInfo.setBestTime).toHaveBeenCalledWith({easy:'1000', normal:0, hard:0, evil:0});
+      expect(userInfo.getBestTimeInLevel).toHaveBeenCalled();
+      expect(userInfo.setBestTimeInLevel).toHaveBeenCalledWith('easy', duration);
       expect(bestTimeView.renderBestTimeForLevel).toHaveBeenCalledWith('00:00:01');
   })
 
 
   it('Best Time Refreshed When solving time is shorter than best time', function(){
       levelCtrl.levelChanged('easy');
-      spyOn(timer, 'stop').andReturn(1000);
-      spyOn(userInfo, 'getBestTime').andReturn({easy:'2000', normal:0, hard:0, evil:0});
-      spyOn(userInfo, 'setBestTime');
+      duration = new Duration(1000)
+      spyOn(timer, 'stop').andReturn(duration);
+      spyOn(userInfo, 'getBestTimeInLevel').andReturn(new Duration(2000));
+      spyOn(userInfo, 'setBestTimeInLevel');
       spyOn(bestTimeView,'renderBestTimeForLevel');
 
       puzzleFinished();
 
       expect(timer.stop).toHaveBeenCalled();
-      expect(userInfo.getBestTime).toHaveBeenCalled();
-      expect(userInfo.setBestTime).toHaveBeenCalledWith({easy:'1000', normal:0, hard:0, evil:0});
+      expect(userInfo.getBestTimeInLevel).toHaveBeenCalled();
+      expect(userInfo.setBestTimeInLevel).toHaveBeenCalledWith('easy', duration);
       expect(bestTimeView.renderBestTimeForLevel).toHaveBeenCalledWith('00:00:01');
   })
 
   it('Best Time Not Refreshed When solving time is greater than best time', function(){
       sudokulevel = 'easy';
-      spyOn(timer, 'stop').andReturn(1000);
-      spyOn(userInfo, 'getBestTime').andReturn({easy:'900', normal:0, hard:0, evil:0});
-      spyOn(userInfo, 'setBestTime');
+      spyOn(timer, 'stop').andReturn(new Duration(1000));
+      spyOn(userInfo, 'getBestTimeInLevel').andReturn(new Duration(900));
+      spyOn(userInfo, 'setBestTimeInLevel');
       spyOn(bestTimeView,'renderBestTime');
 
       puzzleFinished();
 
       expect(timer.stop).toHaveBeenCalled();
-      expect(userInfo.getBestTime).toHaveBeenCalled();
+      expect(userInfo.getBestTimeInLevel).toHaveBeenCalledWith('easy');
    })
 
 })

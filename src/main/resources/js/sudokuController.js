@@ -219,7 +219,7 @@ function PuzzleController(puzzleView, puzzleModel){
 function puzzleFinished(){
 	var time = timer.stop();
 	var isNewBest = bestTimeController.saveWhenTimeIsNewBest(time, levelCtrl.currentLevel());
-	bouceOutFinishedTime(isNewBest, formatedTime(time));
+	bouceOutFinishedTime(isNewBest, time.toString());
 }
 
 function formatedTime(timePassed){
@@ -273,25 +273,28 @@ function StopWatch(){
 	}
 	var interval = 500;
 	var startTime = 0;
+	var timePassed = new Duration(0)
 
 	function update(){
-		var timePassed = Date.now() - startTime;
-		showInView(formatedTime(timePassed));
+		timePassed = new Duration(Date.now() - startTime);
+		showInView(timePassed.toString())
 	}
 
 	var tic;
 
 	this.start = function(){
-		if(tic!== "undefined"){
+		if(tic !== "undefined"){
 			clearInterval(tic);
 		}
+
+		timePassed = new Duration(0)
 		startTime = Date.now();
 		tic = setInterval(update, interval);
 	};
 
 	this.stop = function(){
 		clearInterval(tic);
-		return Date.now() - startTime;
+		return timePassed
 	}
 }
 
@@ -330,12 +333,11 @@ function getNewPuzzle(){
 }
 
 function BestTimeController(){
-	this.saveWhenTimeIsNewBest = function(time, sudokulevel){
-		var bestTime = userInfo.getBestTime();
-		if(time < Number(bestTime[sudokulevel]) || bestTime[sudokulevel] == 0){
-			bestTime[sudokulevel] = time.toString();
-			userInfo.setBestTime(bestTime);
-			bestTimeView.renderBestTimeForLevel(formatedTime(time));
+	this.saveWhenTimeIsNewBest = function(duration, sudokulevel){
+		var bestTime = userInfo.getBestTimeInLevel(sudokulevel);
+		if(duration.compare(bestTime) < 0 || bestTime.getDurationInMs() == 0){
+			userInfo.setBestTimeInLevel(sudokulevel, duration);
+			bestTimeView.renderBestTimeForLevel(duration.toString());
 			return true;
 		}
 		return false;
@@ -475,14 +477,14 @@ function WarningMatrix(x, y){
 	}
 }
 
+var userInfo = undefined
+
 function onDocReady(){
+	var userInfo = new UserInfo(localStorage)
 	timer = new StopWatch();
 	timer.setShowInView(puzzleView.showTime);
 	$('#sudoku-level').val(levelCtrl.currentLevel());
 	$('#button-new').click(getNewPuzzle);
-	$('#button-test-bestTime').click(function(){
-		puzzleView.promptForNote(4, 4);
-	})
 	puzzleView.setLevelSelectionDelegation(levelCtrl.levelChanged);
 	bestTimeController.loadBestTime(levelCtrl.currentLevel());
 	getNewPuzzle();
