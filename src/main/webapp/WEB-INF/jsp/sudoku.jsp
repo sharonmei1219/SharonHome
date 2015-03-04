@@ -41,20 +41,15 @@
 
 			<div class="row">
 				<div class="col-md-2">
-					<!-- <br>
-					<h1>数独 <small>Sudoku</small></h1>
-					<br>
-					<p>在每个小方格中填1-9中的一个数字，使得每一行，每一列，每一个九宫格中都有1-9全部9个数字</p>
-					<a href="aboutSudoku.htm" class="btn btn-default btn-lg" role="button">了解数独 »</a> -->
 
 				</div>
 
 				<div class="col-md-8">
 					<div id="logo-zone" class="row">
-						<div class="col-md-2">
+						<div class="col-sm-2">
 							<img src="<c:url value="/resources/images/icon.png"/>" height="80" width="80">
 						</div>
-						<div class="col-md-10 align-bottom">
+						<div class="col-sm-10 align-bottom">
 							<h2 class="align-left bottomMargin0 topMargin0">Sudoku</h2>
 							<h3 class="align-left bottomMargin0 topMargin0">www.alruo.com</h3>
 						</div>
@@ -62,11 +57,11 @@
 					<br>
 
 					<div class="row">
-						<div class="col-md-8" id="puzzle-zone">
+						<div class="col-lg-8" id="puzzle-zone">
 							<%@ include file="table.jsp"%>
 						</div>
 
-						<div class="col-md-3" id="control-zone">
+						<div class="col-lg-3" id="control-zone">
 							<p id="timing" class="leftMargin3">00:00:00</p>
 							<!-- <p class="align-left" id="sudoku-level">Evil Level</p> -->
 							<select class="form-control align-left" id="sudoku-level">
@@ -82,7 +77,6 @@
 						</div>
 
 						<div id="button-zone" class="align-bottom col-md-4">
-							<!-- <button class="btn btn-default btn-lg button-boxed align-left" id="button-clear"><span class="glyphicon glyphicon-repeat"></span> Clear</button> -->
 							<br>
 							<button class="btn btn-default align-left btn-lg sudoku-button" id="button-new"><span class="glyphicon glyphicon-th button-icon"></span></button>
 							<br>
@@ -102,23 +96,6 @@
 
 					<br>
 					<br>
-<!-- 					<div class="panel panel-default">
-					  <div class="panel-heading">Best Time</div>
-					  <div class="panel-body">
-					  	<div>
-					     <dl class="dl-horizontal">
-		                  <dt>Easy</dt>
-		                  <dd id="best-time-easy">--:--:--</dd>
-		                  <dt>Normal</dt>
-		                  <dd id="best-time-normal">--:--:--</dd>
-		                  <dt>Hard</dt>
-		                  <dd id="best-time-hard">--:--:--</dd>
-		                  <dt>Evil</dt>
-		                  <dd id="best-time-evil">--:--:--</dd>
-		                </dl>
-		            	</div>
-					  </div>
-					</div> -->
 
 				</div>
 

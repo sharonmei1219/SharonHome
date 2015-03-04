@@ -480,7 +480,7 @@ function WarningMatrix(x, y){
 var userInfo = undefined
 
 function onDocReady(){
-	var userInfo = new UserInfo(localStorage)
+	userInfo = new UserInfo(localStorage)
 	timer = new StopWatch();
 	timer.setShowInView(puzzleView.showTime);
 	$('#sudoku-level').val(levelCtrl.currentLevel());
