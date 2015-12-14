@@ -11,9 +11,9 @@
                     .data("invokedOn", $(e.target))
                     .show()
                     .css({
-                        position: "absolute",
-                        left: getLeftLocation(e),
-                        top: getTopLocation(e)
+                        position: "fixed",
+                         left: getLeftLocation(e),
+                         top: getTopLocation(e)
                     })
                     .off('click')
                     .on('click', function (e) {

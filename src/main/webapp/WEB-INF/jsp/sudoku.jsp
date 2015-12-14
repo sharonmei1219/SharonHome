@@ -41,7 +41,6 @@
 
 			<div class="row">
 				<div class="col-md-2">
-
 				</div>
 
 				<div class="col-md-8">
@@ -57,11 +56,11 @@
 					<br>
 
 					<div class="row">
-						<div class="col-lg-8" id="puzzle-zone">
+						<div class="col-md-8" id="puzzle-zone">
 							<%@ include file="table.jsp"%>
 						</div>
 
-						<div class="col-lg-3" id="control-zone">
+						<div class="col-md-3" id="control-zone">
 							<p id="timing" class="leftMargin3">00:00:00</p>
 							<!-- <p class="align-left" id="sudoku-level">Evil Level</p> -->
 							<select class="form-control align-left" id="sudoku-level">
