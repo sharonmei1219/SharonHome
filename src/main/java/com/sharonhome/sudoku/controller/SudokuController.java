@@ -87,4 +87,9 @@ public class SudokuController {
 		soapMessage.saveChanges();
 		return soapMessage;
 	}
+	
+	@RequestMapping(value = "matchGame", method = RequestMethod.GET)
+	public String showMatchGame(ModelMap model){
+		return "redirect:/static/part4.html";
+	}
 }

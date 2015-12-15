@@ -24,5 +24,6 @@
 	</bean>
 
 	<mvc:resources mapping="/resources/**" location="/WEB-INF/classes/" />
+	<mvc:resources mapping="/static/**" location="/static/" />
 
 </beans>
