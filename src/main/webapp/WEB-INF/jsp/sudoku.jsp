@@ -31,7 +31,7 @@
 		          <ul class="nav navbar-nav">
 		            <li><a href="#">Home</a></li>
 		            <li class="active"><a href="#">Game</a></li>
-		            <li><a href="matchGame">Match</a></li>
+		            <li><a href="static/part4.html">Match</a></li>
 		            <li><a href="aboutSudoku.htm">About</a></li>
 		          </ul>
 		        </div><!--/.nav-collapse -->

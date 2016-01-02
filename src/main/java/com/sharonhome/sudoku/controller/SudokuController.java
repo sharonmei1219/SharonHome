@@ -90,6 +90,6 @@ public class SudokuController {
 	
 	@RequestMapping(value = "matchGame", method = RequestMethod.GET)
 	public String showMatchGame(ModelMap model){
-		return "redirect:/static/part4.html";
+		return "redirect:/static";
 	}
 }
