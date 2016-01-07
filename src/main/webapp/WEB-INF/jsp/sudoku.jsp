@@ -58,7 +58,10 @@
 
 					<div class="row">
 						<div class="col-md-8" id="puzzle-zone">
-							<%@ include file="table.jsp"%>
+							<jsp:include page="table.jsp">
+								<jsp:param name="tableSize" value="9"/>
+								<jsp:param name="blockSize" value="3"/>
+							</jsp:include>
 						</div>
 
 						<div class="col-md-3" id="control-zone">

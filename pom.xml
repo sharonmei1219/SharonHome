@@ -239,7 +239,7 @@
 	      				<configuration>
 	      					<autocommit>true</autocommit>
 	      					<srcFiles>
-	      						<srcFile>src/test/db/drop_tables.sql</srcFile>
+	      						<srcFile>db/dropTables.sql</srcFile>
 	      					</srcFiles>
 	      				</configuration>
 	      			</execution>
