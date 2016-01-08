@@ -111,7 +111,9 @@
       	</div>
 	</div>
 
-	
+	<script>
+		var puzzleType = <%= pageContext.findAttribute("tableSize") %>
+	</script>
 	<script src="<c:url value="/resources/js/underscore-min.js"/>"></script>
 	<script src="<c:url value="/resources/js/jquery-1.11.1.min.js"/>"></script>
 	<script src="<c:url value="/resources/js/contextMenu.js"/>"></script>

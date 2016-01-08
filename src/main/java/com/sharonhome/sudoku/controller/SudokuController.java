@@ -46,10 +46,12 @@ public class SudokuController {
 			        headers = {"Content-type=application/json"})
 	@ResponseBody
 	public String NewPuzzle(@RequestBody Level l){
-		System.out.print("\n " + "getting puzzle \n");
-		String puzzle = puzzleDao.getPuzzle(l.getLevel());
-		System.out.print("\n " + l.getLevel() + "puzzle is : " + puzzle + "\n");
-		return puzzle;
+		System.out.print("\n " + "getting puzzle " + l.getLevel() + " " + l.getType() + "\n");
+		if(l.getType().equals("9"))
+			return puzzleDao.getPuzzle(l.getLevel());
+		
+		System.out.println("getBabyVersionPuzzle");
+		return puzzleDao.getBabyVersionPuzzle(l.getLevel());
 	}
 	
 	@RequestMapping(value = "/sudoku/help", 

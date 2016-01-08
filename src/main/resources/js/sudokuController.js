@@ -307,7 +307,7 @@ function getNewPuzzle(){
 	$.ajax({
 		type : "POST",
 		url : "sudoku/new",
-		data : JSON.stringify({level:levelCtrl.currentLevel()}),
+		data : JSON.stringify({level:levelCtrl.currentLevel(), type: puzzleType}),
 		contentType: 'application/json',
 		success : function(response){
 			if(typeof puzzleController != 'undefined'){
