@@ -30,7 +30,8 @@
 		        <div class="collapse navbar-collapse">
 		          <ul class="nav navbar-nav">
 		            <li><a href="#">Home</a></li>
-		            <li class="active"><a href="#">Game</a></li>
+		            <li class="active"><a href="sudoku">Game</a></li>
+		            <li><a href="sudoku4Times4">Baby Version</a></li>
 		            <li><a href="static/part4.html">Match</a></li>
 		            <li><a href="aboutSudoku.htm">About</a></li>
 		          </ul>
@@ -59,8 +60,8 @@
 					<div class="row">
 						<div class="col-md-8" id="puzzle-zone">
 							<jsp:include page="table.jsp">
-								<jsp:param name="tableSize" value="9"/>
-								<jsp:param name="blockSize" value="3"/>
+								<jsp:param name="tableSize" value='<%= pageContext.findAttribute("tableSize") %>'/>
+								<jsp:param name="blockSize" value='<%= pageContext.findAttribute("blockSize") %>'/>
 							</jsp:include>
 						</div>
 

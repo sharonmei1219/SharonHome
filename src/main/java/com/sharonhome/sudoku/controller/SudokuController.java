@@ -29,8 +29,17 @@ public class SudokuController {
 	
 	@RequestMapping(value = "/sudoku", method = RequestMethod.GET)
 	public String sudokuPuzzle(ModelMap model) {
+		model.addAttribute("tableSize", 9);
+		model.addAttribute("blockSize", 3);
 		return "sudoku";
  	}
+	
+	@RequestMapping(value = "/sudoku4Times4", method = RequestMethod.GET)
+	public String sudokuPuzzle4Times4(ModelMap model){
+		model.addAttribute("tableSize", 4);
+		model.addAttribute("blockSize", 4);
+		return "sudoku";
+	}
 	
 	@RequestMapping(value = "/sudoku/new", 
 			        method = RequestMethod.POST,

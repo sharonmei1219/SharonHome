@@ -6,7 +6,7 @@
 	for(int r = 0; r < tableSize; r++){
 		String rowId = "c" + r;
 		String rowClass = "sudokuRow";
-		if(r%3 == 0) rowClass = "topRow";%>
+		if(r%blockSize == 0) rowClass = "topRow";%>
 	<tr class=<%=rowClass%>>
 		<%for(int i = 0; i < tableSize; i++){
 				String cellId = "cell-"+ rowId + i;
