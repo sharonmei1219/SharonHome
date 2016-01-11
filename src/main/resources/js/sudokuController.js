@@ -316,7 +316,12 @@ function getNewPuzzle(){
 				puzzleController.clearSolution();
 			}
 			puzzle = JSON.parse(response);
-			puzzleModel = new PuzzleModel(puzzle, 3);
+			if (puzzleType == '9'){
+				puzzleModel = new PuzzleModel(puzzle, 3);
+			}
+			else{
+				puzzleModel = new PuzzleModel(puzzle, 1);
+			}
 			puzzleController = new PuzzleController(puzzleView, puzzleModel);
 			puzzleController.loadPuzzleNew();
 			puzzleController.lockPuzzle();

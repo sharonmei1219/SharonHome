@@ -128,8 +128,8 @@ function PuzzleModel(puzzle, blocksize){
 
 		var nrOfBlock = (puzzle.length * puzzle.length) / (blocksize * blocksize);
 		_.each(_.range(0, nrOfBlock), function(i){
-			var bc = i%blocksize;
-			var br = (i-bc)/blocksize;
+			var bc = i%(puzzle.length/blocksize);
+			var br = (i-bc)/(puzzle.length/blocksize);
 			
 			var values = block(br * blocksize, bc * blocksize);
 
