@@ -31,7 +31,7 @@
 		          <ul class="nav navbar-nav">
 		            <li><a href="#">Home</a></li>
 		            <li class="active"><a href="sudoku">Game</a></li>
-		            <li><a href="sudoku4Times4">Baby Version</a></li>
+		            <li><a href="sudoku4Times4">Baby Version 4X4</a></li>
 		            <li><a href="static/part4.html">Match</a></li>
 		            <li><a href="aboutSudoku.htm">About</a></li>
 		          </ul>
@@ -72,7 +72,9 @@
 							    <option value="easy" class="align-left">Easy</option>
 							    <option value="normal" class="align-left">Normal</option>
 							    <option value="hard" class="align-left">Hard</option>
-							    <option value="evil" class="align-left">Evil</option>
+							    <% if(pageContext.findAttribute("tableSize").equals(9)){%>
+							    	<option value="evil" class="align-left">Evil</option>
+							    <%}%>
 							</select>
 							<p class="leftMargin5" id="best-time">Best: 00:15:24</p>
 							<div class="leftMargin5" id="hint-zone">
