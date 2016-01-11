@@ -41,6 +41,13 @@ public class SudokuController {
 		return "sudoku";
 	}
 	
+	@RequestMapping(value = "/sudoku5Times5", method = RequestMethod.GET)
+	public String sudokuPuzzle5Times5(ModelMap model){
+		model.addAttribute("tableSize", 5);
+		model.addAttribute("blockSize", 5);
+		return "sudoku";
+	}
+	
 	@RequestMapping(value = "/sudoku/new", 
 			        method = RequestMethod.POST,
 			        headers = {"Content-type=application/json"})
@@ -51,7 +58,10 @@ public class SudokuController {
 			return puzzleDao.getPuzzle(l.getLevel());
 		
 		System.out.println("getBabyVersionPuzzle");
-		return puzzleDao.getBabyVersionPuzzle(l.getLevel());
+		if(l.getType().equals("4"))
+			return puzzleDao.getBabyVersionPuzzle(l.getLevel());
+		
+		return puzzleDao.getBabyVersion5X5Puzzle(l.getLevel());
 	}
 	
 	@RequestMapping(value = "/sudoku/help", 

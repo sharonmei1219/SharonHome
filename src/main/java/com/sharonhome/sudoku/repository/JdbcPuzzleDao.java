@@ -41,6 +41,20 @@ public class JdbcPuzzleDao extends SimpleJdbcDaoSupport implements
 		String puzzle = getSimpleJdbcTemplate().queryForObject(sql, new PuzzleMapper(), id);
 		return puzzle;
 	}
+
+
+	public String getBabyVersion5X5Puzzle(String level) {
+		System.out.println("getBabyPuzzle5X5");
+		if (level.equals("evil")) level = "hard";
+		String table = level + "5times5";
+		String getCntSql = "SELECT COUNT(*) FROM " + table;
+		int count = getSimpleJdbcTemplate().queryForInt(getCntSql);
+		System.out.println(count);
+		int id = rand.nextInt(count);
+		String sql = "select puzzle from " + table + " where id = ?";
+		String puzzle = getSimpleJdbcTemplate().queryForObject(sql, new PuzzleMapper(), id);
+		return puzzle;
+	}
 	
 	public void insertPuzzle(String level, String puzzle) {
 		String getCntSql = "SELECT COUNT(*) FROM " + level +"puzzle";
@@ -82,4 +96,5 @@ public class JdbcPuzzleDao extends SimpleJdbcDaoSupport implements
 		String getCntSql = "SELECT COUNT(*) FROM " + level +"puzzle";
 		return getSimpleJdbcTemplate().queryForInt(getCntSql);
 	}
+
 }

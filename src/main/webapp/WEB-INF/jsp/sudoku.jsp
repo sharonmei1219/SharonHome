@@ -32,6 +32,7 @@
 		            <li><a href="#">Home</a></li>
 		            <li class="active"><a href="sudoku">Game</a></li>
 		            <li><a href="sudoku4Times4">Baby Version 4X4</a></li>
+		            <li><a href="sudoku5Times5">Baby Version 5X5</a></li>
 		            <li><a href="static/part4.html">Match</a></li>
 		            <li><a href="aboutSudoku.htm">About</a></li>
 		          </ul>

@@ -6,5 +6,6 @@ public interface PuzzleDao {
 	public void insertTemplate(String puzzle, String table, int holeCount);
 	public int numberOfPuzzle(String level);
 	public String getBabyVersionPuzzle(String level);
+	public String getBabyVersion5X5Puzzle(String level);
 }
 
