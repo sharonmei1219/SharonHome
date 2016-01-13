@@ -65,14 +65,14 @@
 					<br>
 
 					<div class="row">
-						<div class="col-md-8" id="puzzle-zone">
+						<div class="col-lg-8 col-md-10 col-sm-12" id="puzzle-zone">
 							<jsp:include page="table.jsp">
 								<jsp:param name="tableSize" value='<%= pageContext.findAttribute("tableSize") %>'/>
 								<jsp:param name="blockSize" value='<%= pageContext.findAttribute("blockSize") %>'/>
 							</jsp:include>
 						</div>
 
-						<div class="col-md-3" id="control-zone">
+						<div class="col-lg-3 col-md-2" id="control-zone">
 							<p id="timing" class="leftMargin3">00:00:00</p>
 							<!-- <p class="align-left" id="sudoku-level">Evil Level</p> -->
 							<select class="form-control align-left" id="sudoku-level">
