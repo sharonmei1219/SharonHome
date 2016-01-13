@@ -39,6 +39,7 @@ public class JdbcPuzzleDao extends SimpleJdbcDaoSupport implements
 		int id = rand.nextInt(count);
 		String sql = "select puzzle from " + table + " where id = ?";
 		String puzzle = getSimpleJdbcTemplate().queryForObject(sql, new PuzzleMapper(), id);
+		
 		return puzzle;
 	}
 
