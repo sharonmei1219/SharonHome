@@ -40,6 +40,7 @@
 		            <li><a href="sudoku4Times4">Baby Version 4X4</a></li>
 		            <li><a href="sudoku5Times5">Baby Version 5X5</a></li>
 		            <li><a href="static/part4.html">Match</a></li>
+		            <li><a href="../tt/plusMinus.html">Problem Generation</a></li>
 		            <li><a href="aboutSudoku.htm">About</a></li>
 		          </ul>
 		        </div><!--/.nav-collapse -->
